@@ -1,0 +1,5 @@
+{
+	"name" : "wp-api/nuzuka-lgs",
+	"description" : "Nuzuka lead generation system",
+	"type" : "wordpress-plugin"
+}
