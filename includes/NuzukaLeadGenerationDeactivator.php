@@ -11,6 +11,10 @@
     	    $rdata->pc = self::$pc;
     	    $rdata->surl = $surl;
     	    
+    	    $pluginlog = plugin_dir_path(__FILE__).'debug.log';
+    	    $message = 'Inside deactivator'.PHP_EOL;
+    	    error_log($message, 3, $pluginlog);
+    	    
     	    $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/deactivate.php");
     	    curl_setopt($ch, CURLOPT_POST, 1);
     	    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
