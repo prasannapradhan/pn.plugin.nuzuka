@@ -8,7 +8,9 @@
  * Plugin URI: https://github.com/prasannapradhan/nuzuka-lgs
  */
 
-function json_basic_auth_handler( $user ) {
+define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+
+function nuzuka_json_basic_auth_handler( $user ) {
 	global $wp_json_basic_auth_error;
 
 	$wp_json_basic_auth_error = null;
@@ -26,17 +28,11 @@ function json_basic_auth_handler( $user ) {
 	$username = $_SERVER['PHP_AUTH_USER'];
 	$password = $_SERVER['PHP_AUTH_PW'];
 
-	/**
-	 * In multi-site, wp_authenticate_spam_check filter is run on authentication. This filter calls
-	 * get_currentuserinfo which in turn calls the determine_current_user filter. This leads to infinite
-	 * recursion and a stack overflow unless the current function is removed from the determine_current_user
-	 * filter during authentication.
-	 */
-	remove_filter( 'determine_current_user', 'json_basic_auth_handler', 20 );
+	remove_filter( 'determine_current_user', 'nuzuka_json_basic_auth_handler', 20 );
 
 	$user = wp_authenticate( $username, $password );
 
-	add_filter( 'determine_current_user', 'json_basic_auth_handler', 20 );
+	add_filter( 'determine_current_user', 'nuzuka_json_basic_auth_handler', 20 );
 
 	if ( is_wp_error( $user ) ) {
 		$wp_json_basic_auth_error = $user;
@@ -47,9 +43,9 @@ function json_basic_auth_handler( $user ) {
 
 	return $user->ID;
 }
-add_filter( 'determine_current_user', 'json_basic_auth_handler', 20 );
+add_filter('determine_current_user', 'nuzuka_json_basic_auth_handler', 20);
 
-function json_basic_auth_error( $error ) {
+function nuzuka_json_basic_auth_error( $error ) {
 	// Passthrough other errors
 	if ( ! empty( $error ) ) {
 		return $error;
@@ -59,4 +55,17 @@ function json_basic_auth_error( $error ) {
 
 	return $wp_json_basic_auth_error;
 }
-add_filter( 'rest_authentication_errors', 'json_basic_auth_error' );
+add_filter( 'rest_authentication_errors', 'nuzuka_json_basic_auth_error' );
+
+function activate_nuzuka_plugin() {
+    require_once plugin_dir_path( __FILE__ ) . 'includes/NuzukaLeadGenerationActivator.php';
+    NuzukaLeadGenerationActivator::activate(get_site_url());
+}
+
+function deactivate_nuzuka_plugin() {
+    require_once plugin_dir_path( __FILE__ ) . 'includes/NuzukaLeadGenerationDeactivator.php';
+    NuzukaLeadGenerationDeactivator::deactivate(get_site_url());
+}
+
+register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
+register_deactivation_hook( __FILE__, 'deactivate_nuzuka_plugin' );
