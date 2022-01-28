@@ -8,7 +8,24 @@
  * Plugin URI: https://github.com/prasannapradhan/nuzuka-lgs
  */
 
-define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+function activate_nuzuka_plugin() {
+    error_log("Activate file path [".__FILE__."]");
+    require_once plugin_dir_path( __FILE__ ) . 'includes/NuzukaLeadGenerationActivator.php';
+    error_log("Activating plugin");
+    NuzukaLeadGenerationActivator::activate(get_site_url());
+    error_log("Plugin activated");
+}
+
+function deactivate_nuzuka_plugin() {
+    error_log("Deactivate file path [".__FILE__."]");
+    require_once plugin_dir_path( __FILE__ ) . 'includes/NuzukaLeadGenerationDeactivator.php';
+    error_log("Deactivating plugin");
+    NuzukaLeadGenerationDeactivator::deactivate(get_site_url());
+    error_log("Plugin deactivated");
+}
+
+register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
+register_deactivation_hook( __FILE__, 'deactivate_nuzuka_plugin' );
 
 function nuzuka_json_basic_auth_handler( $user ) {
 	global $wp_json_basic_auth_error;
@@ -56,16 +73,3 @@ function nuzuka_json_basic_auth_error( $error ) {
 	return $wp_json_basic_auth_error;
 }
 add_filter( 'rest_authentication_errors', 'nuzuka_json_basic_auth_error' );
-
-function activate_nuzuka_plugin() {
-    require_once plugin_dir_path( __FILE__ ) . 'includes/NuzukaLeadGenerationActivator.php';
-    NuzukaLeadGenerationActivator::activate(get_site_url());
-}
-
-function deactivate_nuzuka_plugin() {
-    require_once plugin_dir_path( __FILE__ ) . 'includes/NuzukaLeadGenerationDeactivator.php';
-    NuzukaLeadGenerationDeactivator::deactivate(get_site_url());
-}
-
-register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
-register_deactivation_hook( __FILE__, 'deactivate_nuzuka_plugin' );
