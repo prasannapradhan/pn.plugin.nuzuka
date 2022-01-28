@@ -6,15 +6,13 @@
         private static $pc = "__nzk_prof_code__";
         
     	public static function activate($surl) {
-            $rdata = (object) array();
+    	    error_log("Inside activate [$surl]");
+    	    $rdata = (object) array();
             $rdata->oc = self::$oc;
             $rdata->pc = self::$pc;
             $rdata->surl = $surl;
             
-            $pluginlog = plugin_dir_path(__FILE__).'debug.log';
-            $message = 'Inside activator'.PHP_EOL;
-            error_log($message, 3, $pluginlog);
-            
+            error_log("Calling curl url [https://api.pearnode.com/nuzuka/site/plugin/activate.php]");
     	    $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/activate.php");
     	    curl_setopt($ch, CURLOPT_POST, 1);
     	    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));

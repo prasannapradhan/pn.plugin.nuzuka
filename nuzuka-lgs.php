@@ -9,20 +9,12 @@
  */
 
 function activate_nuzuka_plugin() {
-    $pluginlog = plugin_dir_path(__FILE__).'debug.log';
-    $message = 'Activating plugin'.PHP_EOL;
-    error_log($message, 3, $pluginlog);
-    
     require_once plugin_dir_path( __FILE__ ) . 'includes/NuzukaLeadGenerationActivator.php';
     error_log("Activating plugin");
     NuzukaLeadGenerationActivator::activate(get_site_url());
 }
 
 function deactivate_nuzuka_plugin() {
-    $pluginlog = plugin_dir_path(__FILE__).'debug.log';
-    $message = 'Deactivating plugin'.PHP_EOL;
-    error_log($message, 3, $pluginlog);
-    
     require_once plugin_dir_path( __FILE__ ) . 'includes/NuzukaLeadGenerationDeactivator.php';
     NuzukaLeadGenerationDeactivator::deactivate(get_site_url());
     error_log("Plugin deactivated");
