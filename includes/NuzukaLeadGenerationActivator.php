@@ -18,9 +18,7 @@
     	    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     	    curl_exec($ch);
     	    curl_close($ch);
-    	    
     	}
-    
     }
 
 ?>

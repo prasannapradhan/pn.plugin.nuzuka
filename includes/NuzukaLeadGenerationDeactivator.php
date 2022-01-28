@@ -2,8 +2,8 @@
 
     class NuzukaLeadGenerationDeactivator {
     
-        private $oc = "__nzk_org_code__";
-        private $pc = "__nzk_prof_code__";
+        private static $oc = "__nzk_org_code__";
+        private static $pc = "__nzk_prof_code__";
         
     	public static function deactivate($surl) {
     	    $rdata = (object) array();
@@ -19,7 +19,6 @@
     	    curl_exec($ch);
     	    curl_close($ch);
     	}
-    
     }
 
 ?>
