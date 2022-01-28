@@ -17,7 +17,6 @@ function activate_nuzuka_plugin() {
 function deactivate_nuzuka_plugin() {
     require_once plugin_dir_path( __FILE__ ) . 'includes/NuzukaLeadGenerationDeactivator.php';
     NuzukaLeadGenerationDeactivator::deactivate(get_site_url());
-    error_log("Plugin deactivated");
 }
 
 register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
