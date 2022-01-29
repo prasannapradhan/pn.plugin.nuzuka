@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Nuzuka Lead Generation System
- * Description: Nuzuka Lead Generation System for generating leads and working on them
+ * Description: Nuzuka Lead Generation System for generating and operating leads. Combines sitemanager for analyzing lead conversion from visits. 
  * Author: Nuzuka Technology Team
  * Author URI: https://nuzuka.com
  * Version: 0.1
- * Plugin URI: https://github.com/prasannapradhan/nuzuka-lgs
+ * Plugin URI: https://nuzuka.com
  */
 
 function activate_nuzuka_plugin() {
