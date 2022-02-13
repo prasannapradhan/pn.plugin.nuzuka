@@ -24,7 +24,7 @@
     	    error_log("Activation: Nuzuka server status [$http_status] and error number [$curl_errno]");
     	    curl_close($ch);
     	    
-    	    createDB();
+    	    self::createDB();
     	}
     	
     	public static function createDB(){
