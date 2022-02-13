@@ -8,6 +8,9 @@
      * Plugin URI: https://nuzuka.com
      */
     
+    $oc = "__nzk_org_code__";
+    $pc = "__nzk_prof_code__";
+
     function activate_nuzuka_plugin() {
         require_once plugin_dir_path( __FILE__ ) . 'includes/NuzukaLeadGenerationActivator.php';
         error_log("Activating plugin");
@@ -71,10 +74,31 @@
     
     
     function insert_my_footer() {
-         echo "<hr />NUZUKA<hr />";
-         // TODO get the page id
-         // Load the corresponding widget from the page id.
-         // echo the widget html here.
+        global $wp_query, $oc, $pc;
+        $pgid = $wp_query->get_queried_object_id();
+        $out = "";
+        if($pgid){
+            $surl = get_site_url();
+            $rdata = (object) array();
+            $rdata->oc = $oc;
+            $rdata->pc = $pc;
+            $rdata->surl = $surl;
+            $rdata->pglink = $pgid;
+            $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/widget_html.php");
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            $out = curl_exec($ch);
+            $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curl_errno = curl_errno($ch);
+            curl_close($ch);
+            error_log("Footer insert: Status [$http_status] and error number [$curl_errno]");
+        }else {
+            error_log("Footer insert: Page id was not found");
+        }
+        echo $out;
     }
     
     add_action('wp_footer', 'insert_my_footer');
