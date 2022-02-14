@@ -80,6 +80,8 @@
             curl_setopt($ch, CURLOPT_FAILONERROR, true);
             $out = curl_exec($ch);
             curl_close($ch);
+        }else {
+            echo "<hr />No widget " + $pgid + "<hr />";
         }
         echo $out;
     }
