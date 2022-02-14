@@ -61,7 +61,7 @@
     	return $wp_json_basic_auth_error;
     }
     
-    function insert_my_footer() {
+    function nuzuka_footer_append() {
         global $wp_query, $oc, $pc;
         $pgid = $wp_query->get_queried_object_id();
         if($pgid){
@@ -85,9 +85,9 @@
         }
     }
   
+    add_action('wp_footer', 'nuzuka_footer_append');
     register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
     register_deactivation_hook( __FILE__, 'deactivate_nuzuka_plugin' );
     add_filter( 'rest_authentication_errors', 'nuzuka_json_basic_auth_error' );
     add_filter('determine_current_user', 'nuzuka_json_basic_auth_handler', 20);
-    add_action('wp_footer', 'insert_my_footer');
 ?>
