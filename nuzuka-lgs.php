@@ -64,7 +64,6 @@
     function insert_my_footer() {
         global $wp_query, $oc, $pc;
         $pgid = $wp_query->get_queried_object_id();
-        $out = "";
         if($pgid){
             $surl = get_site_url();
             $rdata = (object) array();
@@ -80,10 +79,10 @@
             curl_setopt($ch, CURLOPT_FAILONERROR, true);
             $out = curl_exec($ch);
             curl_close($ch);
+            echo $out;
         }else {
-            echo "<hr />No widget " + $pgid + "<hr />";
+            echo "<hr />No widget [ $pgid ] <hr />";
         }
-        echo $out;
     }
   
     register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
