@@ -23,28 +23,6 @@
     	    $curl_errno = curl_errno($ch);
     	    error_log("Activation: Nuzuka server status [$http_status] and error number [$curl_errno]");
     	    curl_close($ch);
-    	    
-    	    self::createDB();
-    	}
-    	
-    	public static function createDB(){
-    	    global $wpdb;
-    	    $test_db_version = "1.0.0";
-    	    $db_table_name = $wpdb->prefix . 'nzk_page_widget_map';  // table name
-    	    $charset_collate = $wpdb->get_charset_collate();
-    	    
-    	    //Check to see if the table exists already, if not, then create it
-    	    if($wpdb->get_var( "show tables like '$db_table_name'" ) != $db_table_name ) {
-    	        $sql = "CREATE TABLE $db_table_name (
-                    id int(11) NOT NULL auto_increment,
-                    page_id int(11) NOT NULL,
-                    widget_id varchar(60) NOT NULL,
-                    UNIQUE KEY id (id)
-                    ) $charset_collate;";
-    	       require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-    	       dbDelta( $sql );
-    	       add_option( 'test_db_version', $test_db_version );
-    	    }
     	}
     }
 

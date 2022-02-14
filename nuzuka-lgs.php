@@ -22,12 +22,8 @@
         NuzukaLeadGenerationDeactivator::deactivate(get_site_url());
     }
     
-    register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
-    register_deactivation_hook( __FILE__, 'deactivate_nuzuka_plugin' );
-    
     function nuzuka_json_basic_auth_handler( $user ) {
     	global $wp_json_basic_auth_error;
-    
     	$wp_json_basic_auth_error = null;
     
     	// Don't authenticate twice
@@ -44,9 +40,7 @@
     	$password = $_SERVER['PHP_AUTH_PW'];
     
     	remove_filter( 'determine_current_user', 'nuzuka_json_basic_auth_handler', 20 );
-    
     	$user = wp_authenticate( $username, $password );
-    
     	add_filter( 'determine_current_user', 'nuzuka_json_basic_auth_handler', 20 );
     
     	if ( is_wp_error( $user ) ) {
@@ -55,23 +49,17 @@
     	}
     
     	$wp_json_basic_auth_error = true;
-    
     	return $user->ID;
     }
-    add_filter('determine_current_user', 'nuzuka_json_basic_auth_handler', 20);
     
     function nuzuka_json_basic_auth_error( $error ) {
     	// Passthrough other errors
     	if ( ! empty( $error ) ) {
     		return $error;
     	}
-    
     	global $wp_json_basic_auth_error;
-    
     	return $wp_json_basic_auth_error;
     }
-    add_filter( 'rest_authentication_errors', 'nuzuka_json_basic_auth_error' );
-    
     
     function insert_my_footer() {
         global $wp_query, $oc, $pc;
@@ -91,16 +79,14 @@
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
             curl_setopt($ch, CURLOPT_FAILONERROR, true);
             $out = curl_exec($ch);
-            $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            $curl_errno = curl_errno($ch);
             curl_close($ch);
-            error_log("Footer insert: Status [$http_status] and error number [$curl_errno]");
-        }else {
-            error_log("Footer insert: Page id was not found");
         }
         echo $out;
     }
-    
+  
+    register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
+    register_deactivation_hook( __FILE__, 'deactivate_nuzuka_plugin' );
+    add_filter( 'rest_authentication_errors', 'nuzuka_json_basic_auth_error' );
+    add_filter('determine_current_user', 'nuzuka_json_basic_auth_handler', 20);
     add_action('wp_footer', 'insert_my_footer');
-    
 ?>
