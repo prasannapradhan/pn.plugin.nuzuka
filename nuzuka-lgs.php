@@ -99,6 +99,8 @@
             $out = curl_exec($ch);
             curl_close($ch);
             echo $out;
+        }else {
+            echo "<hr /> No attributes <hr />";
         }
     }
     
