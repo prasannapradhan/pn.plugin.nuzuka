@@ -83,13 +83,14 @@
         }
     }
   
-    function nuzuka_widget_shortcode_handler($attrs){
+    function nuzuka_widget_shortcode_handler($atts){
         global $oc, $pc;
-        if(isset($attrs->id)){
+        $a = shortcode_atts( array('id' => 'none'), $atts);
+        if($a->id != "none"){
             $rdata = (object) array();
             $rdata->oc = $oc;
             $rdata->pc = $pc;
-            $rdata->wid = $attrs->id;
+            $rdata->wid = $a->id;
             $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php");
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
@@ -100,7 +101,7 @@
             curl_close($ch);
             echo $out;
         }else {
-            echo "<hr /> ".json_encode($attrs)." <hr />";
+            echo "<hr/> id is - ".$a->id."</hr>";
         }
     }
     
