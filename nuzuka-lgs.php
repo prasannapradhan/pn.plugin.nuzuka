@@ -100,7 +100,7 @@
             curl_close($ch);
             echo $out;
         }else {
-            echo "<hr /> No attributes <hr />";
+            echo "<hr /> ".json_encode($attrs)." <hr />";
         }
     }
     
