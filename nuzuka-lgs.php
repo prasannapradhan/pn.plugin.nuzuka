@@ -71,7 +71,7 @@
             $rdata->pc = $pc;
             $rdata->surl = $surl;
             $rdata->pglink = $pgid;
-            $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/widget_html.php");
+            $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/widget_html_page.php");
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -80,14 +80,32 @@
             $out = curl_exec($ch);
             curl_close($ch);
             echo $out;
-        }else {
-            echo "<hr />No widget [ $pgid ] <hr />";
         }
     }
   
-    add_action('wp_footer', 'nuzuka_footer_append');
+    function nuzuka_widget_shortcode_handler($attrs){
+        global $oc, $pc;
+        if(isset($attrs->id)){
+            $rdata = (object) array();
+            $rdata->oc = $oc;
+            $rdata->pc = $pc;
+            $rdata->wid = $attrs->id;
+            $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php");
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            $out = curl_exec($ch);
+            curl_close($ch);
+            echo $out;
+        }
+    }
+    
     register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
     register_deactivation_hook( __FILE__, 'deactivate_nuzuka_plugin' );
     add_filter( 'rest_authentication_errors', 'nuzuka_json_basic_auth_error' );
     add_filter('determine_current_user', 'nuzuka_json_basic_auth_handler', 20);
+    add_action('wp_footer', 'nuzuka_footer_append');
+    add_shortcode('nzkwidget', 'nuzuka_widget_shortcode_handler' );
 ?>
