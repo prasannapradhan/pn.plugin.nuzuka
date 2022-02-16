@@ -86,6 +86,7 @@
     function nuzuka_widget_shortcode_handler($atts){
         global $oc, $pc;
         $a = shortcode_atts( array('id' => 'none'), $atts);
+        $out = "<hr/> id is - ".$a->id."</hr>";
         if($a->id != "none"){
             $rdata = (object) array();
             $rdata->oc = $oc;
@@ -99,10 +100,8 @@
             curl_setopt($ch, CURLOPT_FAILONERROR, true);
             $out = curl_exec($ch);
             curl_close($ch);
-            echo $out;
-        }else {
-            echo "<hr/> id is - ".$a->id."</hr>";
         }
+        echo $out;
     }
     
     register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
