@@ -86,7 +86,6 @@
     function nuzuka_widget_shortcode_handler($atts){
         global $oc, $pc;
         $a = (object) shortcode_atts(array('id' => 'none'), $atts);
-        $out = "";
         if($a->id != "none"){
             $rdata = (object) array();
             $rdata->oc = $oc;
@@ -100,9 +99,8 @@
             curl_setopt($ch, CURLOPT_FAILONERROR, true);
             $cout = curl_exec($ch);
             curl_close($ch);
-            $out .= $cout;
+            echo $cout;
         }
-        echo $out;
     }
     
     register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
@@ -111,4 +109,3 @@
     add_filter('determine_current_user', 'nuzuka_json_basic_auth_handler', 20);
     add_action('wp_footer', 'nuzuka_footer_append');
     add_shortcode('nzkwidget', 'nuzuka_widget_shortcode_handler' );
-?>
