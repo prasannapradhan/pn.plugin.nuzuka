@@ -86,7 +86,7 @@
     function nuzuka_widget_shortcode_handler($atts){
         global $oc, $pc;
         $a = (object) shortcode_atts(array('id' => 'none'), $atts);
-        $out = "<hr/> id is - ".$a->id."</hr>";
+        $out = "";
         if($a->id != "none"){
             $rdata = (object) array();
             $rdata->oc = $oc;
