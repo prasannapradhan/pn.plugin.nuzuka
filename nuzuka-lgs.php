@@ -103,9 +103,20 @@
         }
     }
     
-    register_activation_hook( __FILE__, 'activate_nuzuka_plugin' );
-    register_deactivation_hook( __FILE__, 'deactivate_nuzuka_plugin' );
-    add_filter( 'rest_authentication_errors', 'nuzuka_json_basic_auth_error' );
+    function nuzuka_case_insensitive_shortcode($content){
+        $sc   = 'nzkwidget'; 
+        $from = '['. $sc ;
+        $to   = $from;
+        if(stristr($content, $from)){
+            $content = str_ireplace($from, $to, $content);
+        }
+        return $content;
+    }
+    
+    register_activation_hook( __FILE__, 'activate_nuzuka_plugin');
+    register_deactivation_hook( __FILE__, 'deactivate_nuzuka_plugin');
+    add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');
     add_filter('determine_current_user', 'nuzuka_json_basic_auth_handler', 20);
+    add_filter('the_content', 'nuzuka_case_insensitive_shortcode', 21);
     add_action('wp_footer', 'nuzuka_footer_append');
     add_shortcode('nzkwidget', 'nuzuka_widget_shortcode_handler' );
