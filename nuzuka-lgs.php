@@ -83,40 +83,46 @@
         }
     }
   
-    function nuzuka_widget_shortcode_handler($atts){
+    function nuzuka_parse_content($content){
         global $oc, $pc;
-        $a = (object) shortcode_atts(array('id' => 'none'), $atts);
-        if($a->id != "none"){
-            $rdata = (object) array();
-            $rdata->oc = $oc;
-            $rdata->pc = $pc;
-            $rdata->wid = $a->id;
-            $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php");
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($ch, CURLOPT_FAILONERROR, true);
-            $cout = curl_exec($ch);
-            curl_close($ch);
-            echo $cout;
-        }
-    }
-    
-    function nuzuka_case_insensitive_shortcode($content){
-        $sc   = 'nzkwidget'; 
-        $from = '['. $sc ;
-        $to   = $from;
-        if(stristr($content, $from)){
-            $content = str_ireplace($from, $to, $content);
+        $sc = 'nzkwidget';
+        $matches = array();
+        preg_match_all("/\[$sc(.+?)?\]/i", $content, $matches);
+        if(sizeof($matches) > 0){
+            $mbox = $matches[0];
+            foreach($mbox as $m){
+                $mx = str_replace("&#8221;", "\"", $m);
+                $mx = str_replace("&#8243;", "\"", $mx);
+                $mx = str_replace("&#8216;", "\"", $mx);
+                $mx = str_replace("&#8217;", "\"", $mx);
+                $widarr = array();
+                if (preg_match('/"([^"]+)"/', $mx, $widarr)) {
+                    $wid = $widarr[1];
+                    if($wid != "none"){
+                        $rdata = (object) array();
+                        $rdata->oc = $oc;
+                        $rdata->pc = $pc;
+                        $rdata->wid = $wid;
+                        $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php");
+                        curl_setopt($ch, CURLOPT_POST, 1);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+                        $cout = curl_exec($ch);
+                        curl_close($ch);
+                        $content = str_replace($m, $cout, $content);
+                    }
+                }
+            }
         }
         return $content;
     }
+    
     
     register_activation_hook( __FILE__, 'activate_nuzuka_plugin');
     register_deactivation_hook( __FILE__, 'deactivate_nuzuka_plugin');
     add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');
     add_filter('determine_current_user', 'nuzuka_json_basic_auth_handler', 20);
-    add_filter('the_content', 'nuzuka_case_insensitive_shortcode', 21);
+    add_filter('the_content', 'nuzuka_parse_content', 25);
     add_action('wp_footer', 'nuzuka_footer_append');
-    add_shortcode('nzkwidget', 'nuzuka_widget_shortcode_handler' );
