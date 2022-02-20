@@ -8,9 +8,6 @@
      * Plugin URI: https://nuzuka.com
      */
     
-    $oc = "__nzk_org_code__";
-    $pc = "__nzk_prof_code__";
-
     function activate_nuzuka_plugin() {
         require_once plugin_dir_path( __FILE__ ) . 'includes/NuzukaLeadGenerationActivator.php';
         error_log("Activating plugin");
@@ -62,13 +59,11 @@
     }
     
     function nuzuka_footer_append() {
-        global $wp_query, $oc, $pc;
+        global $wp_query;
         $pgid = $wp_query->get_queried_object_id();
         if($pgid){
             $surl = get_site_url();
             $rdata = (object) array();
-            $rdata->oc = $oc;
-            $rdata->pc = $pc;
             $rdata->surl = $surl;
             $rdata->pglink = $pgid;
             $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/widget_html_page.php");
@@ -84,7 +79,6 @@
     }
   
     function nuzuka_parse_content($content){
-        global $oc, $pc;
         $sc = 'nzkwidget';
         $matches = array();
         preg_match_all("/\[$sc(.+?)?\]/i", $content, $matches);
@@ -100,8 +94,6 @@
                     $wid = $widarr[1];
                     if($wid != "none"){
                         $rdata = (object) array();
-                        $rdata->oc = $oc;
-                        $rdata->pc = $pc;
                         $rdata->wid = $wid;
                         $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php");
                         curl_setopt($ch, CURLOPT_POST, 1);
