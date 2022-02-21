@@ -103,7 +103,10 @@
     
     function nuzuka_render_configuration() {
         global $org, $profile, $user, $cred_file;
-        $out = @file_get_contents($cred_file);
+        $out = "";
+        if(file_exists($cred_file)){
+            $out = file_get_contents($cred_file);
+        }
         if($out != ""){
             $cred = json_decode($out);
             $org = $cred->org;
@@ -349,10 +352,21 @@
 		);
     }
 
+    function nuzuka_disable_real_mime_check($data, $file, $filename, $mimes){
+        $wp_filetype = wp_check_filetype( $filename, $mimes );
+        $ext = $wp_filetype['ext'];
+        $type = $wp_filetype['type'];
+        $proper_filename = $data['proper_filename'];
+        return compact( 'ext', 'type', 'proper_filename' );
+    }
+    
     add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');
     add_filter('determine_current_user', 'nuzuka_json_basic_auth_handler', 20);
     add_filter('the_content', 'nuzuka_parse_content', 25);
+    add_filter('wp_check_filetype_and_ext', 'nuzuka_disable_real_mime_check', 10, 4 );
+    
     add_action('wp_footer', 'nuzuka_footer_append');
     add_action('admin_menu', 'nuzuka_do_admin_init');
     add_action('admin_post_nuzuka_registration_form', 'handle_submit_nuzuka_registration_form'); // If the user is logged in
+    
     
