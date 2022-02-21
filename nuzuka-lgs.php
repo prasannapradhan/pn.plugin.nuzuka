@@ -1,7 +1,7 @@
 <?php
     /**
-     * Plugin Name: Nuzuka Lead Generation System
-     * Description: Nuzuka Lead Generation System for generating and operating leads. Combines sitemanager for analyzing lead conversion from visits.
+     * Plugin Name: Nuzuka Enquiry Capture
+     * Description: Nuzuka Enquiry Capture is a replacement of contact form to track your site vistors and capture every customer enquiry in a Sales perspective.
      * Author: Nuzuka Technology Team
      * Author URI: https://nuzuka.com
      * Version: 0.1
@@ -16,9 +16,6 @@
     $cred_file = $plugin_dir."credentials.json";
     
     function nuzuka_json_basic_auth_handler( $user ) {
-        global $wp_json_basic_auth_error;
-        $wp_json_basic_auth_error = null;
-        
         // Don't authenticate twice
         if ( ! empty( $user ) ) {
             return $user;
@@ -37,11 +34,8 @@
         add_filter( 'determine_current_user', 'nuzuka_json_basic_auth_handler', 20 );
         
         if ( is_wp_error( $user ) ) {
-            $wp_json_basic_auth_error = $user;
             return null;
         }
-        
-        $wp_json_basic_auth_error = true;
         return $user->ID;
     }
     
@@ -109,7 +103,7 @@
     
     function nuzuka_render_configuration() {
         global $org, $profile, $user, $cred_file;
-        $out = file_get_contents($cred_file);
+        $out = @file_get_contents($cred_file);
         if($out != ""){
             $cred = json_decode($out);
             $org = $cred->org;
