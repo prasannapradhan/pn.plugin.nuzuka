@@ -3,7 +3,7 @@
      * Plugin Name: Nuzuka Enquiry Capture
      * Description: Nuzuka Enquiry Capture is a replacement of contact form to track your site vistors and capture every customer enquiry in a Sales perspective.
      * Author: Nuzuka Technology Team
-     * Author URI: https://nuzuka.com
+     * Author URI: https://pearnode.com
      * Version: 0.1
      * Plugin URI: https://nuzuka.com
      */
