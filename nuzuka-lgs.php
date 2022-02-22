@@ -357,7 +357,7 @@
         $ext = $wp_filetype['ext'];
         $type = $wp_filetype['type'];
         $proper_filename = $data['proper_filename'];
-        return compact( 'ext', 'type', 'proper_filename' );
+        return compact($ext, $type, $proper_filename);
     }
     
     add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');
