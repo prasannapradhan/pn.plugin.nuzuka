@@ -206,6 +206,9 @@
             		}
             	</script>
 		    <?php 
+		    if(!isset($site->config)){
+		        $site->config = (object) array();
+		    }
 		    $sconfig = $site->config;
 		    if(isset($sconfig->scanned) && ($sconfig->scanned)){
 		        ?>
@@ -284,19 +287,9 @@
     					</div>
     					<div class="card-body w-100">
     						<div class="form-group">
-    						    <label for="bizid">Business Identification</label>
-    						    <input type="text" class="form-control" id="bizid" name="bizid" required="required"/>
-    					    	<small id="bizidhelp" class="form-text text-muted">This is your unique business identification number.</small>
-    						</div>
-    						<div class="form-group">
-    					    	<label for="bizsecret">Business Secret</label>
-    					    	<input type="text" class="form-control" id="bizsecret" name="bizsecret" required="required"/>
-    					    	<small id="bizsecrethelp" class="form-text text-muted">This is your unique business secret code.</small>
-    						</div>
-    						<div class="form-group">
-    					    	<label for="adminsecret">Administrator Secret</label>
-    					    	<input type="text" class="form-control" id="adminsecret" name="adminsecret" required="required"/>
-    					    	<small id="adminsecrethelp" class="form-text text-muted">This is your unique administrator secret code.</small>
+    						    <label for="authtoken">Auth token</label>
+    						    <textarea rows="4" class="form-control" id="authtoken" name="authtoken" required="required"></textarea>
+    					    	<small id="authtokenhelp" class="form-text text-muted">Enter the Authorization token here</small>
     						</div>
     						<input type='hidden' name='action' value='nuzuka_registration_form' />
     					</div>
@@ -323,9 +316,12 @@
         
         $regdata = (object) $_POST;
         $odata = (object) array();
-        $odata->oc = $regdata->bizid;
-        $odata->pc = $regdata->bizsecret;
-        $odata->uck = $regdata->adminsecret;
+        $token = $regdata->authtoken;
+        
+        $ddata = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $token)[1]))));
+        $odata->oc = $ddata->oc;
+        $odata->pc = $ddata->pc;
+        $odata->uck = $ddata->uck;
        
         $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/bizdetails.php");
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -352,19 +348,9 @@
 		);
     }
 
-    function nuzuka_disable_real_mime_check($data, $file, $filename, $mimes){
-        $wp_filetype = wp_check_filetype( $filename, $mimes );
-        $ext = $wp_filetype['ext'];
-        $type = $wp_filetype['type'];
-        $proper_filename = $data['proper_filename'];
-        error_log("File Mime: Returning ext[$ext], type[$type], file_name[$proper_filename]");
-        return compact($ext, $type, $proper_filename);
-    }
-    
     add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');
     add_filter('determine_current_user', 'nuzuka_json_basic_auth_handler', 20);
     add_filter('the_content', 'nuzuka_parse_content', 25);
-    add_filter('wp_check_filetype_and_ext', 'nuzuka_disable_real_mime_check', 10, 4 );
     
     add_action('wp_footer', 'nuzuka_footer_append');
     add_action('admin_menu', 'nuzuka_do_admin_init');
