@@ -357,6 +357,7 @@
         $ext = $wp_filetype['ext'];
         $type = $wp_filetype['type'];
         $proper_filename = $data['proper_filename'];
+        error_log("File Mime: Returning ext[$ext], type[$type], file_name[$proper_filename]");
         return compact($ext, $type, $proper_filename);
     }
     
