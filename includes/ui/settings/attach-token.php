@@ -14,8 +14,8 @@
 			</div>
 			<div class="col-7">
 				<ul class="w-100 ml-3" style="font-size: 15px !important;list-style-type: square;">
-                  <li class="p-1">First step is to register your site with 
-                  	<a class="link link-primary" href="https://app.nuzuka.com/wp_register.html" target="_nzkwpregister">Nuzuka App</a>.
+                  <li class="p-1"><b>First Step</b> is to register your site with 
+                  	<a class="link link-primary" href="https://app.nuzuka.com/wp_register.html" target="_nzkwpregister">Nuzuka Registrar</a>.
                   </li>
                   <li class="p-1"><b><a href="https://app.nuzuka.com/wp_register.html" target="nuzuka_site">Nuzuka</a></b> 
                   	combines a Customer CRM, Site Manager, Visitor Monitor, Enquiry CRM, Inventory Management System and Analytics 
