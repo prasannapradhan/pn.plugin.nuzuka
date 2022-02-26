@@ -527,8 +527,8 @@
 		</script>
 	</head>
 
-	<body style="overflow-x:hidden;" class="container p-2">
-	   <div class="row w-100 m-0 card" style="overflow-x:hidden;">
+	<body style="overflow-x:hidden;" class="p-1">
+	   <div class="row w-100 m-0 mt-1 mb-1">
 			<div class="card-header bg-light w-100" style="min-height: 7vh;background-color: #E3E4F6 !important;">
 				<div class="row w-100 m-0">
 					<div class="col-5">
@@ -545,34 +545,34 @@
 					</div>
 				</div>
 			</div>
-	   		<div class="row w-100 m-0 p-1">
-				<div class="col-3 pl-0" style="min-height: 10vh;">
-					<div class="card p-0 h-100" style="background-color: #F5C19D;">
-						<span id="hits_live" class="my-auto p-2" style="font-size: 32px;font-weight: bold;">0</span>
+	   		<div class="row w-100 m-0 p-0 mt-1">
+				<div class="col-3 pl-0" >
+					<div class="row m-0 p-0 h-100 rounded" style="background-color: #F5C19D;">
+						<span id="hits_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
 						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Hits</span>
 					</div>
 				</div>
-				<div class="col-3" style="min-height: 10vh;">
-					<div class="card p-0 h-100" style="background-color: #F7F157;">
-						<span id="clicks_live" class="my-auto p-2" style="font-size: 32px;font-weight: bold;">0</span>
+				<div class="col-3" >
+					<div class="row m-0 p-0 h-100 rounded" style="background-color: #F7F157;">
+						<span id="clicks_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
 						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Clicks</span>
 					</div>
 				</div>
-				<div class="col-3" style="min-height: 10vh;">
-					<div class="card p-0 h-100" style="background-color: #86F9E5;">
-						<span id="logins_live" class="my-auto p-2" style="font-size: 32px;font-weight: bold;">0</span>
+				<div class="col-3" >
+					<div class="row m-0 p-0 h-100 rounded" style="background-color: #86F9E5;">
+						<span id="logins_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
 						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Logins</span>
 					</div>
 				</div>
-				<div class="col-3 pr-0" style="min-height: 10vh;">
-					<div class="card p-0 h-100" style="background-color: #EFB8F4;">
-						<span id="submission_live" class="my-auto p-2" style="font-size: 32px;font-weight: bold;">0</span>
+				<div class="col-3 pr-0" >
+					<div class="row m-0 p-0 h-100 rounded" style="background-color: #EFB8F4;">
+						<span id="submission_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
 						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Submissions</span>
 					</div>
 				</div>
 	   		</div>
 	   </div>
-	   <div class="row w-100 m-0 card mt-2" style="overflow-x:hidden;">
+	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
 			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
 				<div class="row w-100 m-0">
 					<div class="col-3">
@@ -589,7 +589,7 @@
 				</div>	
 	   		</div>
 	   </div>
-	   <div class="row w-100 m-0 card mt-2" style="overflow-x:hidden;">
+	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
 			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
 				<div class="row w-100 m-0">
 					<div class="col-12">
@@ -599,12 +599,12 @@
 				</div>
 			</div>
 	   		<div class="row w-100 m-0">
-				<div class="col-12 card p-0" style="height: 50vh !important;">
+				<div class="col-12 p-0" style="height: 50vh !important;">
 					<canvas id="itemmatrix_chart" style="width:100%;height:100%;"></canvas>
 				</div>	
 	   		</div>
 	   </div>
-	   <div class="row w-100 m-0 card mt-2" style="overflow-x:hidden;">
+	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
 			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
 				<div class="row w-100 m-0">
 					<div class="col-3">
@@ -621,7 +621,7 @@
 				</div>	
 	   		</div>
 	   </div>
-	   <div class="row w-100 m-0 card mt-2" style="overflow-x:hidden;">
+	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
 			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
 				<div class="row w-100 m-0">
 					<div class="col-6">
@@ -637,7 +637,7 @@
 				</div>	
 	   		</div>
 	   </div>
-	   <div class="row w-100 m-0 card mt-2" style="overflow-x:hidden;">
+	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
 			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
 				<div class="row w-100 m-0">
 					<div class="col-6">
@@ -655,7 +655,7 @@
 				</div>	
 	   		</div>
 	   </div>
-	   <div class="row w-100 m-0 card mt-2" style="overflow-x:hidden;">
+	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
 			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
 				<div class="row w-100 m-0">
 					<div class="col-6">
