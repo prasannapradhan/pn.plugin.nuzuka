@@ -43,9 +43,9 @@
 			<img src="http://nuzuka.com/wp-content/uploads/2021/10/Nuzuka-Logo.png" width="128px;">
 		  </a>
 		</div>
-		<hr />
+		<hr class="m-0" />
 		
-		<section class="mt-1">
+		<section class="p-1">
         		<div class="row w-100 m-0 justify-content-center">
         			<div class="container">
         				<div class="row p-0 w-100 m-0 justify-content-center">

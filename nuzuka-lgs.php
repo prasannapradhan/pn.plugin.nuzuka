@@ -181,6 +181,22 @@
             $org = $cred->org;
             $profile = $cred->profile;
             $user = $cred->user;
+            
+            $rdata = (object) array();
+            $rdata->oc = $org->code;
+            $rdata->pc = $profile->code;
+            $rdata->surl = get_site_url();
+            $ch = curl_init("https://api.pearnode.com/nuzuka/site/details_url.php");
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            $cout = curl_exec($ch);
+            curl_close($ch);
+            
+            $site = json_decode($cout);
+            include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/pages.php');
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
             exit( wp_redirect($foo));
