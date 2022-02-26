@@ -127,11 +127,9 @@
         ?>
     		<div class="card-header w-100">
     			<div class="row w-100 m-0">
-    				<div class="col-6">
+    				<div class="col-12 pl-1">
     					<span style="font-size: 1.1rem;">Hello, <b><?php echo $user->full_name; ?> </b></span>	
-    				</div>
-    				<div class="col-6 d-flex justify-content-end">
-    					<b><?php echo $org->name;?></b>
+    					<span style="margin-left:5px;">from <b><?php echo $org->name;?></b></span>
     				</div>
     			</div>
     		</div>
@@ -295,7 +293,7 @@
     }
     
     function nuzuka_do_admin_init(){
-		add_menu_page('Nuzuka', 'Nuzuka', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings', 'dashicons-superhero', 5);
+		add_menu_page('Nuzuka', 'Nuzuka Beta', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings', 'dashicons-superhero', 5);
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Settings', 'Settings', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Site Pages', 'Pages', 'manage_options', 'nuzuka-plugin-page-site', 'nuzuka_plugin_page_site');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Visitors', 'Visitors', 'manage_options', 'nuzuka-plugin-page-visitors', 'nuzuka_plugin_page_visitors');

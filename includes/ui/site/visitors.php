@@ -68,7 +68,7 @@
 			.bscrollcontainer { 
 				overflow-y: auto; 
 				min-height: 10vh; 
-				max-height: 80vh;
+				max-height: 70vh;
 			}
 			.bscrollcontainer thead th{ 
 				position: sticky; 
@@ -77,133 +77,136 @@
 		</style>
 
 		<script>
-				var vitmpl = "";
-		    	var visitorsObj = {};
-	    		var visitorNameMap = {};
-		    	var rdata = {};
-	    		
-		    	$(document).ready(function() {
-					initView();
+    		var oc = '<?php echo $org->code; ?>';
+    		var pc = '<?php echo $profile->code; ?>';
+    		var sid = '<?php echo $site->id; ?>';
+			var vitmpl = "";
+	    	var visitorsObj = {};
+    		var visitorNameMap = {};
+	    	var rdata = {};
+    		
+	    	$(document).ready(function() {
+				initView();
+			});
+
+	    	function initView(){
+				initJquery();
+			    $('#one_search').bind("keyup change", function(e){
+					var _input = $(this).val();
+					$(".item_row:contains('" + _input + "')").show();
+			        $(".item_row:not(:contains('" + _input + "'))").hide();
 				});
+			    $('#item_search').bind("keyup change", function(e){
+					var _input = $(this).val();
+					$(".citem:contains('" + _input + "')").show();
+			        $(".citem:not(:contains('" + _input + "'))").hide();
+				});
+			    vitmpl = document.getElementById('tmpl').innerHTML;
+	    		dateFilterInit(dateChangeCallback);
+			}		
+			
 
-		    	function initView(){
-					initJquery();
-				    $('#one_search').bind("keyup change", function(e){
-						var _input = $(this).val();
-						$(".item_row:contains('" + _input + "')").show();
-				        $(".item_row:not(:contains('" + _input + "'))").hide();
-					});
-				    $('#item_search').bind("keyup change", function(e){
-						var _input = $(this).val();
-						$(".citem:contains('" + _input + "')").show();
-				        $(".citem:not(:contains('" + _input + "'))").hide();
-					});
-				    vitmpl = document.getElementById('tmpl').innerHTML;
-		    		dateFilterInit(dateChangeCallback);
-				}		
-				
+	    	function alterParams(rdata){
+	    		if(singleDate){
+	    			if((typeof selDate !== 'undefined') && (selDate != "")){
+	    				rdata.dt = selDate;
+	    				try {
+	    					delete rdata.startDate;
+	    					delete rdata.endDate;
+	    				} catch (e) {
+	    				}
+	    			}	
+	    		}else {
+	    			if((typeof sdt !== 'undefined') && (sdt != "")){
+	    				rdata.startDate = sdt;
+	    				try {
+	    					delete rdata.dt;
+	    				} catch (e) {
+	    				}
+	    			}
+	    			if((typeof edt !== 'undefined') && (edt != "")){
+	    				rdata.endDate = edt;
+	    				try {
+	    					delete rdata.dt;
+	    				} catch (e) {
+	    				}
+	    			}
+	    		}
+	    		if((typeof ndt !== 'undefined') && (ndt != "")){
+	    			delete rdata.dt;
+	    			delete rdata.startDate;
+	    			delete rdata.endDate;
+	    		}
+	    		return rdata;
+	    	}
 
-		    	function alterParams(rdata){
-		    		if(singleDate){
-		    			if((typeof selDate !== 'undefined') && (selDate != "")){
-		    				rdata.dt = selDate;
-		    				try {
-		    					delete rdata.startDate;
-		    					delete rdata.endDate;
-		    				} catch (e) {
-		    				}
-		    			}	
-		    		}else {
-		    			if((typeof sdt !== 'undefined') && (sdt != "")){
-		    				rdata.startDate = sdt;
-		    				try {
-		    					delete rdata.dt;
-		    				} catch (e) {
-		    				}
-		    			}
-		    			if((typeof edt !== 'undefined') && (edt != "")){
-		    				rdata.endDate = edt;
-		    				try {
-		    					delete rdata.dt;
-		    				} catch (e) {
-		    				}
-		    			}
-		    		}
-		    		if((typeof ndt !== 'undefined') && (ndt != "")){
-		    			delete rdata.dt;
-		    			delete rdata.startDate;
-		    			delete rdata.endDate;
-		    		}
-		    		return rdata;
-		    	}
-
-		    	function loadVisitors(){
-		    		NProgress.start();
-		    		var purl = "https://api.pearnode.com/nuzuka/visitor/list.php";
-		    		var pdata = {'oc': oc,'pc': pc};
-		    		pdata = alterParams(pdata);
-		    		$.post(purl, JSON.stringify(pdata), function(data) {
-		    			renderVisitorListing($.parseJSON(data));
-		    			NProgress.done();
-		    		});
-		    		return false;
-		    	}
-		    	
-		    	function dateChangeCallback(changeDate){
-	    			loadVisitors();
-				}
-		    	
-		    	function renderVisitorListing(visitors){
-		    		visitorNameMap = {};
-		    		visitorsObj = {};
-		    		NProgress.start();
-	    			$.each(visitors, function(index, visitor){
-	    				visitor.id = parseInt(visitor.id);
-						visitor.created_at = moment(visitor.con).fromNow();
-						if(typeof visitorNameMap[visitor.name] == "undefined"){
-							if(visitor.picture != ""){
-								visitor.pic = true;
-								visitorNameMap[visitor.name] = [{'vname' : toTitleCase(visitor.name), 'picture' : visitor.picture, 'summary' : true, 'pic' : true}];
-							}else{
-								visitorNameMap[visitor.name] = [{'vname' : toTitleCase(visitor.name), 'picture' : visitor.picture, 'summary' : true}];
-							}
+	    	function loadVisitors(){
+	    		NProgress.start();
+	    		var purl = "https://api.pearnode.com/nuzuka/visitor/list.php";
+	    		var pdata = {'oc': oc,'pc': pc};
+	    		pdata = alterParams(pdata);
+	    		$.post(purl, JSON.stringify(pdata), function(data) {
+	    			renderVisitorListing($.parseJSON(data));
+	    			NProgress.done();
+	    		});
+	    		return false;
+	    	}
+	    	
+	    	function dateChangeCallback(changeDate){
+    			loadVisitors();
+			}
+	    	
+	    	function renderVisitorListing(visitors){
+	    		visitorNameMap = {};
+	    		visitorsObj = {};
+	    		NProgress.start();
+    			$.each(visitors, function(index, visitor){
+    				visitor.id = parseInt(visitor.id);
+					visitor.created_at = moment(visitor.con).fromNow();
+					if(typeof visitorNameMap[visitor.name] == "undefined"){
+						if(visitor.picture != ""){
+							visitor.pic = true;
+							visitorNameMap[visitor.name] = [{'vname' : toTitleCase(visitor.name), 'picture' : visitor.picture, 'summary' : true, 'pic' : true}];
+						}else{
+							visitorNameMap[visitor.name] = [{'vname' : toTitleCase(visitor.name), 'picture' : visitor.picture, 'summary' : true}];
 						}
-						var iarr = visitorNameMap[visitor.name];
-						iarr.push(visitor);
-						visitor.regular = true;
-	    				visitorsObj[visitor.id] = visitor;
-	    			});
-	    			displayNameData();
-		    	}
-		    	
-				function displayNameData(){
-					var keys = Object.keys(visitorNameMap);
-					$('#items_container').empty();
-					if(keys.length != 0){
-						$('#no_visitor_container').hide();
-						$('#visitor_container').fadeIn(500);
-						$.each(keys, function(idx, key){
-							var seq = 0
-							var items = visitorNameMap[key];
-							$.each(items, function(idx, item){
-								item.seq = seq;
-								seq++;
-							});
-							var mdata = {};
-							mdata['records'] = items;
-							$('#items_container').append(Mustache.render(vitmpl, mdata));
-						});
-					}else {
-						$('#visitor_container').hide();
-						$('#no_visitor_container').fadeIn(400);
 					}
-					NProgress.done();
+					var iarr = visitorNameMap[visitor.name];
+					iarr.push(visitor);
+					visitor.regular = true;
+    				visitorsObj[visitor.id] = visitor;
+    			});
+    			displayNameData();
+	    	}
+	    	
+			function displayNameData(){
+				var keys = Object.keys(visitorNameMap);
+				$('#items_container').empty();
+				if(keys.length != 0){
+					$('#no_visitor_container').hide();
+					$('#visitor_container').fadeIn(500);
+					$.each(keys, function(idx, key){
+						var seq = 0
+						var items = visitorNameMap[key];
+						$.each(items, function(idx, item){
+							item.seq = seq;
+							seq++;
+						});
+						var mdata = {};
+						mdata['records'] = items;
+						$('#items_container').append(Mustache.render(vitmpl, mdata));
+					});
+				}else {
+					$('#visitor_container').hide();
+					$('#no_visitor_container').fadeIn(400);
 				}
-				
-				function showAll(){
-					$('.item_row').fadeIn(500);
-				}
-			</script>
+				NProgress.done();
+			}
+			
+			function showAll(){
+				$('.item_row').fadeIn(500);
+			}
+		</script>
 	</head>
 
 	<body style="overflow-x:hidden;" class="p-2">
@@ -211,7 +214,7 @@
 			<!-- Left navbar links -->
 			<ul class="navbar-nav mr-auto">
 		        <li class="nav-item">
-			      	<a class="btn btn-outline-secondary" href="#" onclick="return loadVisitors();" style="margin-left: 5px;">
+			      	<a class="btn btn-sm btn-outline-secondary" href="#" onclick="return loadVisitors();" style="margin-left: 5px;">
 			      		<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.4vw"/><b style="margin-left: 5px;">Refresh</b>
 			      	</a>
 		        </li>
@@ -240,7 +243,7 @@
 			</ul>
 		</nav>		
 		
-		<div class="w-100 m-0 row p-2">
+		<div class="w-100 m-0 row pl-2 pr-2">
 			<div class="row w-100 scrollcontainer m-0" style="display: none;" id="visitor_container">
 				<table id="item_tbl" class="table table-sm table-hover table-bordered" style="width:100%;">
 					<thead>
