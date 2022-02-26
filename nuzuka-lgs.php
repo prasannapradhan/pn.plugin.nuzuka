@@ -101,7 +101,7 @@
         return $content;
     }
     
-    function nuzuka_render_configuration() {
+    function nuzuka_plugin_settings() {
         global $org, $profile, $user, $cred_file;
         $out = "";
         if(file_exists($cred_file)){
@@ -113,202 +113,78 @@
             $profile = $cred->profile;
             $user = $cred->user;
         }
-        ?>
-	    <link rel="stylesheet" href="https://static-158c3.kxcdn.com/tools/bootstrap/4.3.1/css/bootstrap.min.css"/>
-	    <script src="https://static-158c3.kxcdn.com/tools/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
-		<script src="https://static-158c3.kxcdn.com/tools/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		<body>
-			<div class="modal fade" id="scan_modal" tabindex="-1" role="dialog" aria-hidden="true">
-    		  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    		    <div class="modal-content">
-    		      <div class="modal-header">
-    		        <h5 class="modal-title">Scanning <span id="modal_site_name" class="badge badge-info" style="font-size: 14px;"></span></h5>
-    		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    		          <span aria-hidden="true">&times;</span>
-    		        </button>
-    		      </div>
-    		      <div class="modal-body">
-    		      		<div class="row w-100 p-2 mb-2 mt-2 border-1 shadow-sm">
-    		      			<div class="col-6">
-    		      				<span>Scanning <b>Pages</b></span>
-    		      			</div>
-    		      			<div class="col-6 d-flex justify-content-center">
-    		      				<div id="page_scan_result"><b>Waiting..</b></div>
-    		      			</div>
-    		      		</div>
-    		      		<div class="row w-100 p-2 mb-2 mt-2 border-1 shadow-sm">
-    		      			<div class="col-6">
-    		      				<span>Scanning <b>Posts</b></span>
-    		      			</div>
-    		      			<div class="col-6 d-flex justify-content-center">
-    		      				<div id="post_scan_result"><b>Waiting..</b></div>
-    		      			</div>
-    		      		</div>
-    		      </div>
-    		      <div class="modal-footer">
-    		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    		      </div>
-    		    </div>
-    		  </div>
-    		</div>
-		
-    		<div class="row w-100 m-0 p-2">
-    		  <a href="https://nuzuka.com">
-    			<img src="http://nuzuka.com/wp-content/uploads/2021/10/Nuzuka-Logo.png" width="128px;">
-    		  </a>
-    		</div>
-    		<hr />
-    		<section class="mt-1">
-        		<div class="row w-100 m-0 justify-content-center">
-        			<div class="container">
-        				<div class="row p-0 w-100 m-0 justify-content-center">
-        					<div class="container-fluid">
-		<?php 
+        include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/common-header.php');
 		if(isset($profile->code)){
-		    $surl = get_site_url();
+		     $surl = get_site_url();
+		     
+		     $rdata = (object) array();
+		     $rdata->oc = $org->code;
+		     $rdata->pc = $profile->code;
+		     $rdata->surl = $surl;
+		     $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/activate.php");
+		     curl_setopt($ch, CURLOPT_POST, 1);
+		     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
+		     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		     curl_setopt($ch, CURLOPT_FAILONERROR, true);
+		     $cout = curl_exec($ch);
+		     curl_close($ch);
+		     
+		     $site = json_decode($cout);
         ?>
-		<div class="card-header w-100">
-			<div class="row w-100 m-0">
-				<div class="col-6">
-					<span style="font-size: 1.1rem;">Hello, <b><?php echo $user->full_name; ?> </b></span>	
-				</div>
-				<div class="col-6 d-flex justify-content-end">
-					<b><?php echo $org->name;?></b>
-				</div>
-			</div>
-		</div>
-        <?php 		    
-		    $rdata = (object) array();
-		    $rdata->oc = $org->code;
-		    $rdata->pc = $profile->code;
-		    $rdata->surl = $surl;
-		    $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/activate.php");
-		    curl_setopt($ch, CURLOPT_POST, 1);
-		    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
-		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-		    curl_setopt($ch, CURLOPT_FAILONERROR, true);
-		    $cout = curl_exec($ch);
-		    curl_close($ch);
-		    
-		    $site = json_decode($cout);
-		    ?>
-		    	<script>
-        	    	var oc = '<?php echo $org->code; ?>';
-        	    	var pc = '<?php echo $profile->code; ?>';
-        	    	var uck = '<?php echo $user->ck; ?>';
-        	    	var sid = '<?php echo $site->id; ?>';
-        	    	var sname = '<?php echo $site->site_name; ?>';
+    		<div class="card-header w-100">
+    			<div class="row w-100 m-0">
+    				<div class="col-6">
+    					<span style="font-size: 1.1rem;">Hello, <b><?php echo $user->full_name; ?> </b></span>	
+    				</div>
+    				<div class="col-6 d-flex justify-content-end">
+    					<b><?php echo $org->name;?></b>
+    				</div>
+    			</div>
+    		</div>
+	    	<script>
+    	    	var oc = '<?php echo $org->code; ?>';
+    	    	var pc = '<?php echo $profile->code; ?>';
+    	    	var uck = '<?php echo $user->ck; ?>';
+    	    	var sid = '<?php echo $site->id; ?>';
+    	    	var sname = '<?php echo $site->site_name; ?>';
 
-            		function launchApp(){
-                		var url = "https://app.nuzuka.com/wp_launch.html?oc=" + oc + "&pc=" + pc + "&uck=" + uck;
-                		window.open(url, "nuzuka_app");
-            		}
-            	</script>
+        		function launchApp(){
+            		var url = "https://app.nuzuka.com/wp_launch.html?oc=" + oc + "&pc=" + pc + "&uck=" + uck;
+            		window.open(url, "nuzuka_app");
+        		}
+        	</script>
 		    <?php 
-		    if(!isset($site->config)){
-		        $site->config = (object) array();
-		    }
-		    $sconfig = $site->config;
-		    if(isset($sconfig->scanned) && ($sconfig->scanned)){
-		        ?>
-    				<div class="card-body row justify-content-center" style="min-height: 30vh;">
-						<div class="row w-100 m-0 justify-content-center">
-							<h4 class="my-auto">Congratulations !! Your site is now integrated with Nuzuka app</h4>
-						</div>
-						<div class="row w-100 m-0 justify-content-center">
-							<button class="btn btn-primary w-25 my-auto" onclick="return launchApp();">Launch App</button>
-						</div>
-			   		</div>
-		   		<?php                     
-		    }else {
-		        ?>
-                   	<script>
-                 	    function scanSite(){
-                			$('#modal_site_name').text(sname);
-                			$('#scan_modal').modal('show');
-                	    	var pdata = {'oc': oc,'pc': pc, 'sid' : sid};
-                			var postUrl = "https://api.pearnode.com/nuzuka/site/scan/page_open.php"; 
-                			$('#page_scan_result').html('<img src="https://static-158c3.kxcdn.com/images//ajax/loader-snake-blue.gif" style="width: 1.5vw;"/>');
-                		    $.post(postUrl, JSON.stringify(pdata), function(data) {
-                		    	var robj = $.parseJSON(data);
-                		    	var pgstatus = robj.status;
-                		    	if(pgstatus.status == "success"){
-                			    	$('#page_scan_result').html(robj.fetch_ctr + " found, " + robj.add_ctr + " added, " + robj.update_ctr + " updated");
-                			    	postUrl = "https://api.pearnode.com/nuzuka/site/scan/post_open.php"; 
-                					$('#post_scan_result').html('<img src="https://static-158c3.kxcdn.com/images//ajax/loader-snake-blue.gif" style="width: 1.5vw;"/>');
-                				    $.post(postUrl, JSON.stringify(pdata), function(data) {
-                				    	var robj = $.parseJSON(data);
-                				    	var psstatus = robj.status;
-                				    	if(psstatus.status == "success"){
-                					    	$('#post_scan_result').html(robj.fetch_ctr + " found, " + robj.add_ctr + " added, " + robj.update_ctr + " updated");
-                					    	var postUrl = "https://api.pearnode.com/nuzuka/site/scan/update.php"; 
-                					    	 $.post(postUrl, JSON.stringify(pdata), function(data) {
-                     					    	$('#scan_container').hide();
-                    					    	$('#launch_container').fadeIn(200);
-                					    	 });
-                				    	}else {
-                				    		$('#post_scan_result').html("Error in scanning : <b style='color:red;'>" + pgstatus.code + "</b>");
-                				    	}
-                				    });
-                		    	}else {
-                		    		$('#page_scan_result').html("Error in scanning : <b style='color:red;'>" + pgstatus.code + "</b>");
-                		    	}
-                		    });
-                		    return false;
-                		}
-            	    </script>
-					<div class="card-body row justify-content-center" style="min-height: 30vh;"  id="scan_container">
-						<div class="row w-100 m-0 justify-content-center">
-							<h4 class="my-auto">Your site is now ready for Integration</h4>
-						</div>
-						<div class="row w-100 m-0 justify-content-center">
-							<button class="btn btn-primary w-25 my-auto" onclick="return scanSite();">Scan and integrate now</button>
-						</div>
-			   		</div>
-			   		<div class="card-body row justify-content-center" style="min-height: 30vh;display:none;"  id="launch_container">
-						<div class="row w-100 m-0 justify-content-center">
-							<h4 class="my-auto">Congratulations !! Your site is now integrated with Nuzuka app</h4>
-						</div>
-						<div class="row w-100 m-0 justify-content-center">
-							<button class="btn btn-primary w-25 my-auto" onclick="return launchApp();">Launch App</button>
-						</div>
-			   		</div>
-		   		<?php    
-		    }
+    		    if(!isset($site->config)){
+    		        $site->config = (object) array();
+    		    }
+    		    $sconfig = $site->config;
+    		    if(isset($sconfig->scanned) && ($sconfig->scanned)){
+    		        include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/launch-app.php');
+		        }else {
+		            include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/site-unscanned.php');
+		        }
         }else {
-        ?>
-					<form action='<?php echo get_admin_url(); ?>admin-post.php' method='post'>
-    					<div class="card-header bg-light w-100" style="font-weight: bold;">
-    						Enter Business Registration details. 
-    						<div class="float-right">Not Registered yet ? 
-    							<a class="link link-primary my-auto" href="https://app.nuzuka.com/wp_register.html" target="_nzkwpregister">Register here</a>
-    						</div>
-    					</div>
-    					<div class="card-body w-100">
-    						<div class="form-group">
-    						    <label for="authtoken">Auth token</label>
-    						    <textarea rows="4" class="form-control" id="authtoken" name="authtoken" required="required"></textarea>
-    					    	<small id="authtokenhelp" class="form-text text-muted">Enter the Authorization token here</small>
-    						</div>
-    						<input type='hidden' name='action' value='nuzuka_registration_form' />
-    					</div>
-    					<div class="card-footer w-100">
-    						<button class="btn btn-primary w-100" type="submit">
-    							Start the journey !!!
-    						</button>
-    					</div>
-					</form>
-		<?php
+            include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/attach-token.php');
         }
-        ?>
-        					</div>
-        				</div>
-        			</div>
-        		</div>
-    		</section>
-		</body>
-		<?php 
+		include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/common-footer.php');
+    }
+    
+    function nuzuka_plugin_site() {
+        global $org, $profile, $user, $cred_file;
+        $out = "";
+        if(file_exists($cred_file)){
+            $out = file_get_contents($cred_file);
+        }
+        if($out != ""){
+            $cred = json_decode($out);
+            $org = $cred->org;
+            $profile = $cred->profile;
+            $user = $cred->user;
+        }else {
+            $foo = menu_page_url("nuzuka-plugin-settings");
+            exit( wp_redirect($foo));
+        }
     }
     
     function handle_submit_nuzuka_registration_form(){
@@ -333,19 +209,13 @@
         curl_close($ch);
 
         file_put_contents($cred_file, $cout);
-        exit( wp_redirect("options-general.php?page=nuzuka-plugin-configuration") );
+        exit( wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
     }
     
     function nuzuka_do_admin_init(){
-		add_menu_page(
-			'Nuzuka Configuration', 
-			'Nuzuka', // menu link text
-			'manage_options', // capability to access the page
-			'nuzuka-plugin-configuration', 
-			'nuzuka_render_configuration', // callback function /w content
-			'dashicons-superhero', // menu icon
-			5 // priority
-		);
+		add_menu_page('Nuzuka', 'Nuzuka', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings', 'dashicons-superhero', 5);
+		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Settings', 'Settings', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings');
+		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Site', 'Site', 'manage_options', 'nuzuka-plugin-site', 'nuzuka_plugin_site');
     }
 
     add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');
