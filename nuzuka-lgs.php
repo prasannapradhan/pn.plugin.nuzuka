@@ -227,6 +227,39 @@
             exit(wp_redirect($foo));
         }
     }
+
+    function nuzuka_plugin_page_visitors() {
+        global $org, $profile, $user, $cred_file;
+        $out = "";
+        if(file_exists($cred_file)){
+            $out = file_get_contents($cred_file);
+        }
+        if($out != ""){
+            $cred = json_decode($out);
+            $org = $cred->org;
+            $profile = $cred->profile;
+            $user = $cred->user;
+            
+            $rdata = (object) array();
+            $rdata->oc = $org->code;
+            $rdata->pc = $profile->code;
+            $rdata->surl = get_site_url();
+            $ch = curl_init("https://api.pearnode.com/nuzuka/site/details_url.php");
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            $cout = curl_exec($ch);
+            curl_close($ch);
+            
+            $site = json_decode($cout);
+            include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/visitors.php');
+        }else {
+            $foo = menu_page_url("nuzuka-plugin-settings");
+            exit( wp_redirect($foo));
+        }
+    }
     
     function nuzuka_plugin_page_dashboard() {
         global $org, $profile, $user, $cred_file;
@@ -265,6 +298,7 @@
 		add_menu_page('Nuzuka', 'Nuzuka', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings', 'dashicons-superhero', 5);
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Settings', 'Settings', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Site Pages', 'Pages', 'manage_options', 'nuzuka-plugin-page-site', 'nuzuka_plugin_page_site');
+		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Visitors', 'Visitors', 'manage_options', 'nuzuka-plugin-page-visitors', 'nuzuka_plugin_page_visitors');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Dashboard', 'Dashboard', 'manage_options', 'nuzuka-plugin-page-dashboard', 'nuzuka_plugin_page_dashboard');
     }
 
