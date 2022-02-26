@@ -34,8 +34,12 @@
     					}
     				</script>
     				<ul class="w-100 ml-3" style="font-size: 15px !important;list-style-type: square;">
-                      <li class="p-1">You can find all your site pages in <a href="#" onclick="return submitNavigationForm('nuzuka-plugin-page-site')"><b>Pages</b></a> page.</li>
-                      <li class="p-1">The operational dashboard can be found in <a href="#"><b>Dashboard</b></a> page.</li>
+                      <li class="p-1">You can find all your site pages in 
+                      	<a href="#" onclick="return submitNavigationForm('nuzuka-plugin-page-site')"><b>Pages</b></a> page.
+                      </li>
+                      <li class="p-1">The operational dashboard can be found in 
+                      	<a href="#" onclick="return submitNavigationForm('nuzuka-plugin-page-dashboard')"><b>Dashboard</b></a> page.
+                      </li>
                       <li class="p-1">Site visitors can be found in <a href="#"><b>Visitors</b></a> page.</li>
                       <li class="p-1">Advanced features like Widget Creation, Inventory Declaration, Enquiry Operations, Customer management, Multisite Monitoriing 
                       		and much more are found in the <a href="#" onclick="return launchApp();"><b>Nuzuka App</b></a>
