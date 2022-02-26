@@ -38,11 +38,6 @@
 		  </div>
 		</div>
 	
-		<div class="row w-100 m-0 p-2">
-		  <a href="https://nuzuka.com">
-			<img src="http://nuzuka.com/wp-content/uploads/2021/10/Nuzuka-Logo.png" width="128px;">
-		  </a>
-		</div>
 		<hr class="m-0" />
 		
 		<section class="p-1">

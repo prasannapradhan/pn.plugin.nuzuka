@@ -185,7 +185,14 @@
         curl_close($ch);
         
         file_put_contents($cred_file, $cout);
-        exit( wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
+        exit(wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
+    }
+    
+    function handle_submit_nuzuka_navigation_form(){
+        $regdata = (object) $_POST;
+        $odata = (object) array();
+        $slug = $regdata->navslug;
+        exit(wp_redirect("admin.php?page=$slug"));
     }
     
     function nuzuka_plugin_page_site() {
@@ -217,7 +224,7 @@
             include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/pages.php');
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
-            exit( wp_redirect($foo));
+            exit(wp_redirect($foo));
         }
     }
     
@@ -267,6 +274,7 @@
     
     add_action('wp_footer', 'nuzuka_footer_append');
     add_action('admin_menu', 'nuzuka_do_admin_init');
-    add_action('admin_post_nuzuka_registration_form', 'handle_submit_nuzuka_registration_form'); // If the user is logged in
+    add_action('admin_post_nuzuka_registration_form', 'handle_submit_nuzuka_registration_form');
+    add_action('admin_post_nuzuka_navigation_form', 'handle_submit_nuzuka_navigation_form');
     
     
