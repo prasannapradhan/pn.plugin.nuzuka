@@ -19,8 +19,8 @@
 				    	$('#post_scan_result').html(robj.fetch_ctr + " found, " + robj.add_ctr + " added, " + robj.update_ctr + " updated");
 				    	var postUrl = "https://api.pearnode.com/nuzuka/site/scan/update.php"; 
 				    	 $.post(postUrl, JSON.stringify(pdata), function(data) {
- 					    	$('#scan_container').hide();
-					    	$('#launch_container').fadeIn(200);
+ 					    	// TODO navigate to site settings page.
+	 					    submitNavigationForm('nuzuka-plugin-page-site');
 				    	 });
 			    	}else {
 			    		$('#post_scan_result').html("Error in scanning : <b style='color:red;'>" + pgstatus.code + "</b>");
@@ -32,6 +32,17 @@
 	    });
 	    return false;
 	}
+	
+	function submitNavigationForm(navslug){
+		var form = document.getElementById('navigation_form');
+		var hiddenField = document.createElement('input');
+	    hiddenField.type = 'hidden';
+	    hiddenField.name = 'navslug';
+	    hiddenField.value = navslug;
+	    form.appendChild(hiddenField);
+	    form.submit();
+	    return false;
+	}
 </script>
 <div class="card-body row justify-content-center" style="min-height: 30vh;"  id="scan_container">
 	<div class="row w-100 m-0 justify-content-center">
@@ -40,12 +51,7 @@
 	<div class="row w-100 m-0 justify-content-center">
 		<button class="btn btn-primary w-25 my-auto" onclick="return scanSite();">Integrate now</button>
 	</div>
-</div>
-<div class="card-body row justify-content-center" style="min-height: 30vh;display:none;"  id="launch_container">
-	<div class="row w-100 m-0 justify-content-center">
-		<h4 class="my-auto">Congratulations !! Your site is now integrated with Nuzuka app</h4>
-	</div>
-	<div class="row w-100 m-0 justify-content-center">
-		<button class="btn btn-primary w-25 my-auto" onclick="return launchApp();">Launch App</button>
-	</div>
+	<form action='<?php echo get_admin_url(); ?>admin-post.php' method='post' id="navigation_form">
+        <input type='hidden' name='action' value='nuzuka_navigation_form' />
+    </form>
 </div>
