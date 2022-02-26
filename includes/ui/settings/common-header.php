@@ -38,8 +38,6 @@
 		  </div>
 		</div>
 	
-		<hr class="m-0" />
-		
 		<section class="p-1">
         		<div class="row w-100 m-0 justify-content-center">
         			<div class="container">

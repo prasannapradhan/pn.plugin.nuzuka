@@ -1,5 +1,5 @@
 <form action='<?php echo get_admin_url(); ?>admin-post.php' method='post' id="registration_form">
-	<div class="card-header bg-light w-100" style="font-weight: bold;">
+	<div class="card-header bg-light w-100 mt-2" style="font-weight: bold;">
 		Integrate Nuzuka to your site 
 		<div class="float-right">Not Registered yet ? 
 			<a class="link link-primary my-auto" href="https://app.nuzuka.com/wp_register.html" target="_nzkwpregister">Register here</a>
