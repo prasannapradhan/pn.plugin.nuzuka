@@ -11,8 +11,8 @@
 	<link rel="stylesheet" href="https://static-158c3.kxcdn.com/tools/fontawsome/6.0.0/css/all.min.css">
     <link href="https://static-158c3.kxcdn.com/tools/nprogress/nprogress.css" rel="stylesheet">
 	<link href="https://static-158c3.kxcdn.com/tools/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="/assets/css/bootstrap/main-style.css" rel="stylesheet" />
-	<link href="/assets/css/screen_resolution.css" rel="stylesheet" />
+	<link href="https://static-158c3.kxcdn.com/pearnode/css/bs_theme.css" rel="stylesheet" />
+	<link href="https://static-158c3.kxcdn.com/pearnode/css/screen_resolution.css" rel="stylesheet" />
 		
     <script src="https://static-158c3.kxcdn.com/tools/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
     <script src="https://static-158c3.kxcdn.com/tools/moment/moment.min.js" type="text/javascript"></script>
@@ -49,7 +49,7 @@
 	<script id="path_sel_tmpl" type="text/html">
 		<div class="card-deck justify-content-center">
 		{{#records}}
-			<div class="card mb-2 item_row" style="min-width: 16rem; max-width: 16rem;">
+			<div class="card mb-1 item_row" style="min-width: 18rem; max-width: 18rem;margin-top:0px !important;padding:0.25rem !important;">
 				<div class="card-header d-flex justify-content-center">
 					<div class="col-auto"><span class="badge badge-primary" id="wtext_{{id}}">{{widgets}}</span></div>
 				</div>
@@ -72,24 +72,12 @@
 				</div>
 				<div class="card-footer">
 					<div class="row d-flex justify-content-center">
-						<button class="btn btn-sm btn-light" onclick="parent.showSitePageHitPaths({{site_ref}}, {{id}}, 'page_listing')"
-							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Show Hit Paths">
-							<img src="https://static-158c3.kxcdn.com/images/page-traffic.png" style="max-width:1.4vw"/>
-						</button>
-						<button class="btn btn-sm btn-light" onclick="parent.showSitePageHitDashboard({{site_ref}}, {{id}}, 'page_listing');"
-							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Show Hit Dashboard">
-							<img src="https://static-158c3.kxcdn.com/images/dashboard.png" style="max-width:1.4vw"/>
-						</button>
-						<button class="btn btn-sm btn-light" onclick="updatePage({{site_ref}}, {{id}}, '{{page_type}}');"
-							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Update page from site">
-							<img src="https://static-158c3.kxcdn.com/images/pushdown.png" style="max-width:1.4vw"/>
-						</button>
 						<button class="btn btn-sm btn-light" onclick="return enableWidget({{site_ref}}, {{id}});"
 							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Enable / Disable Nuzuka widget">
 							<img src="https://static-158c3.kxcdn.com/images/z.png" style="max-width:1.4vw;max-height:2.0vh;"/>
 						</button>
 						<button class="btn btn-sm btn-light" onclick="return inactivatePage({{id}})"
-							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Inactivate Page">
+							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Stop Monitoring Page">
 							<img src="https://static-158c3.kxcdn.com/images/bin.png" style="max-width:1.4vw"/>
 						</button>
 					</div>
@@ -110,13 +98,11 @@
 	    var selectedPage = {};
 	    var widgetMap = {};
 	    var pageMap = {};
-		var allowPluginModification = false;
 		var psum = {'direct' : 0, 'google' : 0, 'facebook' : 0, 'total' : 0};
 		var ssum = {};
 		var schartStore = {};
 		
 	    $(document).ready(function() {
-	    	sid = getReqParam('sid');
 	    	displayPageListing();
 		});
 
@@ -130,12 +116,6 @@
 			var pdata = {'oc' : oc, 'pc' : pc, 'sid': sid};
 			$.post(purl, JSON.stringify(pdata), function(data) {
 				site = $.parseJSON(data);
-    			var conf = site.config;
-    			if(typeof conf.plugin_status != "undefined"){
-        			if(conf.plugin_status == "active"){
-        				allowPluginModification = true;
-        			}
-    			}
 				$('#site_name').text(site.site_name);
 				paths = site.paths;
 				$('#pages_text').text(paths.length + " pages");
@@ -230,18 +210,12 @@
     	}
 		
 		function enableWidget(site_ref, page_ref){
-			if(allowPluginModification){
-				NProgress.start();
-				selectedPage = pageMap[page_ref];
-				loadWidgets(function(){
-					$('#widget_apply_modal').modal('show');
-				    NProgress.done();
-				});
-			}else {
-				var html = 'Please download, install and activate Nuzuka Lead Management plugin first.';
-				html += '<br /> <a href="#" onclick="return parent.showSupport();"> <b>download here</b></a>';
-				showMessage('Plugin not active', html , 'error');
-			}
+			NProgress.start();
+			selectedPage = pageMap[page_ref];
+			loadWidgets(function(){
+				$('#widget_apply_modal').modal('show');
+			    NProgress.done();
+			});
 			return false;
 		}
 		
@@ -463,8 +437,7 @@
 </head>
 
 <body>
-	<div class="container mt-2">
-		
+	<div class="container-fluid" style="overflow-y:hidden;">
 		<div class="row w-100 rounded" style="margin-left: 0px;">
 			<div class="row w-100 mb-1 rounded bg-light p-2 border-2" style="margin-left: 0px;">
 				<div class="col-9 p-1" style="font-size: 13px;">
@@ -473,9 +446,6 @@
 				</div>
 				<div class="col-3 p-1 d-flex justify-content-end" style="font-size: 13px;">
 					<div class="btn-group" role="group">
-						<button class="btn btn-sm btn-outline-secondary" onclick="return parent.showSites();" id="back_btn">
-							<b>Back</b>
-						</button>
 						<button class="btn btn-sm btn-outline-secondary" onclick="return scanSite();" id="scan_site_btn">
 							<b>Scan</b>
 						</button>
@@ -500,21 +470,25 @@
 			</div>
 			
 			<div class="row w-100 m-0 p-1" id="page_dashboard_container" style="overflow-x:hidden;display: none;">
-		   		<div class="card w-100">
-		   			<div class="card-header">
-						<b>Distribution by <span class="badge badge-secondary" style="font-size: 14px;">Traffic Provider</span></b>
-					</div>
-			   		<div class="card-body" style="height: 30vh !important;">
-						<canvas id="provider_chart" style="width:100%;height:100%;"></canvas>
-					</div>		
-		   		</div>
-		   		<div class="card w-100 mt-2">
-		   			<div class="card-header">
-		   				<b>Distribution by <span class="badge badge-secondary" style="font-size: 14px;">Page hits</span></b>
-		   			</div>
-			   		<div class="card-body" style="height: 100vh !important;">
-						<canvas id="hits_chart" style="width:100%;height:100%;"></canvas>
-					</div>		
+				<div class="row w-100 m-0">
+    		   		<div class="container-fluid">
+    		   			<div class="card-header">
+    						<b>Distribution by <span class="badge badge-secondary" style="font-size: 14px;">Traffic Provider</span></b>
+    					</div>
+    			   		<div class="card-body" style="height: 30vh !important;">
+    						<canvas id="provider_chart" style="width:100%;height:100%;"></canvas>
+    					</div>		
+    		   		</div>
+				</div>
+				<div class="row w-100 m-0">
+    		   		<div class="container-fluid">
+    		   			<div class="card-header">
+    		   				<b>Distribution by <span class="badge badge-secondary" style="font-size: 14px;">Page hits</span></b>
+    		   			</div>
+    			   		<div class="card-body" style="height: 80vh !important;">
+    						<canvas id="hits_chart" style="width:100%;height:100%;"></canvas>
+    					</div>		
+    				</div>
 				</div>
 		    </div>
 			

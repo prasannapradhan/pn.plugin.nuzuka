@@ -16,23 +16,17 @@
     $cred_file = $plugin_dir."credentials.json";
     
     function nuzuka_json_basic_auth_handler( $user ) {
-        // Don't authenticate twice
-        if ( ! empty( $user ) ) {
+        if (!empty($user)) {
             return $user;
         }
-        
-        // Check that we're trying to authenticate
-        if ( !isset( $_SERVER['PHP_AUTH_USER'] ) ) {
+        if(!isset($_SERVER['PHP_AUTH_USER'])) {
             return $user;
         }
-        
         $username = $_SERVER['PHP_AUTH_USER'];
         $password = $_SERVER['PHP_AUTH_PW'];
-        
         remove_filter( 'determine_current_user', 'nuzuka_json_basic_auth_handler', 20 );
         $user = wp_authenticate( $username, $password );
         add_filter( 'determine_current_user', 'nuzuka_json_basic_auth_handler', 20 );
-        
         if ( is_wp_error( $user ) ) {
             return null;
         }
@@ -40,8 +34,7 @@
     }
     
     function nuzuka_json_basic_auth_error( $error ) {
-        // Passthrough other errors
-        if ( ! empty( $error ) ) {
+        if (!empty($error)) {
             return $error;
         }
         global $wp_json_basic_auth_error;
@@ -170,7 +163,7 @@
 		include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/common-footer.php');
     }
     
-    function nuzuka_plugin_site() {
+    function nuzuka_plugin_page_site() {
         global $org, $profile, $user, $cred_file;
         $out = "";
         if(file_exists($cred_file)){
@@ -197,6 +190,39 @@
             
             $site = json_decode($cout);
             include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/pages.php');
+        }else {
+            $foo = menu_page_url("nuzuka-plugin-settings");
+            exit( wp_redirect($foo));
+        }
+    }
+    
+    function nuzuka_plugin_page_dashboard() {
+        global $org, $profile, $user, $cred_file;
+        $out = "";
+        if(file_exists($cred_file)){
+            $out = file_get_contents($cred_file);
+        }
+        if($out != ""){
+            $cred = json_decode($out);
+            $org = $cred->org;
+            $profile = $cred->profile;
+            $user = $cred->user;
+            
+            $rdata = (object) array();
+            $rdata->oc = $org->code;
+            $rdata->pc = $profile->code;
+            $rdata->surl = get_site_url();
+            $ch = curl_init("https://api.pearnode.com/nuzuka/site/details_url.php");
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            $cout = curl_exec($ch);
+            curl_close($ch);
+            
+            $site = json_decode($cout);
+            include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/dashboard.php');
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
             exit( wp_redirect($foo));
@@ -231,7 +257,8 @@
     function nuzuka_do_admin_init(){
 		add_menu_page('Nuzuka', 'Nuzuka', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings', 'dashicons-superhero', 5);
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Settings', 'Settings', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings');
-		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Site', 'Site', 'manage_options', 'nuzuka-plugin-site', 'nuzuka_plugin_site');
+		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Site', 'Site', 'manage_options', 'nuzuka-plugin-page-site', 'nuzuka_plugin_page_site');
+		dd_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Dashboard', 'Site', 'manage_options', 'nuzuka-plugin-page-dashboard', 'nuzuka_plugin_page_dashboard');
     }
 
     add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');
