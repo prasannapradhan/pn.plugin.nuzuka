@@ -309,4 +309,9 @@
     add_action('admin_post_nuzuka_registration_form', 'handle_submit_nuzuka_registration_form');
     add_action('admin_post_nuzuka_navigation_form', 'handle_submit_nuzuka_navigation_form');
     
+    add_action('in_admin_header', function () {
+        remove_all_actions('admin_notices');
+        remove_all_actions('all_admin_notices');
+    }, 1000);
+    
     
