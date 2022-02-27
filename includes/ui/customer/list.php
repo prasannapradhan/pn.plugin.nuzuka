@@ -41,14 +41,6 @@
 			}
 		</style>
 
-		<script id="tags_template" type="text/html">
-			{{#taglist}}
-			    	<button class="btn btn-sm btn-outline-secondary" onclick="loadConsumersByTag('{{id}}')" id="tf_{{.}}" style="margin-left:3px;">
-						{{name}}<span class="badge badge-success" style="margin-left:5px;">{{cnt}}</span>
-					</button>
-			{{/taglist}}
-		</script>
-		
 		<script id="ctmpl" type="text/html">
 			<table id="item_tbl" class="table table-sm table-hover table-bordered" style="width:100%;">
 				<thead>
@@ -61,7 +53,6 @@
 						<th>Email</th>
 						<th style="text-align:center;">Phone</th>
 						<th style="text-align:center;">Tags</th>
-						<th style="text-align:center;">Action</th>
 					</tr>
 				</thead>
 				<tbody style="width:100%" id="items_container">
@@ -71,9 +62,7 @@
 								<input type="checkbox" class='item_sel' iid="{{id}}" checked='checked'/>
 							</td>
 							<td width="15%" id='item_name_{{id}}' class='item_name'>
-								<a href="#" onclick="return parent.showCustomerEnquiries({{user_ref}});">
-									<span style="margin-left:5px;font-weight:bold;">{{dname}}</span>
-								</a>
+								<span style="margin-left:5px;font-weight:bold;">{{dname}}</span>
 							</td>
 							<td width="15%" id='item_submissions_{{id}}' class='item_submissions' style="text-align:center;">
 								<span class="badge badge-success" style="font-size:13px;">L-{{lcnt}}</span>
@@ -82,12 +71,6 @@
 							<td width="10%" id='item_email_{{id}}' class='item_email'><span style="margin-left:5px;">{{email}}</span></td>
 							<td width="10%" id='item_phone_{{id}}' class='item_unit' style="text-align:center;">{{phone}}</td>
 							<td width="25%" id='item_tags_{{id}}' class='item_tags' style="text-align:center;">{{tags}}</td>
-							<td width="10%" id='item_action_{{id}}' class='item_action' style="text-align:center;">
-								<button class="btn btn-sm btn-light" onclick="return editConsumer({{id}})" 
-									data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Update details" >
-									<img src="https://static-158c3.kxcdn.com/images/edit.png" style="width:16px;height:16px;"/>	
-								</button>
-							</td>
 						 </tr>
 					{{/records}} 				
 				</tbody>
@@ -167,20 +150,6 @@
 					NProgress.done();
 				}
 				
-				function displayTags(tags){
-					$('#tag_container').empty();
-					var ttmpl = document.getElementById("tags_template").innerHTML;
-					$.each(tags, function(idx, tag){
-						tag.id = idx;
-					})
-					var mdata = {"taglist" : tags};
-					$('#tag_container').html(Mustache.render(ttmpl, mdata));
-					$.each(filteredTags, function(idx, tag){
-						$('#tf_' + tag).removeClass('badge-light');
-						$('#tf_' + tag).addClass('badge-info');
-					});
-				}
-				
 				function toggleSelection(){
 					if(all_selected){
 						all_selected = false;
@@ -205,7 +174,7 @@
 					<ul class="navbar-nav mr-auto">
 				        <li class="nav-item">
 					      	<a class="btn btn-outline-secondary" href="#" onclick="return loadConsumers();" style="margin-left: 5px;">
-					      		<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.4vw"/><b style="margin-left: 5px;">Refresh</b>
+					      		<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
 					      	</a>
 				        </li>
 				        <li class="nav-item">
