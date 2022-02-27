@@ -120,7 +120,7 @@ Automatic updates should work smoothly, but we still recommend you back up your 
 
 == Changelog ==
 
-= 1.0.0 2022-02-08 =
+= 1.0.0 2022-02-28 =
 
 **Nuzuka Wordpress Plugin**
 
