@@ -186,27 +186,6 @@
         exit(wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
     }
     
-    function handle_submit_nuzuka_woocommerce_config_form(){
-        global $org, $profile, $user, $cred_file;
-        
-        $regdata = (object) $_POST;
-        $regdata->oc = $org->code;
-        $regdata->pc = $profile->code;
-        
-        $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/updatewoocommerce.php");
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($regdata));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_FAILONERROR, true);
-        curl_exec($ch);
-        curl_close($ch);
-        
-        include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/common-header.php');
-        include( plugin_dir_path( __FILE__ ) . 'includes/ui/woocommerce/unscanned.php');
-        include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/common-footer.php');
-    }
-    
     function handle_submit_nuzuka_navigation_form(){
         $regdata = (object) $_POST;
         $slug = $regdata->navslug;
@@ -393,7 +372,6 @@
     add_action('wp_footer', 'nuzuka_footer_append');
     add_action('admin_menu', 'nuzuka_do_admin_init');
     add_action('admin_post_nuzuka_registration_form', 'handle_submit_nuzuka_registration_form');
-    add_action('admin_post_nuzuka_woocommerce_config_form', 'handle_submit_nuzuka_woocommerce_config_form');
     add_action('admin_post_nuzuka_navigation_form', 'handle_submit_nuzuka_navigation_form');
     
     add_action('in_admin_header', function () {
