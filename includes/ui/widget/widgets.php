@@ -168,6 +168,12 @@
 				  } 
 			   })
 			}
+
+			function launchAppFunction(){
+	    		var url = "https://app.nuzuka.com/wp_launch.html?oc=" + oc + "&pc=" + pc + "&uck=" + uck + "&fn=Widgets";
+	    		window.open(url, "nuzuka_app");
+	    		return false;
+			}
 		</script>
 	</head>
 
@@ -183,7 +189,7 @@
 			</ul>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item p-1">
-					<button class="btn btn-primary">Manage</button>
+					<button class="btn btn-primary" onclick="return launchAppFunction();">Manage</button>
 				</li>
 			</ul>
 		</nav>

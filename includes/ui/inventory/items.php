@@ -183,6 +183,7 @@
 		function launchAppFunction(){
     		var url = "https://app.nuzuka.com/wp_launch.html?oc=" + oc + "&pc=" + pc + "&uck=" + uck + "&fn=Services";
     		window.open(url, "nuzuka_app");
+    		return false;
 		}
 	
 	</script>

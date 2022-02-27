@@ -169,6 +169,7 @@
 			function launchAppFunction(){
         		var url = "https://app.nuzuka.com/wp_launch.html?oc=" + oc + "&pc=" + pc + "&uck=" + uck + "&fn=ListConsumers";
         		window.open(url, "nuzuka_app");
+        		return false;
     		}
 		</script>
 	</head>
@@ -190,7 +191,7 @@
 			</ul>
 			<ul>
 				<li class="nav-item">
-			      	<button class="btn btn-sm btn-primary" data-toggle="popover" data-trigger="hover" data-placement="top" 
+			      	<button class="btn btn-primary" data-toggle="popover" data-trigger="hover" data-placement="top" 
 							data-content="Manage in App" onclick="return launchAppFunction();">
 							Manage
 					</button>

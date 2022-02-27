@@ -330,6 +330,12 @@
 		  }
 		  NProgress.done();
 		}
+
+		function launchAppFunction(){
+    		var url = "https://app.nuzuka.com/wp_launch.html?oc=" + oc + "&pc=" + pc + "&uck=" + uck + "&fn=LeadOperations";
+    		window.open(url, "nuzuka_app");
+    		return false;
+		}
 	</script>
 </head>
 <body>
@@ -360,7 +366,7 @@
 				</div>
 			</li>
 			<li class="nav-item">
-				<button class="btn btn-primary" style="margin-left: 5px;">Manage</button>
+				<button class="btn btn-primary" style="margin-left: 5px;" onclick="return launchAppFunction();">Manage</button>
 			</li>
 		</ul>
 	</nav>
