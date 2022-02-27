@@ -1,7 +1,7 @@
 <?php
     /**
      * Plugin Name: Nuzuka Enquiry Capture
-     * Description: Nuzuka Enquiry Capture is a replacement of contact form to track your site vistors and capture every customer enquiry in a Sales perspective.
+     * Description: Nuzuka Enquiry Capture is a super replacement of contact forms.
      * Author: Nuzuka Technology Team
      * Author URI: https://pearnode.com
      * Version: 0.1
@@ -186,9 +186,27 @@
         exit(wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
     }
     
+    function handle_submit_nuzuka_woocommerce_config_form(){
+        global $org, $profile, $user, $cred_file;
+        
+        $regdata = (object) $_POST;
+        $regdata->oc = $org->code;
+        $regdata->pc = $profile->code;
+        
+        $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/updatewoocommerce.php");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($regdata));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        curl_exec($ch);
+        curl_close($ch);
+        
+        exit(wp_redirect("options-general.php?page=nuzuka-plugin-page-site") );
+    }
+    
     function handle_submit_nuzuka_navigation_form(){
         $regdata = (object) $_POST;
-        $odata = (object) array();
         $slug = $regdata->navslug;
         exit(wp_redirect("admin.php?page=$slug"));
     }
@@ -292,12 +310,59 @@
         }
     }
     
+    function nuzuka_plugin_page_woocommerce() {
+        global $org, $profile, $user, $cred_file;
+        $out = "";
+        if(file_exists($cred_file)){
+            $out = file_get_contents($cred_file);
+        }
+        if($out != ""){
+            $cred = json_decode($out);
+            $org = $cred->org;
+            $profile = $cred->profile;
+            $user = $cred->user;
+            
+            $rdata = (object) array();
+            $rdata->oc = $org->code;
+            $rdata->pc = $profile->code;
+            $rdata->surl = get_site_url();
+            $ch = curl_init("https://api.pearnode.com/nuzuka/site/details_url.php");
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            $cout = curl_exec($ch);
+            curl_close($ch);
+            
+            $site = json_decode($cout);
+            $wc_consumer_key = "";
+            $wc_consumer_secret = "";
+            if(isset($site->config)){
+                $sconfig = $site->config;
+                if(isset($sconfig->commerce)){
+                    if($sconfig->commerce == "woocommerce"){
+                        if(isset($sconfig->woocommerce)){
+                            $wc_consumer_key = $sconfig->woocommerce->woocommerce_consumer_key;
+                            $wc_consumer_secret = $sconfig->woocommerce->woocommerce_consumer_secret;
+                        }
+                    }
+                }
+            }
+            include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/configure-woocommerce.php');
+        }else {
+            $foo = menu_page_url("nuzuka-plugin-settings");
+            exit( wp_redirect($foo));
+        }
+    }
+    
     function nuzuka_do_admin_init(){
 		add_menu_page('Nuzuka', 'Nuzuka Beta', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings', 'dashicons-superhero', 5);
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Settings', 'Settings', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Site Pages', 'Pages', 'manage_options', 'nuzuka-plugin-page-site', 'nuzuka_plugin_page_site');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Visitors', 'Visitors', 'manage_options', 'nuzuka-plugin-page-visitors', 'nuzuka_plugin_page_visitors');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Dashboard', 'Dashboard', 'manage_options', 'nuzuka-plugin-page-dashboard', 'nuzuka_plugin_page_dashboard');
+		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Woocommerce', 'Woocommerce', 'manage_options', 'nuzuka-plugin-page-woocommerce', 'nuzuka_plugin_page_woocommerce');
     }
 
     add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');
@@ -307,6 +372,7 @@
     add_action('wp_footer', 'nuzuka_footer_append');
     add_action('admin_menu', 'nuzuka_do_admin_init');
     add_action('admin_post_nuzuka_registration_form', 'handle_submit_nuzuka_registration_form');
+    add_action('admin_post_nuzuka_woocommerce_config_form', 'handle_submit_nuzuka_woocommerce_config_form');
     add_action('admin_post_nuzuka_navigation_form', 'handle_submit_nuzuka_navigation_form');
     
     add_action('in_admin_header', function () {
