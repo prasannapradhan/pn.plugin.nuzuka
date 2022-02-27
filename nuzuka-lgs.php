@@ -153,7 +153,7 @@
     		    if(isset($sconfig->scanned) && ($sconfig->scanned)){
     		        include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/launch-app.php');
 		        }else {
-		            include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/site-unscanned.php');
+		            include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/unscanned.php');
 		        }
         }else {
             include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/attach-token.php');
@@ -202,7 +202,9 @@
         curl_exec($ch);
         curl_close($ch);
         
-        exit(wp_redirect("options-general.php?page=nuzuka-plugin-page-site") );
+        include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/common-header.php');
+        include( plugin_dir_path( __FILE__ ) . 'includes/ui/woocommerce/unscanned.php');
+        include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/common-footer.php');
     }
     
     function handle_submit_nuzuka_navigation_form(){
