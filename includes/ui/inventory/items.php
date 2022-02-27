@@ -63,6 +63,8 @@
 	<script>
     	var oc = '<?php echo $org->code; ?>';
     	var pc = '<?php echo $profile->code; ?>';
+    	var oid = '<?php echo $org->id; ?>';
+    	var pid = '<?php echo $profile->id; ?>';
     	var uid = '<?php echo $user->id; ?>';
     	var uck = '<?php echo $user->ck; ?>';
 
@@ -217,7 +219,7 @@
 	  <div class="row w-100 m-0" style="padding-left: 1rem;padding-right: 1rem;">
 		  <div class="row w-100 scrollcontainer p-2 justify-content-center" id="items_container" style="display: none;"></div>
 		  <div class="row w-100 justify-content-center mt-4" style="margin-left: 0px;display: none;" id="no_items_container">
-		  	<div class="alert alert-xl alert-info w-75">No services found. Add a service <a href="#" onclick="openCreate();" class="link-primary"><b>here</b></a></div>
+		  	<div class="alert alert-xl alert-info w-75">No services found. Add a service <a href="#" onclick="launchAppFunction();" class="link-primary"><b>here</b></a></div>
 		  </div>
 	  </div>
 </body>

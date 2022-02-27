@@ -196,7 +196,7 @@
 		<div class="wrapper pl-2 pr-2">
 			<div id="records_container" class="scrollcontainer bg-white"></div>
 			<div class="row w-100 justify-content-center" style="margin-left: 0px;display: none;" id="no_items_container">
-	  			<div class="alert alert-info w-100">No widgets found. Generate one <a href="#" onclick="openCreate();" class="link-primary"><b>here</b></a></div>
+	  			<div class="alert alert-info w-100">No widgets found. Generate one <a href="#" onclick="launchAppFunction();" class="link-primary"><b>here</b></a></div>
 	  		</div>
 		</div>
 		
