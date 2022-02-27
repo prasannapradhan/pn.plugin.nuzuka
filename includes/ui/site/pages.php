@@ -157,15 +157,6 @@
 			});
 		}
 		
-		function showPages(){
-			var id = $('#pradio:checked').val();
-			$.each(pages, function(idx, item){
-				if(item.id == id){
-					parent.showSiteHitPages(item.site_ref, item.id, 'page_listing');
-				}
-			})
-		}
-		
 		function renderGrowthChart(gmap){
     		var pagedata = gmap.week.page.data;
     		var mkeys = Object.keys(pageMap);
@@ -433,6 +424,12 @@
 			  } 
 		    })
 		}
+
+		function launchAppFunction(){
+    		var url = "https://app.nuzuka.com/wp_launch.html?oc=" + oc + "&pc=" + pc + "&uck=" + uck + "&fn=Sites";
+    		window.open(url, "nuzuka_app");
+    		return false;
+		}
 	</script>
 </head>
 
@@ -460,6 +457,10 @@
 						<button class="btn btn-sm btn-outline-secondary" onclick="return showDashboard();"
 							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Show Path Dashboard">
 							<img src="https://static-158c3.kxcdn.com/images/dashboard.png" style="max-width:1.4vw"/>
+						</button>
+						<button class="btn btn-sm btn-primary" data-toggle="popover" data-trigger="hover" data-placement="top" 
+							data-content="Manage in App" onclick="return launchAppFunction();">
+							Manage
 						</button>
 					</div>
 				</div>

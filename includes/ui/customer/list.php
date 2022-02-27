@@ -78,122 +78,123 @@
 		</script>
 		
 		<script>
-				var ctmpl = document.getElementById('ctmpl').innerHTML;
-		    	var clisturl = 'https://api.pearnode.com/nuzuka/consumer/list.php';
-		    	var tlisturl = 'https://api.pearnode.com/nuzuka/consumer/list_tags.php';
-				var mturl = "https://api.pearnode.com/nuzuka/consumer/mtag.php";
-		    	var consumersObj = {};
-		    	var tagArr = new Array();
-	    		var listParams = {};
-				var csize = 1000;
-				var cctr = 1;
-				var delay = 250;
-				var chunkedArr = new Array();
-				var filteredTags = [];
-				var renderCtr = 0;
-				var all_selected = true;
-				var enableActions = false;
-				var tagObj = {};
-				var oc = '<?php echo $org->code; ?>';
-				var pc = '<?php echo $profile->code; ?>';
-				var uid = '<?php echo $user->id; ?>';
-	    		
-		    	$(document).ready(function() {
-					initView();
+			var ctmpl = document.getElementById('ctmpl').innerHTML;
+	    	var clisturl = 'https://api.pearnode.com/nuzuka/consumer/list.php';
+	    	var tlisturl = 'https://api.pearnode.com/nuzuka/consumer/list_tags.php';
+			var mturl = "https://api.pearnode.com/nuzuka/consumer/mtag.php";
+	    	var consumersObj = {};
+	    	var tagArr = new Array();
+    		var listParams = {};
+			var csize = 1000;
+			var cctr = 1;
+			var delay = 250;
+			var chunkedArr = new Array();
+			var filteredTags = [];
+			var renderCtr = 0;
+			var all_selected = true;
+			var enableActions = false;
+			var tagObj = {};
+			var oc = '<?php echo $org->code; ?>';
+			var pc = '<?php echo $profile->code; ?>';
+			var uid = '<?php echo $user->id; ?>';
+    		
+	    	$(document).ready(function() {
+				initView();
+			});
+	
+	    	function initView(){
+				initJquery();
+			    $('#one_search').bind("keyup change", function(e){
+					var _input = $(this).val();
+					$(".item_row:contains('" + _input + "')").show();
+			        $(".item_row:not(:contains('" + _input + "'))").hide();
 				});
-		
-		    	function initView(){
-					initJquery();
-				    $('#one_search').bind("keyup change", function(e){
-						var _input = $(this).val();
-						$(".item_row:contains('" + _input + "')").show();
-				        $(".item_row:not(:contains('" + _input + "'))").hide();
-					});
-				    $('#item_search').bind("keyup change", function(e){
-						var _input = $(this).val();
-						$(".citem:contains('" + _input + "')").show();
-				        $(".citem:not(:contains('" + _input + "'))").hide();
-					});
-	    			loadConsumers();
-				}		
-				
-		    	function loadConsumers(){
-		    		consumersObj = {};
-		    		cctr = 0;
-			    	listParams.oc = oc;
-			    	listParams.pc = pc;
-			    	listParams.uid = uid;
-		    		NProgress.start();
-				    $.post(clisturl, JSON.stringify(listParams), function(data) {
-		    			var consumers = $.parseJSON(data);
-		    			$.each(consumers, function(index, consumer){
-		    				cctr ++;
-		    				consumer.id = parseInt(consumer.id);
-		    				consumer.dname = toTitleCase(consumer.name);
-		    				consumersObj[consumer.id] = consumer;
-		    			});
-			    		displayData(consumers);
-					});
-		    	}
-		    	
-				function displayData(items){
-					$('#consumer_cnt').text(items.length + " customers");
-					if(items.length != 0){
-						$('#no_consumer_container').hide();
-						$('#consumer_container').html(Mustache.render(ctmpl, {'records' : items}));
-						$('[data-toggle="popover"]').popover();
-						$('#consumer_container').fadeIn(500);
-					}else {
-						$('#consumer_container').hide();
-						$('#no_consumer_container').fadeIn(500);
-					}
-					NProgress.done();
+			    $('#item_search').bind("keyup change", function(e){
+					var _input = $(this).val();
+					$(".citem:contains('" + _input + "')").show();
+			        $(".citem:not(:contains('" + _input + "'))").hide();
+				});
+    			loadConsumers();
+			}		
+			
+	    	function loadConsumers(){
+	    		consumersObj = {};
+	    		cctr = 0;
+		    	listParams.oc = oc;
+		    	listParams.pc = pc;
+		    	listParams.uid = uid;
+	    		NProgress.start();
+			    $.post(clisturl, JSON.stringify(listParams), function(data) {
+	    			var consumers = $.parseJSON(data);
+	    			$.each(consumers, function(index, consumer){
+	    				cctr ++;
+	    				consumer.id = parseInt(consumer.id);
+	    				consumer.dname = toTitleCase(consumer.name);
+	    				consumersObj[consumer.id] = consumer;
+	    			});
+		    		displayData(consumers);
+				});
+	    	}
+	    	
+			function displayData(items){
+				$('#consumer_cnt').text(items.length + " customers");
+				if(items.length != 0){
+					$('#no_consumer_container').hide();
+					$('#consumer_container').html(Mustache.render(ctmpl, {'records' : items}));
+					$('[data-toggle="popover"]').popover();
+					$('#consumer_container').fadeIn(500);
+				}else {
+					$('#consumer_container').hide();
+					$('#no_consumer_container').fadeIn(500);
 				}
-				
-				function toggleSelection(){
-					if(all_selected){
-						all_selected = false;
-						$('.item_sel').prop('checked', false);
-					}else {
-						all_selected = true;
-						$('.item_sel').prop('checked', true);
-					}
+				NProgress.done();
+			}
+			
+			function toggleSelection(){
+				if(all_selected){
+					all_selected = false;
+					$('.item_sel').prop('checked', false);
+				}else {
+					all_selected = true;
+					$('.item_sel').prop('checked', true);
 				}
-				
-				function showAll(){
-					$('.item_row').fadeIn(500);
-				}
-				
-			</script>
+			}
+			
+			function showAll(){
+				$('.item_row').fadeIn(500);
+			}
+
+			function launchAppFunction(){
+        		var url = "https://app.nuzuka.com/wp_launch.html?oc=" + oc + "&pc=" + pc + "&uck=" + uck + "&fn=ListConsumers";
+        		window.open(url, "nuzuka_app");
+    		}
+		</script>
 	</head>
 
 	<body style="overflow-x:hidden;">
-		<div class="row w-100" style="margin-left: 0px;">
-			<div class="row w-100 bg-light m-0">
-				<div class="navbar navbar-expand-lg w-100">
-					<ul class="navbar-nav mr-auto">
-				        <li class="nav-item">
-					      	<a class="btn btn-outline-secondary" href="#" onclick="return loadConsumers();" style="margin-left: 5px;">
-					      		<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
-					      	</a>
-				        </li>
-				        <li class="nav-item">
-					      	<input type="text" class="form-control" id="one_search" size="20" placeholder="Filter..." style="margin-left: 5px;">
-				        </li>
-				         <li class="nav-item p-1" style="margin-left: 5px;">
-							<span class="badge badge-secondary straight-badge" id="consumer_cnt" style="font-size: 13px;"></span>
-				        </li>
-					</ul>
-			    </div>
-			</div>
-			<div class="row w-100 p-2" style="margin-left: 0px;padding-top:0px !important; display: none;" id="tag_filter_section">
-				<div class="card mt-1 w-100">
-					<div class="card-body">
-						<div class="row w-100 p-1" id="tag_container">No tags found</div>	
-					</div>
-				</div>
-			</div>
-		</div>
+		<div class="navbar navbar-expand-lg w-100">
+			<ul class="navbar-nav mr-auto">
+		        <li class="nav-item">
+			      	<a class="btn btn-outline-secondary" href="#" onclick="return loadConsumers();" style="margin-left: 5px;">
+			      		<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
+			      	</a>
+		        </li>
+		        <li class="nav-item">
+			      	<input type="text" class="form-control" id="one_search" size="20" placeholder="Filter..." style="margin-left: 5px;">
+		        </li>
+		         <li class="nav-item p-1" style="margin-left: 5px;">
+					<span class="badge badge-secondary straight-badge" id="consumer_cnt" style="font-size: 13px;"></span>
+		        </li>
+			</ul>
+			<ul>
+				<li class="nav-item">
+			      	<button class="btn btn-sm btn-primary" data-toggle="popover" data-trigger="hover" data-placement="top" 
+							data-content="Manage in App" onclick="return launchAppFunction();">
+							Manage
+					</button>
+		        </li>
+			</ul>
+	    </div>
 		
 		<div class="row w-100 m-0 p-2">
 			<div class="row w-100 m-0 scrollcontainer" id="consumer_container" style="display: none;"></div>

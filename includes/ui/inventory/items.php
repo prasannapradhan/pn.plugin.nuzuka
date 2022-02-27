@@ -177,6 +177,12 @@
 			});
 			$('#item_sc_' + id + ':visible').html(usc);
 		}
+
+		function launchAppFunction(){
+    		var url = "https://app.nuzuka.com/wp_launch.html?oc=" + oc + "&pc=" + pc + "&uck=" + uck + "&fn=Services";
+    		window.open(url, "nuzuka_app");
+		}
+	
 	</script>
 	<style type="text/css">
 		.rounded {
@@ -202,7 +208,7 @@
 			</div>
 		</div>
 		<div class="col-1">
-			<button class="btn btn-primary">Manage</button>
+			<button class="btn btn-primary" onclick="return launchAppFunction();">Manage</button>
 		</div>
 	  </div>
 	  <div class="row w-100 m-0" style="padding-left: 1rem;padding-right: 1rem;">

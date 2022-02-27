@@ -531,17 +531,16 @@
 	   <div class="row w-100 m-0 mt-1 mb-1">
 			<div class="card-header bg-light w-100" style="min-height: 7vh;background-color: #E3E4F6 !important;">
 				<div class="row w-100 m-0">
-					<div class="col-5">
-						<b>Recent Activity in the last hour</b>	
+					<div class="col-5 pl-0">
+						<a class="btn btn-outline-secondary" href="#" onclick="return reloadView();">
+							<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
+						</a>
+						<b style="margin-left: 5px;">Recent Activity in the last hour</b>	
 					</div>
 					<div class="col-7 d-flex justify-content-end">
 						<div class="col-auto">
 							<span class="badge badge-secondary p-2" id="update_time" style="font-size:14px;"></span>
 						</div>
-						<button class="btn btn-sm btn-outline-secondary" onclick="return reloadView();" style="margin-right: 5px;"
-							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Refresh">
-							<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.4vw"/> Reload
-						</button>
 					</div>
 				</div>
 			</div>
