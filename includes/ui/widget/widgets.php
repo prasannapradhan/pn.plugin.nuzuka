@@ -55,21 +55,13 @@
 		   <tbody>
 		    {{#records}}
 			     <tr class='item_row'>
-			        <td class='text-center' width='10%'><a href="#" onclick="return loadGenerator('{{id}}', '{{type}}')"><b>{{id}}</b></a></td>
+			        <td class='text-center' width='10%'><b>{{id}}</b></td>
 					<td class='text-center' width='12%'><b>{{type}}</b></td>
                     <td class='text-center' width='27%'>{{item_name}}</td>
 			        <td class='text-center' width='8%'>{{category}}</td>
 			        <td class='text-center' width='15%'>{{position}}</td>
                     <td class='text-center' width='12%'>{{created}}</td>
 				    <td class='text-center' width='15%'>
-						<button class="btn btn btn-outline-primary" onclick="return generateSnippet('{{id}}')" 
-							data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Code Snippet" >
-							<img src="https://static-158c3.kxcdn.com/images/code.png" style="max-width:1vw"/>	
-						</button>
-						<button class="btn btn btn-outline-primary" onclick="return loadGenerator('{{id}}', '{{type}}')" 
-							data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Edit Widget" >
-							<img src="https://static-158c3.kxcdn.com/images/edit.png" style="max-width:1vw"/>	
-						</button>						
 						<button class="btn btn btn-outline-danger" onclick="return remove('{{id}}')" 
 							data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Dashboard" >
 							<img src="https://static-158c3.kxcdn.com/images/bin.png" style="max-width:1vw"/>	
@@ -155,92 +147,6 @@
 				});
 			}
 			
-			function generateSnippet(id){
-				$('#modal_msg').text('');
-				var widget = widgetMap[id];
-				NProgress.start();
-				var wconfig = $.parseJSON(widget.config);
-				wconfig[wconfig.position] = true;
-				if(widget.type == "lead-widget"){
-					$.get('/view/template/_widget.mustache', {}, function(tmpl){
-						var html = Mustache.render(tmpl, wconfig);
-						html = html.replace(/[\t\r\n]+/g,"");
-						$('#code_section').val(html);
-						$('#widget_id').text(widget.id);
-						$('#widget_snippet_modal').modal('show');
-						NProgress.done();
-					});
-				} else if(widget.type == "enquiry-widget"){
-					$.get('/view/template/_widget_form.mustache', {}, function(tmpl){
-						widget.autoopen = true;
-						var html = Mustache.render(tmpl, wconfig);
-						html = html.replace(/[\t\r\n]+/g,"");
-						$('#code_section').val(html);
-						$('#widget_id').text(widget.id);
-						$('#widget_snippet_modal').modal('show');
-						NProgress.done();
-					});
-				}else if(widget.type == "lead-button"){
-					$.get('/view/template/_lead_button.mustache', {}, function(tmpl){
-						widget.autoopen = false;
-						var html = Mustache.render(tmpl, wconfig);
-						html = html.replace(/[\t\r\n]+/g,"");
-						$('#code_section').val(html);
-						$('#widget_id').text(widget.id);
-						$('#widget_snippet_modal').modal('show');
-						NProgress.done();
-					});
-				}else if(widget.type == "lead-link"){
-					$.get('/view/template/_lead_link.mustache', {}, function(tmpl){
-						widget.autoopen = false;
-						var html = Mustache.render(tmpl, wconfig);
-						html = html.replace(/[\t\r\n]+/g,"");
-						$('#code_section').val(html);
-						$('#widget_id').text(widget.id);
-						$('#widget_snippet_modal').modal('show');
-						NProgress.done();
-					});
-				}else if(widget.category == "enquiry-button"){
-					$.get('/view/template/_widget_form.mustache', {}, function(tmpl){
-						widget.autoopen = false;
-						var html = Mustache.render(tmpl, wconfig);
-						html = html.replace(/[\t\r\n]+/g,"");
-						$('#code_section').val(html);
-						$('#widget_id').text(widget.id);
-						$('#widget_snippet_modal').modal('show');
-						NProgress.done();
-					});
-				}else if(widget.category == "enquiry-link"){
-					$.get('/view/template/_form_link.mustache', {}, function(tmpl){
-						widget.autoopen = false;
-						var html = Mustache.render(tmpl, wconfig);
-						html = html.replace(/[\t\r\n]+/g,"");
-						$('#code_section').val(html);
-						$('#widget_id').text(widget.id);
-						$('#widget_snippet_modal').modal('show');
-						NProgress.done();
-					});
-				}else {
-					showMessage('Error generating', 'Unknown widget type. Please regenerate the widget', 'error');
-				}
-				return false;
-			}
-			
-			function copyCode(){
-				var content = $('#code_section').val();
-				if (navigator.clipboard) { // default: modern asynchronous API
-				    navigator.clipboard.writeText(content);
-				} else if (window.clipboardData && window.clipboardData.setData) {     // for IE11
-				    window.clipboardData.setData('Text', content);
-				}
-				$('#modal_msg').text("copied!");
-				return false;
-			}
-			
-			function openCreate(){
-				console.log("Load Generator without parameter");
-			}
-			
 			function remove(wid){
 			   Swal.fire({
 					  title: 'Do you really want to remove the widget ?',
@@ -259,10 +165,6 @@
 				  } 
 			   })
 			}
-			
-			function loadGenerator(wid, typ){
-				console.log("Load generator with widget type parameter");
-			}
 		</script>
 	</head>
 
@@ -275,12 +177,14 @@
 				<li class="nav-item p-1">
 					<span class="badge badge-secondary straight-badge" id="widget_count"></span>
 				</li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
 				<li class="nav-item p-1">
-					<button id="create_button" class="btn btn-sm btn-outline-primary" onclick="return parent.showWidgetGenerator();">Add new</button>
+					<button class="btn btn-primary">Manage</button>
 				</li>
 			</ul>
 		</nav>
-		<div class="wrapper p-2">
+		<div class="wrapper pl-2 pr-2">
 			<div id="records_container" class="scrollcontainer bg-white"></div>
 			<div class="row w-100 justify-content-center" style="margin-left: 0px;display: none;" id="no_items_container">
 	  			<div class="alert alert-info w-100">No widgets found. Generate one <a href="#" onclick="openCreate();" class="link-primary"><b>here</b></a></div>
