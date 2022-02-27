@@ -349,7 +349,7 @@
                     }
                 }
             }
-            include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/configure-woocommerce.php');
+            include( plugin_dir_path( __FILE__ ) . 'includes/ui/woocommerce/woocommerce.php');
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
             exit( wp_redirect($foo));
