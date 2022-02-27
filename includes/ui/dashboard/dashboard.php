@@ -46,7 +46,12 @@
 		</script>
 		
 		<script>
-			var schartStore = {};
+    		var oc = '<?php echo $org->code; ?>';
+    		var pc = '<?php echo $profile->code; ?>';
+    		var uid = '<?php echo $user->id; ?>';
+    		var uck = '<?php echo $user->ck; ?>';
+
+    		var schartStore = {};
     		var lstatuselems = ['submitted', 'processing', 'disqualified', 'converted'];
     		var dlstatuselems = ['submitted', 'processing', 'disqualified', 'converted'];
     		var estatuselems = ['submitted', 'processing', 'completed', 'converted'];
@@ -55,8 +60,6 @@
 			var estmpl = document.getElementById('est_tmpl').innerHTML;
 			var lead = {};
 			var enquiry = {};
-			var oc = '<?php echo $org->code; ?>';
-			var pc = '<?php echo $profile->code; ?>';
 			
 			$(document).ready(function() {
 				loadView();

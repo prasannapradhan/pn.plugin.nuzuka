@@ -78,7 +78,12 @@
 		</script>
 		
 		<script>
-			var ctmpl = document.getElementById('ctmpl').innerHTML;
+    		var oc = '<?php echo $org->code; ?>';
+    		var pc = '<?php echo $profile->code; ?>';
+    		var uid = '<?php echo $user->id; ?>';
+    		var uck = '<?php echo $user->ck; ?>';
+
+    		var ctmpl = document.getElementById('ctmpl').innerHTML;
 	    	var clisturl = 'https://api.pearnode.com/nuzuka/consumer/list.php';
 	    	var tlisturl = 'https://api.pearnode.com/nuzuka/consumer/list_tags.php';
 			var mturl = "https://api.pearnode.com/nuzuka/consumer/mtag.php";
@@ -94,10 +99,7 @@
 			var all_selected = true;
 			var enableActions = false;
 			var tagObj = {};
-			var oc = '<?php echo $org->code; ?>';
-			var pc = '<?php echo $profile->code; ?>';
-			var uid = '<?php echo $user->id; ?>';
-    		
+			
 	    	$(document).ready(function() {
 				initView();
 			});

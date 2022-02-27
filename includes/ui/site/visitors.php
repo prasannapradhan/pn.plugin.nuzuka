@@ -80,6 +80,8 @@
     		var oc = '<?php echo $org->code; ?>';
     		var pc = '<?php echo $profile->code; ?>';
     		var sid = '<?php echo $site->id; ?>';
+    		var uck = '<?php echo $user->ck; ?>';
+    		
 			var vitmpl = "";
 	    	var visitorsObj = {};
     		var visitorNameMap = {};

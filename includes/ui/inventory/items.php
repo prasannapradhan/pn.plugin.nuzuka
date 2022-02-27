@@ -61,13 +61,15 @@
 	</script>
 		
 	<script>
-		var grp_search_options = {list: { match: {enabled: true}, maxNumberOfElements: 10 }, placeholder: "Search..", theme: "blue"};
+    	var oc = '<?php echo $org->code; ?>';
+    	var pc = '<?php echo $profile->code; ?>';
+    	var uid = '<?php echo $user->id; ?>';
+    	var uck = '<?php echo $user->ck; ?>';
+
+    	var grp_search_options = {list: { match: {enabled: true}, maxNumberOfElements: 10 }, placeholder: "Search..", theme: "blue"};
 		var momObj;
 		var allgroup = {id : -1, name : 'All Groups', code : 'all'};
 		var selectedGid = "all";
-		var oid = '<?php echo $org->id; ?>';
-		var pid = '<?php echo $profile->id; ?>';
-		var uid = '<?php echo $user->id; ?>';
 
 		$(document).ready(function() {
 			showProcessingLoader('Loading..');

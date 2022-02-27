@@ -128,7 +128,12 @@
 	</style>	
 
 	<script type="text/javascript">
-		var wftmpls = [];
+    	var oc = '<?php echo $org->code; ?>';
+    	var pc = '<?php echo $profile->code; ?>';
+    	var uid = '<?php echo $user->id; ?>';
+    	var uck = '<?php echo $user->ck; ?>';
+
+    	var wftmpls = [];
 		var oitmpl = "";
 		var total_value = 0.0;
 		var total_qty = 0.0;
@@ -138,8 +143,6 @@
 		var itemsubmissionMap = {};
 		var stats = {};
 		var collapsedGroups = {};
-		var oc = '<?php echo $org->code; ?>';
-		var pc = '<?php echo $profile->code; ?>';
 		var org = {};
 		var profile = {};
 		

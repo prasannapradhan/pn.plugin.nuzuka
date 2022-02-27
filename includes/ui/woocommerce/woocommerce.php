@@ -31,6 +31,8 @@
 	<script>
     	var oc = '<?php echo $org->code; ?>';
     	var pc = '<?php echo $profile->code; ?>';
+    	var uid = '<?php echo $user->id; ?>';
+    	var uck = '<?php echo $user->ck; ?>';
     	var sid = '<?php echo $site->id; ?>';
     	var sname = '<?php echo $site->name; ?>';
     	

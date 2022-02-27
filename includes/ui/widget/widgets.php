@@ -85,14 +85,17 @@
 		</style>	
 		
 		<script type="text/javascript">
-		    var tmplt = '';
+    		var oc = '<?php echo $org->code; ?>';
+    		var pc = '<?php echo $profile->code; ?>';
+    		var uid = '<?php echo $user->id; ?>';
+    		var uck = '<?php echo $user->ck; ?>';
+
+    		var tmplt = '';
 			var total_lead = 0;
 			var enqArr = [];
 			var widgets = [];
 			var wtmplt = document.getElementById('widget_listing').innerHTML;
 			var widgetMap = {};
-			var oc = '<?php echo $org->code; ?>';
-			var pc = '<?php echo $profile->code; ?>';
 						
 			$(document).ready(function() {
 				loadWidgets();
