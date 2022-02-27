@@ -277,6 +277,24 @@
         }
     }
     
+    function nuzuka_plugin_page_widgets() {
+        global $org, $profile, $user, $cred_file;
+        $out = "";
+        if(file_exists($cred_file)){
+            $out = file_get_contents($cred_file);
+        }
+        if($out != ""){
+            $cred = json_decode($out);
+            $org = $cred->org;
+            $profile = $cred->profile;
+            $user = $cred->user;
+            include( plugin_dir_path( __FILE__ ) . 'includes/ui/widget/widgets.php');
+        }else {
+            $foo = menu_page_url("nuzuka-plugin-settings");
+            exit( wp_redirect($foo));
+        }
+    }
+    
     function nuzuka_plugin_page_dashboard() {
         global $org, $profile, $user, $cred_file;
         $out = "";
@@ -361,6 +379,7 @@
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Settings', 'Settings', 'manage_options', 'nuzuka-plugin-settings', 'nuzuka_plugin_settings');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Site Pages', 'Pages', 'manage_options', 'nuzuka-plugin-page-site', 'nuzuka_plugin_page_site');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Visitors', 'Visitors', 'manage_options', 'nuzuka-plugin-page-visitors', 'nuzuka_plugin_page_visitors');
+		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Widgets', 'Widgets', 'manage_options', 'nuzuka-plugin-page-widgets', 'nuzuka_plugin_page_widgets');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Dashboard', 'Dashboard', 'manage_options', 'nuzuka-plugin-page-dashboard', 'nuzuka_plugin_page_dashboard');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Woocommerce', 'Woocommerce', 'manage_options', 'nuzuka-plugin-page-woocommerce', 'nuzuka_plugin_page_woocommerce');
     }
