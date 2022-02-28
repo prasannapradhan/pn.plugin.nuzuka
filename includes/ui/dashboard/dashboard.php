@@ -541,7 +541,7 @@
 	<body style="overflow-x:hidden;" class="p-1">
 	   <div class="container">
     	   <div class="row w-100 m-0 mt-1 mb-1">
-    			<div class="card-header bg-light w-100 pl-0 pr-0" style="min-height: 7vh;">
+    			<div class="card-header bg-light w-100 pl-0 pr-0" style="min-height: 7vh;background-color: #F7F9EF !important;">
     				<div class="row w-100 m-0">
     					<div class="col-5 pl-0">
     						<a class="btn btn-outline-secondary" href="#" onclick="return reloadView();">
@@ -584,7 +584,7 @@
     	   		</div>
     	   </div>
     	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #F7F9EF !important;">
     				<div class="row w-100 m-0">
     					<div class="col-12">
     						<b>Overall Service Affinity matrix showing item <span class="badge badge-secondary" style="font-size:14px;">HIT</span> 
@@ -599,7 +599,7 @@
     	   		</div>
     	   </div>
     	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #F7F9EF !important;">
     				<div class="row w-100 m-0">
     					<div class="col-6">
     						<b>Reach Top 10 Metrics by Region and City</b>	
@@ -617,7 +617,7 @@
     	   		</div>
     	   </div>
     	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #F7F9EF !important;">
     				<div class="row w-100 m-0">
     					<div class="col-6">
     						<b>Access Metrics by Operating system and Browser</b>	
@@ -635,7 +635,7 @@
     	   		</div>
     	   </div>
     	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #F7F9EF !important;">
     				<div class="row w-100 m-0">
     					<div class="col-3">
     						<b>Lead Metrics 15 days</b>	
@@ -652,7 +652,7 @@
     	   		</div>
     	   </div>
     	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #F7F9EF !important;">
     				<div class="row w-100 m-0">
     					<div class="col-3">
     						<b>Enquiry Metrics 15 days</b>	
@@ -669,7 +669,7 @@
     	   		</div>
     	   </div>
     	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #F7F9EF !important;">
     				<div class="row w-100 m-0">
     					<div class="col-6">
     						<b>Conversation metrics 15 days</b>	
