@@ -34,7 +34,7 @@
     	var uid = '<?php echo $user->id; ?>';
     	var uck = '<?php echo $user->ck; ?>';
     	var sid = '<?php echo $site->id; ?>';
-    	var sname = '<?php echo $site->name; ?>';
+    	var sname = '<?php echo $site->site_name; ?>';
     	
 	 	function scanSite(){
 			var wcckey = $('#woocommerce_consumer_key').val().trim();
@@ -100,7 +100,6 @@
 	
 	<body style="overflow-x:hidden;">
 		<div class="row w-100 m-0 p-2">
-        <form class="w-100" action='<?php echo get_admin_url(); ?>admin-post.php' method='post' id="navigation_form">
         	<div class="card-header bg-light w-100 mt-2" style="font-weight: bold;">
         		Integrate Woocommerce with Nuzuka to create enquiries on Products
         	</div>
@@ -140,14 +139,12 @@
         		    	required="required" value="<?php echo $wc_consumer_secret;?>">
         	    	<small id="wccsechelp" class="form-text text-muted">Enter the woocommerce Consumer Secret you generated here</small>
         		</div>
-        		 <input type='hidden' name='action' value='nuzuka_navigation_form' />
         	</div>
         	<div class="card-footer w-100">
         		<button class="btn btn-primary w-100" onclick="return scanSite();">
         			<b>Start Integration</b>
         		</button>
         	</div>
-        </form>
 		</div>
 		
 		<div class="modal fade" id="scan_modal" tabindex="-1" role="dialog" aria-hidden="true">
