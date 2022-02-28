@@ -13,22 +13,19 @@ Nuzuka is the most powerful website enquiry capture system. Quick, painless, spa
 == Description ==
 
 More than 20 million sites using contact forms but a very little effort has been put into reducing the customer input time while enhancing the customer intelligence.
-Nuzuka is the answer to these millions of deployments to reduce the customer interaction time to seconds while gathering 10X more information about the customer.
-
-Introducting [Nuzuka](https://nuzuka.com) is the most powerful website enquiry capture system. 
-
 Contact forms for an enquiry usually take more than a minute to fill. They are error prone, spam prone and repetative.
-The customer focuses more time in entering his personal information rather than entering about the service he really wants.
+The customer focuses more time in correctly entering his personal information rather than entering info about the service he really wants.
 
-Nuzuka makes sure your customer focuses on the requirement rather than filling their personal information.
-Nuzuka site manager monitors customer navigation to business silos, your items and customer intentions. 
-Nuzuka utilizes advanced AI and Prediction techniques to predict your enquiry conversion probability. 
-Nuzuka is pure SAAS and REST so its footprint on your site functions are barely minimal.
+[Nuzuka](https://nuzuka.com) is the answer to these millions of deployments to reduce the customer interaction time to seconds while gathering 10X more information about the customer.
+
+1. Nuzuka makes sure your customer focuses on the requirement rather than filling their personal information.
+1. Nuzuka contains a enquiry CRM which nurtures every enquiry that is captured.
+1. Nuzuka notifies you and your customer of the enquiry and sets up a conversation channel to talk to your customer.
+1. Nuzuka Site Manager monitors customer navigation to site sections, items and captures customer intentions. 
+1. Nuzuka utilizes advanced AI and Prediction techniques to predict your enquiry conversion probability. 
+1. Nuzuka is pure SAAS and REST so its footprint on your site functions are barely minimal.
 
 == Screenshots ==
-
-[https://nuzuka.com/wp-content/uploads/2022/01/nuzuka-lead-form-1.png A simple lead widget collecting enquiry for a service]
-[https://nuzuka.com/wp-content/uploads/2022/02/1234.png Nuzuka site manager]
 
 == Features ==
 
@@ -42,7 +39,8 @@ Nuzuka is pure SAAS and REST so its footprint on your site functions are barely 
 
 = Why Nuzuka will work in your site =
 
-Nuzuka is driven by a restful APP which shares all the load externally. Whatever may be the issues at your hosting level Nuzuka will never stop serving your customers.
+Nuzuka is driven by a restful APP which shares all the load externally. 
+Whatever may be the issues at your hosting level Nuzuka will never stop serving your customers.
 The core platform is tested rigorously and supported by a dedicated development team.
 
 = Be part of our growing international community =
