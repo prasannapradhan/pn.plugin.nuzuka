@@ -444,13 +444,11 @@
 					chart.destroy()
 				}
 	    		var hitkeys = Object.keys(hitmatrix);
-	    		console.log(hitkeys);
 	    		if(hitkeys.length > 2){
 		    		var difflen = hitkeys.length - 5;
 		    		var diffh = 5 * difflen;
 		    		var apph = 25 + diffh;
-		    		console.log("Applicable container height of itemmatrix [" + apph + "]");
-		    		//$('#itemmatrix_container').css('height', apph + ' vh !important');
+		    		$('#itemmatrix_container').css('height', apph + ' vh !important');
 	    		}
 	    		var hitvals = [];
 	    		var submitvals = [];
@@ -541,7 +539,7 @@
 	<body style="overflow-x:hidden;" class="p-1">
 	   <div class="container">
     	   <div class="row w-100 m-0 mt-1 mb-1">
-    			<div class="card-header bg-light w-100" style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    			<div class="card-header bg-light w-100" style="min-height: 7vh;">
     				<div class="row w-100 m-0">
     					<div class="col-5 pl-0">
     						<a class="btn btn-outline-secondary" href="#" onclick="return reloadView();">
