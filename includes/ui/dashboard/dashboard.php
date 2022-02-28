@@ -448,7 +448,9 @@
 		    		var difflen = hitkeys.length - 5;
 		    		var diffh = 5 * difflen;
 		    		var apph = 25 + diffh;
-		    		$('#itemmatrix_container').css('height', apph + ' vh !important');
+		    		$('#itemmatrix_container').css('height', apph + 'vh');
+	    		}else {
+	    			$('#itemmatrix_container').css('height', '25vh');
 	    		}
 	    		var hitvals = [];
 	    		var submitvals = [];
@@ -457,8 +459,8 @@
 	    		var shortkeys = [];
     			$.each(hitkeys, function(idx, key){
 	    			var shortkey = key;
-	    			if(key.length > 40){
-	    				shortkey = key.substring(0,38) + "...";
+	    			if(key.length > 50){
+	    				shortkey = key.substring(0,48) + "...";
 	    			}
 	    			shortkeys.push(shortkey);
 	    			hitds.labels.push(key);
@@ -539,13 +541,13 @@
 	<body style="overflow-x:hidden;" class="p-1">
 	   <div class="container">
     	   <div class="row w-100 m-0 mt-1 mb-1">
-    			<div class="card-header bg-light w-100" style="min-height: 7vh;">
+    			<div class="card-header bg-light w-100 pl-0 pr-0" style="min-height: 7vh;">
     				<div class="row w-100 m-0">
     					<div class="col-5 pl-0">
     						<a class="btn btn-outline-secondary" href="#" onclick="return reloadView();">
     							<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
     						</a>
-    						<b style="margin-left: 5px;">Recent Activity in the last hour</b>	
+    						<b style="margin-left: 5px;">Recent Activity / 1 hour</b>	
     					</div>
     					<div class="col-7 d-flex justify-content-end">
     						<div class="col-auto">
@@ -591,8 +593,44 @@
     				</div>
     			</div>
     	   		<div class="row w-100 m-0">
-    				<div class="col-12 p-0" style="height: 50vh !important;" id="itemmatrix_container">
+    				<div class="col-12 p-0" id="itemmatrix_container">
     					<canvas id="itemmatrix_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    	   		</div>
+    	   </div>
+    	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    				<div class="row w-100 m-0">
+    					<div class="col-6">
+    						<b>Reach Top 10 Metrics by Region and City</b>	
+    					</div>
+    					<div class="col-6"></div>
+    				</div>
+    			</div>
+    	   		<div class="row w-100 m-0">
+    				<div class="col-6 card" style="height: 50vh !important;">
+    					<canvas id="reachstate_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    				<div class="col-6 card" style="height: 50vh !important;">
+    					<canvas id="reachcity_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    	   		</div>
+    	   </div>
+    	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    				<div class="row w-100 m-0">
+    					<div class="col-6">
+    						<b>Access Metrics by Operating system and Browser</b>	
+    					</div>
+    					<div class="col-6"></div>
+    				</div>
+    			</div>
+    	   		<div class="row w-100 m-0">
+    				<div class="col-6 card" style="height: 50vh !important;">
+    					<canvas id="accessos_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    				<div class="col-6 card" style="height: 50vh !important;">
+    					<canvas id="accessbrowser_chart" style="width:100%;height:100%;"></canvas>
     				</div>	
     	   		</div>
     	   </div>
@@ -643,42 +681,6 @@
     	   		<div class="row w-100 m-0">
     				<div class="col-12 card" style="height: 40vh !important;">
     					<canvas id="conversations_chart" style="width:100%;height:100%;"></canvas>
-    				</div>	
-    	   		</div>
-    	   </div>
-    	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
-    				<div class="row w-100 m-0">
-    					<div class="col-6">
-    						<b>Reach Top 10 Metrics by Region and City</b>	
-    					</div>
-    					<div class="col-6"></div>
-    				</div>
-    			</div>
-    	   		<div class="row w-100 m-0">
-    				<div class="col-6 card" style="height: 50vh !important;">
-    					<canvas id="reachstate_chart" style="width:100%;height:100%;"></canvas>
-    				</div>	
-    				<div class="col-6 card" style="height: 50vh !important;">
-    					<canvas id="reachcity_chart" style="width:100%;height:100%;"></canvas>
-    				</div>	
-    	   		</div>
-    	   </div>
-    	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
-    				<div class="row w-100 m-0">
-    					<div class="col-6">
-    						<b>Access Metrics by Operating system and Browser</b>	
-    					</div>
-    					<div class="col-6"></div>
-    				</div>
-    			</div>
-    	   		<div class="row w-100 m-0">
-    				<div class="col-6 card" style="height: 50vh !important;">
-    					<canvas id="accessos_chart" style="width:100%;height:100%;"></canvas>
-    				</div>	
-    				<div class="col-6 card" style="height: 50vh !important;">
-    					<canvas id="accessbrowser_chart" style="width:100%;height:100%;"></canvas>
     				</div>	
     	   		</div>
     	   </div>
