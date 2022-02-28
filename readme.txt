@@ -1,6 +1,6 @@
 === Nuzuka Enquiry Capture ===
-Contributors: prasannapradhan
-Tags: lead, enquriy, customer, crm, contact form, inventory, woocommerce enquiry, nuzuka, no spam, spam, enquiry widgets
+Contributors: pradhp
+Tags: enquiry, capture, spam, crm, contact form, inventory, woocommerce bulk enquiry, nuzuka, site monitor, lead, site manager 
 Requires at least: 5.6
 Tested up to: 5.9
 Requires PHP: 7.0
@@ -29,18 +29,19 @@ The customer focuses more time in correctly entering his personal information ra
 
 == Features ==
 
-* 100% spam proof enquiries you focus on the real ones only. Fake enquires get filtered automatically.
-* Enquiries are more relevant i.e. you know exactly what the customer wants from you.
-* Visually delightful and can be changed dynamically from the backend no site modification required.
-* Google Signin and Apple Signin for one click customer authentication and intelligence.
-* Woocommerce integration to integrate all the inventory and generate bulk enquiry requirements.
-* Nnventory management system maps your enquiries directly to your items.
-* Customer CRM captures and manages your customer forever. Once a customer forever your customer.
+* 100% spam proof. Spam and fake enquires get filtered automatically.
+* Enquiries are more relevant. You know exactly what the customer wants from you.
+* Site Manager. Solves most of the site monitoring aspects.
+* Google Signin and Apple Signin. One click customer authentication and intelligence.
+* Woocommerce integration. To integrate all your products and generate bulk enquiry requirements.
+* Inventory Management System. Maps your enquiries directly to your items.
+* Customer CRM. Captures and manages your customer forever. Once a customer forever your customer.
+* Visually delightful and dynamic. Content can be changed from app no site modification required.
 
 = Why Nuzuka will work in your site =
 
 Nuzuka is driven by a restful APP which shares all the load externally. 
-Whatever may be the issues at your hosting level Nuzuka will never stop serving your customers.
+Whatever may be the issues at your hosting level Nuzuka will never stop serving your site.
 The core platform is tested rigorously and supported by a dedicated development team.
 
 = Be part of our growing international community =
@@ -67,11 +68,11 @@ Nuzuka does not do any major site modifications but still if you feel that Nuzuk
 
 = Where can I report bugs? =
 
-Nuzuka is supported by Pearnode support. You can directly open the support portal https://support.pearnode.com to report issues or you can send a mail to support@pearnode.com
+Nuzuka is supported by Pearnode support. You can directly open the [support portal](https://support.pearnode.com) to report issues or you can send a mail to support@pearnode.com
 
 = Where can I request new features, themes, and extensions? =
 
-Please create a support ticket in our support portal https://support.pearnode.com
+Please create a support ticket in our [support portal](https://support.pearnode.com)
 
 = Nuzuka is awesome! Can I contribute? =
 
@@ -83,7 +84,7 @@ REST API's are not public yet. They should be ready for business usage in a few 
 
 = My question is not listed here. Where can I find more answers? =
 
-Please create a support request in our support portal https://support.pearnode.com
+Please create a support request in our [support portal](https://support.pearnode.com)
 
 == Installation ==
 
