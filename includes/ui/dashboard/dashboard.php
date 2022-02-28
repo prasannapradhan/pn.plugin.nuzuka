@@ -444,6 +444,14 @@
 					chart.destroy()
 				}
 	    		var hitkeys = Object.keys(hitmatrix);
+	    		console.log(hitkeys);
+	    		if(hitkeys.length > 2){
+		    		var difflen = hitkeys.length - 5;
+		    		var diffh = 5 * difflen;
+		    		var apph = 25 + diffh;
+		    		console.log("Applicable container height of itemmatrix [" + apph + "]");
+		    		//$('#itemmatrix_container').css('height', apph + ' vh !important');
+	    		}
 	    		var hitvals = [];
 	    		var submitvals = [];
     			var hitds = {'label' : 'Hits', 'data' : [], 'labels' : [], 'backgroundColor' : [], 'order' : 1};
@@ -451,8 +459,8 @@
 	    		var shortkeys = [];
     			$.each(hitkeys, function(idx, key){
 	    			var shortkey = key;
-	    			if(key.length > 30){
-	    				shortkey = key.substring(0,28) + "...";
+	    			if(key.length > 40){
+	    				shortkey = key.substring(0,38) + "...";
 	    			}
 	    			shortkeys.push(shortkey);
 	    			hitds.labels.push(key);
@@ -531,149 +539,151 @@
 	</head>
 
 	<body style="overflow-x:hidden;" class="p-1">
-	   <div class="row w-100 m-0 mt-1 mb-1">
-			<div class="card-header bg-light w-100" style="min-height: 7vh;background-color: #E3E4F6 !important;">
-				<div class="row w-100 m-0">
-					<div class="col-5 pl-0">
-						<a class="btn btn-outline-secondary" href="#" onclick="return reloadView();">
-							<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
-						</a>
-						<b style="margin-left: 5px;">Recent Activity in the last hour</b>	
-					</div>
-					<div class="col-7 d-flex justify-content-end">
-						<div class="col-auto">
-							<span class="badge badge-secondary p-2" id="update_time" style="font-size:14px;"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-	   		<div class="row w-100 m-0 p-0 mt-1">
-				<div class="col-3 pl-0" >
-					<div class="row m-0 p-0 h-100 rounded" style="background-color: #F5C19D;">
-						<span id="hits_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
-						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Hits</span>
-					</div>
-				</div>
-				<div class="col-3" >
-					<div class="row m-0 p-0 h-100 rounded" style="background-color: #F7F157;">
-						<span id="clicks_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
-						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Clicks</span>
-					</div>
-				</div>
-				<div class="col-3" >
-					<div class="row m-0 p-0 h-100 rounded" style="background-color: #86F9E5;">
-						<span id="logins_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
-						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Logins</span>
-					</div>
-				</div>
-				<div class="col-3 pr-0" >
-					<div class="row m-0 p-0 h-100 rounded" style="background-color: #EFB8F4;">
-						<span id="submission_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
-						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Submissions</span>
-					</div>
-				</div>
-	   		</div>
-	   </div>
-	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
-				<div class="row w-100 m-0">
-					<div class="col-3">
-						<b>Lead Metrics 15 days</b>	
-					</div>
-					<div class="col-9">
-						<div class="form-inline" id="lmetrics_selector"></div>
-					</div>
-				</div>
-			</div>
-	   		<div class="row w-100 m-0">
-				<div class="col-12 card" style="height: 40vh !important;">
-					<canvas id="lfortnight_chart" style="width:100%;height:100%;"></canvas>
-				</div>	
-	   		</div>
-	   </div>
-	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
-				<div class="row w-100 m-0">
-					<div class="col-12">
-						<b>Overall Service Affinity matrix showing item <span class="badge badge-secondary" style="font-size:14px;">HIT</span> 
-							matrix and item <span class="badge badge-secondary" style="font-size:14px;">SUBMIT </span> matrix</b>	
-					</div>
-				</div>
-			</div>
-	   		<div class="row w-100 m-0">
-				<div class="col-12 p-0" style="height: 50vh !important;">
-					<canvas id="itemmatrix_chart" style="width:100%;height:100%;"></canvas>
-				</div>	
-	   		</div>
-	   </div>
-	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
-				<div class="row w-100 m-0">
-					<div class="col-3">
-						<b>Enquiry Metrics 15 days</b>	
-					</div>
-					<div class="col-9">
-						<div class="form-inline" id="emetrics_selector"></div>
-					</div>
-				</div>
-			</div>
-	   		<div class="row w-100 m-0">
-				<div class="col-12 card" style="height: 40vh !important;">
-					<canvas id="efortnight_chart" style="width:100%;height:100%;"></canvas>
-				</div>	
-	   		</div>
-	   </div>
-	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
-				<div class="row w-100 m-0">
-					<div class="col-6">
-						<b>Conversation metrics 15 days</b>	
-					</div>
-					<div class="col-6">
-					</div>
-				</div>
-			</div>
-	   		<div class="row w-100 m-0">
-				<div class="col-12 card" style="height: 40vh !important;">
-					<canvas id="conversations_chart" style="width:100%;height:100%;"></canvas>
-				</div>	
-	   		</div>
-	   </div>
-	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
-				<div class="row w-100 m-0">
-					<div class="col-6">
-						<b>Reach Top 10 Metrics by Region and City</b>	
-					</div>
-					<div class="col-6"></div>
-				</div>
-			</div>
-	   		<div class="row w-100 m-0">
-				<div class="col-6 card" style="height: 50vh !important;">
-					<canvas id="reachstate_chart" style="width:100%;height:100%;"></canvas>
-				</div>	
-				<div class="col-6 card" style="height: 50vh !important;">
-					<canvas id="reachcity_chart" style="width:100%;height:100%;"></canvas>
-				</div>	
-	   		</div>
-	   </div>
-	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
-			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
-				<div class="row w-100 m-0">
-					<div class="col-6">
-						<b>Access Metrics by Operating system and Browser</b>	
-					</div>
-					<div class="col-6"></div>
-				</div>
-			</div>
-	   		<div class="row w-100 m-0">
-				<div class="col-6 card" style="height: 50vh !important;">
-					<canvas id="accessos_chart" style="width:100%;height:100%;"></canvas>
-				</div>	
-				<div class="col-6 card" style="height: 50vh !important;">
-					<canvas id="accessbrowser_chart" style="width:100%;height:100%;"></canvas>
-				</div>	
-	   		</div>
+	   <div class="container">
+    	   <div class="row w-100 m-0 mt-1 mb-1">
+    			<div class="card-header bg-light w-100" style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    				<div class="row w-100 m-0">
+    					<div class="col-5 pl-0">
+    						<a class="btn btn-outline-secondary" href="#" onclick="return reloadView();">
+    							<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
+    						</a>
+    						<b style="margin-left: 5px;">Recent Activity in the last hour</b>	
+    					</div>
+    					<div class="col-7 d-flex justify-content-end">
+    						<div class="col-auto">
+    							<span class="badge badge-secondary p-2" id="update_time" style="font-size:14px;"></span>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    	   		<div class="row w-100 m-0 p-0 mt-1">
+    				<div class="col-3 pl-0" >
+    					<div class="row m-0 p-0 h-100 rounded" style="background-color: #F5C19D;">
+    						<span id="hits_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
+    						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Hits</span>
+    					</div>
+    				</div>
+    				<div class="col-3" >
+    					<div class="row m-0 p-0 h-100 rounded" style="background-color: #F7F157;">
+    						<span id="clicks_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
+    						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Clicks</span>
+    					</div>
+    				</div>
+    				<div class="col-3" >
+    					<div class="row m-0 p-0 h-100 rounded" style="background-color: #86F9E5;">
+    						<span id="logins_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
+    						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Logins</span>
+    					</div>
+    				</div>
+    				<div class="col-3 pr-0" >
+    					<div class="row m-0 p-0 h-100 rounded" style="background-color: #EFB8F4;">
+    						<span id="submission_live" class="my-auto p-2" style="font-size: 34px;font-weight: bold;">0</span>
+    						<span class="my-auto" style="font-size: 18px;font-weight: bold;margin-left: 10px;color: #858692;">Submissions</span>
+    					</div>
+    				</div>
+    	   		</div>
+    	   </div>
+    	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    				<div class="row w-100 m-0">
+    					<div class="col-12">
+    						<b>Overall Service Affinity matrix showing item <span class="badge badge-secondary" style="font-size:14px;">HIT</span> 
+    							matrix and item <span class="badge badge-secondary" style="font-size:14px;">SUBMIT </span> matrix</b>	
+    					</div>
+    				</div>
+    			</div>
+    	   		<div class="row w-100 m-0">
+    				<div class="col-12 p-0" style="height: 50vh !important;" id="itemmatrix_container">
+    					<canvas id="itemmatrix_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    	   		</div>
+    	   </div>
+    	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    				<div class="row w-100 m-0">
+    					<div class="col-3">
+    						<b>Lead Metrics 15 days</b>	
+    					</div>
+    					<div class="col-9">
+    						<div class="form-inline" id="lmetrics_selector"></div>
+    					</div>
+    				</div>
+    			</div>
+    	   		<div class="row w-100 m-0">
+    				<div class="col-12 card" style="height: 40vh !important;">
+    					<canvas id="lfortnight_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    	   		</div>
+    	   </div>
+    	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    				<div class="row w-100 m-0">
+    					<div class="col-3">
+    						<b>Enquiry Metrics 15 days</b>	
+    					</div>
+    					<div class="col-9">
+    						<div class="form-inline" id="emetrics_selector"></div>
+    					</div>
+    				</div>
+    			</div>
+    	   		<div class="row w-100 m-0">
+    				<div class="col-12 card" style="height: 40vh !important;">
+    					<canvas id="efortnight_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    	   		</div>
+    	   </div>
+    	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    				<div class="row w-100 m-0">
+    					<div class="col-6">
+    						<b>Conversation metrics 15 days</b>	
+    					</div>
+    					<div class="col-6">
+    					</div>
+    				</div>
+    			</div>
+    	   		<div class="row w-100 m-0">
+    				<div class="col-12 card" style="height: 40vh !important;">
+    					<canvas id="conversations_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    	   		</div>
+    	   </div>
+    	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    				<div class="row w-100 m-0">
+    					<div class="col-6">
+    						<b>Reach Top 10 Metrics by Region and City</b>	
+    					</div>
+    					<div class="col-6"></div>
+    				</div>
+    			</div>
+    	   		<div class="row w-100 m-0">
+    				<div class="col-6 card" style="height: 50vh !important;">
+    					<canvas id="reachstate_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    				<div class="col-6 card" style="height: 50vh !important;">
+    					<canvas id="reachcity_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    	   		</div>
+    	   </div>
+    	   <div class="row w-100 m-0 mt-2" style="overflow-x:hidden;">
+    			<div class="card-header bg-light w-100"  style="min-height: 7vh;background-color: #E3E4F6 !important;">
+    				<div class="row w-100 m-0">
+    					<div class="col-6">
+    						<b>Access Metrics by Operating system and Browser</b>	
+    					</div>
+    					<div class="col-6"></div>
+    				</div>
+    			</div>
+    	   		<div class="row w-100 m-0">
+    				<div class="col-6 card" style="height: 50vh !important;">
+    					<canvas id="accessos_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    				<div class="col-6 card" style="height: 50vh !important;">
+    					<canvas id="accessbrowser_chart" style="width:100%;height:100%;"></canvas>
+    				</div>	
+    	   		</div>
+    	   </div>
 	   </div>
     </body>
 
