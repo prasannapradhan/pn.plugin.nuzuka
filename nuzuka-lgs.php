@@ -56,13 +56,6 @@
     }
     
     function nuzuka_plugin_activate(){
-        global $plugin_dir_name;
-        
-        $dr = plugin_basename(__FILE__);
-        $drarr = explode('/', $dr);
-        $plugin_dir_name = $drarr[0];
-        error_log("Plugin directory name [$plugin_dir_name]");
-        
         NuzukaPluginActivator::activate(get_site_url());
     }
 
@@ -180,7 +173,7 @@
     }
     
     function handle_submit_nuzuka_registration_form(){
-        global $post_args, $plugin_dir_name, $menu_settings_url;
+        global $post_args, $plugin_dir_name;
         global $org, $profile, $user, $cred_file;
         add_action('wp_enqueue_scripts', "load_style_dependencies");
         add_action('wp_enqueue_scripts', "load_script_dependencies");
@@ -346,6 +339,9 @@
             $org = $cred->org;
             $profile = $cred->profile;
             $user = $cred->user;
+            $dr = plugin_basename(__FILE__);
+            $drarr = explode('/', $dr);
+            $plugin_dir_name = $drarr[0];
             include($plugin_dir."includes/ui/customer/list.php");
         }else {
             exit(wp_redirect('admin.php?page=nuzuka-plugin-settings'));
