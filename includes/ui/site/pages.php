@@ -15,24 +15,29 @@
     		    wp_enqueue_style('nuzuka-daterangepicker', plugins_url('inclues/assets/css/daterangepicker-3.0.3.css', __FILE__));
     		    wp_enqueue_style('nuzuka-google-font-kanit', plugins_url('inclues/assets/css/google-font-kanit.css', __FILE__));
 		  }
+		  function load_script_dependencies(){
+		      wp_enqueue_script('nuzuka-jquery', plugins_url('inclues/assets/js/jquery-1.12.4.min.js', __FILE__));
+		      wp_enqueue_script('nuzuka-bootstrap', plugins_url('inclues/assets/js/bootstrap-4.3.1.min.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/popper-1.15.0.min.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/swal-2.9.17.1.min.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/nprogress.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/mustache.min.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/moment.min.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/datepicker.min.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/daterangepicker-3.0.3.min.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/chartjs-3.7.0.min.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/jquery-color-2.0.0.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/currency-formatter-2.0.0.min.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/pearnode-commons-api-registry.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/pearnode-commons-init.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/pearnode-commons-inventory-model.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/pearnode-commons-inventory-functions.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/pearnode-commons-util.js', __FILE__));
+		      wp_enqueue_script('nuzuka-popper', plugins_url('inclues/assets/js/pearnode-commons-cb-inventory-functions.js', __FILE__));
+		  }
     	  add_action('wp_enqueue_scripts', "load_style_dependencies");
+    	  add_action('wp_enqueue_scripts', "load_script_dependencies");
 		?>
-		
-    <script src="https://static-158c3.kxcdn.com/tools/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
-    <script src="https://static-158c3.kxcdn.com/tools/moment/moment.min.js" type="text/javascript"></script>
-    <script src="https://static-158c3.kxcdn.com/tools/mustache/mustache.min.js" type="text/javascript"></script>
-    <script src="https://static-158c3.kxcdn.com/tools/sweetalert/2.9.17.1/swal.min.js" type="text/javascript" ></script>
-    <script src="https://static-158c3.kxcdn.com/tools/nprogress/nprogress.js" type="text/javascript"></script>
-	<script src="https://static-158c3.kxcdn.com/tools/popper/1.15.0/popper.min.js" type="text/javascript"></script>
-	<script src="https://static-158c3.kxcdn.com/tools/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<script src="https://static-158c3.kxcdn.com/tools/currency-formatter/currency-formatter-2.0.0.min.js" type="text/javascript"></script>
-	<script src="https://static-158c3.kxcdn.com/tools/select2/select2-4.1.0-beta.min.js"></script>
-	<script src="https://static-158c3.kxcdn.com/tools/chartjs/3.4.1/dist/chart.min.js" type="text/javascript" ></script>
-    <script src="https://code.jquery.com/color/jquery.color-2.2.0.js"></script>
-	<script src="https://static-158c3.kxcdn.com/tools/underscore/1.9.1/underscore-min.js" type="text/javascript"></script>
-	
-   	<script src="https://static-158c3.kxcdn.com/js/common/util.js" type="text/javascript"></script>
-   	<script src="https://static-158c3.kxcdn.com/js/common/generic_init.js" type="text/javascript"></script>
 
 	<style type="text/css">
 		 .scrollcontainer {
