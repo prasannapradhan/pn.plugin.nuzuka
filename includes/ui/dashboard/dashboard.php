@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
+		<?php wp_head(); ?>
 		<script type="text/html" id="lst_tmpl">
 			{{#elements}}
 				<div class="form-check form-check-inline">

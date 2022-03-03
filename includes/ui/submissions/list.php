@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+	<?php wp_head(); ?>
 	<script type="text/html" id="tmpl">
         <table class='table table-sm table-bordered compact display nowrap' id='records_tbl'>
 		<thead>

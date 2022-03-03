@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
+		<?php wp_head(); ?>
 		<script type="text/html" id="tmpl">
 			{{#records}}
 				{{#summary}}

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
+		<?php wp_head(); ?>
 		<script id='widget_listing' type="text/html">
 		 <table class='table table-sm table-bordered compact display nowrap table-hover' id='records_tbl'>
 		   <thead>

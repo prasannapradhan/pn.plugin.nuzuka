@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
+		<?php wp_head(); ?>
 		<style type="text/css">
 			.bscrollcontainer { 
 				overflow-y: auto; 

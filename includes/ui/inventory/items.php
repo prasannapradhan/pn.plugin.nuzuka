@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
-
 <head>
+	<?php wp_head(); ?>
+	
 	<script type="text/html" id="item_card_template">
 		<div class="card-deck justify-content-center">
 			{{#records}}

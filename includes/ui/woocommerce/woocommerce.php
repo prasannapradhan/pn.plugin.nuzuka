@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+	<?php wp_head(); ?>
 	<script>
     	var oc = '<?php echo $org->code; ?>';
     	var pc = '<?php echo $profile->code; ?>';

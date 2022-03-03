@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+	<?php wp_head(); ?>
+	
 	<style type="text/css">
 		 .scrollcontainer {
 		    overflow-y: auto;
