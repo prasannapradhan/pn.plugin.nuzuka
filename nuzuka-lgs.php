@@ -4,7 +4,7 @@
      * Description: Nuzuka Enquiry Capture is a super replacement of contact forms.
      * Author: Nuzuka Technology Team
      * Author URI: https://pearnode.com
-     * Version: 0.1
+     * Version: 1.0.0
      * Plugin URI: https://nuzuka.com
      */
     
@@ -49,14 +49,16 @@
             $rdata = (object) array();
             $rdata->surl = $surl;
             $rdata->pglink = $pgid;
-            $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/widget_html_page.php");
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($ch, CURLOPT_FAILONERROR, true);
-            $out = curl_exec($ch);
-            curl_close($ch);
+            $args = array(
+                'body'        => $rdata,
+                'timeout'     => '5',
+                'redirection' => '5',
+                'httpversion' => '1.0',
+                'blocking'    => true,
+                'headers'     => array(),
+                'cookies'     => array(),
+            );
+            $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/widget_html_page.php', $args);
             echo $out;
         }
     }
@@ -78,15 +80,17 @@
                     if($wid != "none"){
                         $rdata = (object) array();
                         $rdata->wid = $wid;
-                        $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php");
-                        curl_setopt($ch, CURLOPT_POST, 1);
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                        curl_setopt($ch, CURLOPT_FAILONERROR, true);
-                        $cout = curl_exec($ch);
-                        curl_close($ch);
-                        $content = str_replace($m, $cout, $content);
+                        $args = array(
+                            'body'        => $rdata,
+                            'timeout'     => '5',
+                            'redirection' => '5',
+                            'httpversion' => '1.0',
+                            'blocking'    => true,
+                            'headers'     => array(),
+                            'cookies'     => array(),
+                        );
+                        $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php', $args);
+                        $content = str_replace($m, $out, $content);
                     }
                 }
             }
@@ -109,21 +113,21 @@
         include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/common-header.php');
 		if(isset($profile->code)){
 		     $surl = get_site_url();
-		     
 		     $rdata = (object) array();
 		     $rdata->oc = $org->code;
 		     $rdata->pc = $profile->code;
 		     $rdata->surl = $surl;
-		     $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/activate.php");
-		     curl_setopt($ch, CURLOPT_POST, 1);
-		     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
-		     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-		     curl_setopt($ch, CURLOPT_FAILONERROR, true);
-		     $cout = curl_exec($ch);
-		     curl_close($ch);
-		     
-		     $site = json_decode($cout);
+		     $args = array(
+		         'body'        => $rdata,
+		         'timeout'     => '5',
+		         'redirection' => '5',
+		         'httpversion' => '1.0',
+		         'blocking'    => true,
+		         'headers'     => array(),
+		         'cookies'     => array(),
+		     );
+		     $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/activate.php', $args);
+		     $site = json_decode($out);
         ?>
     		<div class="card-header w-100">
     			<div class="row w-100 m-0">
@@ -165,24 +169,23 @@
         global $org, $profile, $user, $cred_file;
         
         $regdata = (object) $_POST;
-        $odata = (object) array();
+        $rdata = (object) array();
         $token = $regdata->authtoken;
-        
         $ddata = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $token)[1]))));
-        $odata->oc = $ddata->oc;
-        $odata->pc = $ddata->pc;
-        $odata->uck = $ddata->uck;
-        
-        $ch = curl_init("https://api.pearnode.com/nuzuka/site/plugin/bizdetails.php");
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($odata));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_FAILONERROR, true);
-        $cout = curl_exec($ch);
-        curl_close($ch);
-        
-        file_put_contents($cred_file, $cout);
+        $rdata->oc = $ddata->oc;
+        $rdata->pc = $ddata->pc;
+        $rdata->uck = $ddata->uck;
+        $args = array(
+            'body'        => $rdata,
+            'timeout'     => '5',
+            'redirection' => '5',
+            'httpversion' => '1.0',
+            'blocking'    => true,
+            'headers'     => array(),
+            'cookies'     => array(),
+        );
+        $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/bizdetails.php', $args);
+        file_put_contents($cred_file, $out);
         exit(wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
     }
     
@@ -208,16 +211,17 @@
             $rdata->oc = $org->code;
             $rdata->pc = $profile->code;
             $rdata->surl = get_site_url();
-            $ch = curl_init("https://api.pearnode.com/nuzuka/site/details_url.php");
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($ch, CURLOPT_FAILONERROR, true);
-            $cout = curl_exec($ch);
-            curl_close($ch);
-            
-            $site = json_decode($cout);
+            $args = array(
+                'body'        => $rdata,
+                'timeout'     => '5',
+                'redirection' => '5',
+                'httpversion' => '1.0',
+                'blocking'    => true,
+                'headers'     => array(),
+                'cookies'     => array(),
+            );
+            $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $args);
+            $site = json_decode($out);
             include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/pages.php');
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
@@ -241,16 +245,17 @@
             $rdata->oc = $org->code;
             $rdata->pc = $profile->code;
             $rdata->surl = get_site_url();
-            $ch = curl_init("https://api.pearnode.com/nuzuka/site/details_url.php");
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($ch, CURLOPT_FAILONERROR, true);
-            $cout = curl_exec($ch);
-            curl_close($ch);
-            
-            $site = json_decode($cout);
+            $args = array(
+                'body'        => $rdata,
+                'timeout'     => '5',
+                'redirection' => '5',
+                'httpversion' => '1.0',
+                'blocking'    => true,
+                'headers'     => array(),
+                'cookies'     => array(),
+            );
+            $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $args);
+            $site = json_decode($out);
             include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/visitors.php');
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
@@ -348,16 +353,17 @@
             $rdata->oc = $org->code;
             $rdata->pc = $profile->code;
             $rdata->surl = get_site_url();
-            $ch = curl_init("https://api.pearnode.com/nuzuka/site/details_url.php");
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($ch, CURLOPT_FAILONERROR, true);
-            $cout = curl_exec($ch);
-            curl_close($ch);
-            
-            $site = json_decode($cout);
+            $args = array(
+                'body'        => $rdata,
+                'timeout'     => '5',
+                'redirection' => '5',
+                'httpversion' => '1.0',
+                'blocking'    => true,
+                'headers'     => array(),
+                'cookies'     => array(),
+            );
+            $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $args);
+            $site = json_decode($out);
             include( plugin_dir_path( __FILE__ ) . 'includes/ui/dashboard/dashboard.php');
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
@@ -381,16 +387,17 @@
             $rdata->oc = $org->code;
             $rdata->pc = $profile->code;
             $rdata->surl = get_site_url();
-            $ch = curl_init("https://api.pearnode.com/nuzuka/site/details_url.php");
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($rdata));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($ch, CURLOPT_FAILONERROR, true);
-            $cout = curl_exec($ch);
-            curl_close($ch);
-            
-            $site = json_decode($cout);
+            $args = array(
+                'body'        => $rdata,
+                'timeout'     => '5',
+                'redirection' => '5',
+                'httpversion' => '1.0',
+                'blocking'    => true,
+                'headers'     => array(),
+                'cookies'     => array(),
+            );
+            $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $args);
+            $site = json_decode($out);
             $wc_consumer_key = "";
             $wc_consumer_secret = "";
             if(isset($site->config)){
