@@ -28,12 +28,12 @@
 	</script>
 		
 	<script>
-    	var oc = '<?php echo $org->code; ?>';
-    	var pc = '<?php echo $profile->code; ?>';
-    	var oid = '<?php echo $org->id; ?>';
-    	var pid = '<?php echo $profile->id; ?>';
-    	var uid = '<?php echo $user->id; ?>';
-    	var uck = '<?php echo $user->ck; ?>';
+    	var oc = '<?php echo esc_attr($org->code); ?>';
+    	var pc = '<?php echo esc_attr($profile->code); ?>';
+    	var oid = '<?php echo esc_attr($org->id); ?>';
+    	var pid = '<?php echo esc_attr($profile->id); ?>';
+    	var uid = '<?php echo esc_attr($user->id); ?>';
+    	var uck = '<?php echo esc_attr($user->ck); ?>';
 		var processing_img = '<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/ajax-loader.gif';
     	var grp_search_options = {list: { match: {enabled: true}, maxNumberOfElements: 10 }, placeholder: "Search..", theme: "blue"};
 		var momObj;

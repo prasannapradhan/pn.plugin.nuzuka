@@ -61,11 +61,11 @@
 	</script>
 		
 	<script type="text/javascript">
-		var oc = '<?php echo $org->code; ?>';
-		var pc = '<?php echo $profile->code; ?>';
-		var sid = '<?php echo $site->id; ?>';
-		var uck = '<?php echo $user->ck; ?>';
-		var processing_img = '<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/ajax-loader.gif';
+		var oc = '<?php echo esc_attr($org->code); ?>';
+		var pc = '<?php echo esc_attr($profile->code); ?>';
+		var sid = '<?php echo esc_attr($site->id); ?>';
+		var uck = '<?php echo esc_attr($user->ck); ?>';
+		var processing_img = '<?php echo esc_attr(WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"); ?>images/ajax-loader.gif';
 		
 	    var site = {};
 	    var paths = [];

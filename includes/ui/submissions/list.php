@@ -92,10 +92,10 @@
 	</style>	
 
 	<script type="text/javascript">
-    	var oc = '<?php echo $org->code; ?>';
-    	var pc = '<?php echo $profile->code; ?>';
-    	var uid = '<?php echo $user->id; ?>';
-    	var uck = '<?php echo $user->ck; ?>';
+    	var oc = '<?php echo esc_attr($org->code); ?>';
+    	var pc = '<?php echo esc_attr($profile->code); ?>';
+    	var uid = '<?php echo esc_attr($user->id); ?>';
+    	var uck = '<?php echo esc_attr($user->ck); ?>';
 
     	var wftmpls = [];
 		var oitmpl = "";
@@ -307,7 +307,7 @@
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
 				<a class="btn btn-outline-secondary" href="#" onclick="return loadSubmissionData();" style="margin-left: 5px;">
-					<img src="<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
+					<img src="<?php echo esc_attr(WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"); ?>images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
 				</a>
 			</li>
 		</ul>

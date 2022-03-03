@@ -1,4 +1,4 @@
-<form action='<?php echo get_admin_url(); ?>admin-post.php' method='post' id="registration_form">
+<form action='<?php echo esc_attr(get_admin_url()); ?>admin-post.php' method='post' id="registration_form">
 	<div class="card-header bg-light w-100 mt-2" style="font-weight: bold;">
 		Integrate Nuzuka to your site 
 		<div class="float-right">Not Registered yet ? 

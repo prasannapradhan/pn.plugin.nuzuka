@@ -2,12 +2,12 @@
 <html lang="en">
 	<?php wp_head(); ?>
 	<script>
-    	var oc = '<?php echo $org->code; ?>';
-    	var pc = '<?php echo $profile->code; ?>';
-    	var uid = '<?php echo $user->id; ?>';
-    	var uck = '<?php echo $user->ck; ?>';
-    	var sid = '<?php echo $site->id; ?>';
-    	var sname = '<?php echo $site->site_name; ?>';
+    	var oc = '<?php echo esc_attr($org->code); ?>';
+    	var pc = '<?php echo esc_attr($profile->code); ?>';
+    	var uid = '<?php echo esc_attr($user->id); ?>';
+    	var uck = '<?php echo esc_attr($user->ck); ?>';
+    	var sid = '<?php echo esc_attr($site->id); ?>';
+    	var sname = '<?php echo esc_attr($site->site_name); ?>';
     	
 	 	function scanSite(){
 			var wcckey = $('#woocommerce_consumer_key').val().trim();
@@ -30,14 +30,14 @@
 				$('#modal_site_name').text(sname);
 				$('#scan_modal').modal('show');
 				var postUrl = "https://api.pearnode.com/nuzuka/site/scan/page_open.php"; 
-				$('#page_scan_result').html('<img src="<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images//ajax/loader-snake-blue.gif" style="width: 1.5vw;"/>');
+				$('#page_scan_result').html('<img src="<?php echo esc_attr(WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"); ?>images//ajax/loader-snake-blue.gif" style="width: 1.5vw;"/>');
 			    $.post(postUrl, JSON.stringify(pdata), function(data) {
 			    	var robj = $.parseJSON(data);
 			    	var pgstatus = robj.status;
 			    	if(pgstatus.status == "success"){
 				    	$('#page_scan_result').html(robj.fetch_ctr + " found, " + robj.add_ctr + " added, " + robj.update_ctr + " updated");
 				    	postUrl = "https://api.pearnode.com/nuzuka/site/scan/post_open.php"; 
-						$('#post_scan_result').html('<img src="<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images//ajax/loader-snake-blue.gif" style="width: 1.5vw;"/>');
+						$('#post_scan_result').html('<img src="<?php echo esc_attr(WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"); ?>images//ajax/loader-snake-blue.gif" style="width: 1.5vw;"/>');
 					    $.post(postUrl, JSON.stringify(pdata), function(data) {
 					    	var robj = $.parseJSON(data);
 					    	var psstatus = robj.status;
@@ -79,7 +79,7 @@
         	<div class="card-body w-100 p-1 mt-1">
         		<div class="row w-100 m-0 mb-2 mt-1">
         			<div class="col-5 p-0">
-        				<img src="<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/woocommerce.png" 
+        				<img src="<?php echo esc_attr(WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"); ?>images/woocommerce.png" 
         					class="shadow shadow-sm rounded w-100" 
         					style="height: 40vh;border-radius: 16px; "/>
         			</div>
@@ -103,13 +103,13 @@
         		<div class="form-group mt-1">
         		    <label for="woocommerce_consumer_key"><b>Woocommerce Consumer Key</b></label>
         		    <input type="text" class="form-control" id="woocommerce_consumer_key" name="woocommerce_consumer_key" 
-        		    	required="required"  value="<?php echo $wc_consumer_key;?>"/>
+        		    	required="required"  value="<?php echo esc_attr($wc_consumer_key);?>"/>
         	    	<small id="wcckeyhelp" class="form-text text-muted">Enter the woocommerce Consumer Key you generated here</small>
         		</div>
         		<div class="form-group mt-1">
         		    <label for="woocommerce_consumer_secret"><b>Woocommerce Consumer Secret</b></label>
         		    <input type="text" class="form-control" id="woocommerce_consumer_secret" name="woocommerce_consumer_secret" 
-        		    	required="required" value="<?php echo $wc_consumer_secret;?>">
+        		    	required="required" value="<?php echo esc_attr($wc_consumer_secret);?>">
         	    	<small id="wccsechelp" class="form-text text-muted">Enter the woocommerce Consumer Secret you generated here</small>
         		</div>
         	</div>

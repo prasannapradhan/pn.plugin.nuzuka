@@ -21,10 +21,10 @@
 		</script>
 		
 		<script>
-    		var oc = '<?php echo $org->code; ?>';
-    		var pc = '<?php echo $profile->code; ?>';
-    		var uid = '<?php echo $user->id; ?>';
-    		var uck = '<?php echo $user->ck; ?>';
+    		var oc = '<?php echo esc_attr($org->code); ?>';
+    		var pc = '<?php echo esc_attr($profile->code); ?>';
+    		var uid = '<?php echo esc_attr($user->id); ?>';
+    		var uck = '<?php echo esc_attr($user->ck); ?>';
 
     		var schartStore = {};
     		var lstatuselems = ['submitted', 'processing', 'disqualified', 'converted'];

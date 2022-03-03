@@ -26,7 +26,7 @@
 		<div class="col-6">
 			<div class="row w-100 m-0 bg-light p-2 border-1 rounded alert alert-light"><b>Plugin Navigation</b></div>
 			<div class="row w-100 m-0 mt-2">
-				<form action='<?php echo get_admin_url(); ?>admin-post.php' method='post' id="navigation_form">
+				<form action='<?php echo esc_attr(get_admin_url()); ?>admin-post.php' method='post' id="navigation_form">
     				<script>
     					function submitNavigationForm(navslug){
     						var form = document.getElementById('navigation_form');

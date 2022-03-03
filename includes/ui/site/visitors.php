@@ -48,10 +48,10 @@
 		</style>
 
 		<script>
-    		var oc = '<?php echo $org->code; ?>';
-    		var pc = '<?php echo $profile->code; ?>';
-    		var sid = '<?php echo $site->id; ?>';
-    		var uck = '<?php echo $user->ck; ?>';
+    		var oc = '<?php echo esc_attr($org->code); ?>';
+    		var pc = '<?php echo esc_attr($profile->code); ?>';
+    		var sid = '<?php echo esc_attr($site->id); ?>';
+    		var uck = '<?php echo esc_attr($user->ck); ?>';
     		
 			var vitmpl = "";
 	    	var visitorsObj = {};
