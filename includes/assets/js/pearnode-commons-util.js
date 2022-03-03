@@ -347,14 +347,14 @@ function showConfirm(title, msg, type, callback){
 }
 
 function showProcessingLoader(msg){
-	Swal.fire({title: msg, text: "Please wait...", imageUrl: "<?php echo plugins_url('includes/assets/', __FILE__); ?>images/ajax-loader.gif", showConfirmButton:false, allowEscapeKey: false, allowOutsideClick: false});
+	Swal.fire({title: msg, text: "Please wait...", imageUrl: "<?php echo plugins_url('includes/assets/', dirname(__FILE__)); ?>images/ajax-loader.gif", showConfirmButton:false, allowEscapeKey: false, allowOutsideClick: false});
 }
 
 function hideProcessingLoader(){
 	Swal.close();
 }
 function showProcessing(msg){
-	Swal.fire({title: msg, text: "Please wait...", imageUrl: "<?php echo plugins_url('includes/assets/', __FILE__); ?>images/ajax-loader.gif", showConfirmButton:false, allowEscapeKey: false, allowOutsideClick: false});
+	Swal.fire({title: msg, text: "Please wait...", imageUrl: "<?php echo plugins_url('includes/assets/', dirname(__FILE__)); ?>images/ajax-loader.gif", showConfirmButton:false, allowEscapeKey: false, allowOutsideClick: false});
 }
 
 function hideProcessing(){

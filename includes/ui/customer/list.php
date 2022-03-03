@@ -152,7 +152,7 @@
 			<ul class="navbar-nav mr-auto">
 		        <li class="nav-item">
 			      	<a class="btn btn-outline-secondary" href="#" onclick="return loadConsumers();" style="margin-left: 5px;">
-			      		<img src="<?php echo plugins_url('includes/assets/', __FILE__); ?>images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
+			      		<img src="<?php echo plugins_url('includes/assets/', dirname(__FILE__)); ?>images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
 			      	</a>
 		        </li>
 		        <li class="nav-item">

@@ -58,17 +58,17 @@ class Item {
 		this.gst_percent = parseFloat(this.gst_percent);
 		
 		if (typeof this.g_img_url == 'undefined') {
-			this.g_img_url = '<?php echo plugins_url('includes/assets/', __FILE__); ?>images/group.png';	
+			this.g_img_url = '<?php echo plugins_url('includes/assets/', dirname(__FILE__)); ?>images/group.png';	
 		}
 		if (typeof this.img_url == 'undefined') {
-			this.img_url = '<?php echo plugins_url('includes/assets/', __FILE__); ?>images/item.png';	
+			this.img_url = '<?php echo plugins_url('includes/assets/', dirname(__FILE__)); ?>images/item.png';	
 		}else if(this.img_url == '/assets/images/item.png'){
-			this.img_url = '<?php echo plugins_url('includes/assets/', __FILE__); ?>images/item.png';	
+			this.img_url = '<?php echo plugins_url('includes/assets/', dirname(__FILE__)); ?>images/item.png';	
 		}else if(this.img_url == ""){
-			this.img_url = '<?php echo plugins_url('includes/assets/', __FILE__); ?>images/item.png';	
+			this.img_url = '<?php echo plugins_url('includes/assets/', dirname(__FILE__)); ?>images/item.png';	
 		}
 		if(this.img_url === null){
-			this.img_url = '<?php echo plugins_url('includes/assets/', __FILE__); ?>images/item.png';	
+			this.img_url = '<?php echo plugins_url('includes/assets/', dirname(__FILE__)); ?>images/item.png';	
 		}
 		if(this.img_url.indexOf("ftp.pearnode.com") != -1){
 			this.img_url = this.img_url.replace("ftp.pearnode.com", "ftp-158c3.kxcdn.com")
