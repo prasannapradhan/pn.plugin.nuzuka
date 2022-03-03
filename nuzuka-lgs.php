@@ -46,20 +46,13 @@
         $pgid = $wp_query->get_queried_object_id();
         if($pgid){
             $surl = get_site_url();
-            $rdata = (object) array();
-            $rdata->surl = $surl;
-            $rdata->pglink = $pgid;
-            $args = array(
-                'body'        => $rdata,
-                'timeout'     => '5',
-                'redirection' => '5',
-                'httpversion' => '1.0',
-                'blocking'    => true,
-                'headers'     => array(),
-                'cookies'     => array(),
-            );
+            $rdata = array('surl' => $surl, 'pglink' => $pgid);
+            $args = array('body' => $rdata, 'timeout' => '5', 'redirection' => '5', 'httpversion' => '1.0', 'blocking' => true, 'headers' => array(), 'cookies' => array());
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/widget_html_page.php', $args);
-            echo $out;
+            if(is_array($out)){
+                $page = (object) $out;
+                echo json_encode($page);
+            }
         }
     }
     
@@ -78,19 +71,12 @@
                 if (preg_match('/"([^"]+)"/', $mx, $widarr)) {
                     $wid = $widarr[1];
                     if($wid != "none"){
-                        $rdata = (object) array();
-                        $rdata->wid = $wid;
-                        $args = array(
-                            'body'        => $rdata,
-                            'timeout'     => '5',
-                            'redirection' => '5',
-                            'httpversion' => '1.0',
-                            'blocking'    => true,
-                            'headers'     => array(),
-                            'cookies'     => array(),
-                        );
-                        $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php', $args);
-                        $content = str_replace($m, $out, $content);
+                        $rdata = array('wid' => $wid);
+                        $args = array('body' => $rdata, 'timeout' => '5', 'redirection' => '5', 'httpversion' => '1.0', 'blocking' => true, 'headers' => array(), 'cookies' => array());
+                        $html = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php', $args);
+                        if($html != ""){
+                            $content = str_replace($m, $html, $content);
+                        }
                     }
                 }
             }
@@ -113,21 +99,12 @@
         include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/common-header.php');
 		if(isset($profile->code)){
 		     $surl = get_site_url();
-		     $rdata = (object) array();
-		     $rdata->oc = $org->code;
-		     $rdata->pc = $profile->code;
-		     $rdata->surl = $surl;
-		     $args = array(
-		         'body'        => $rdata,
-		         'timeout'     => '5',
-		         'redirection' => '5',
-		         'httpversion' => '1.0',
-		         'blocking'    => true,
-		         'headers'     => array(),
-		         'cookies'     => array(),
-		     );
+		     $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => $surl);
+		     $args = array('body' => $rdata, 'timeout' => '5', 'redirection' => '5', 'httpversion' => '1.0', 'blocking' => true, 'headers' => array(), 'cookies' => array());
 		     $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/activate.php', $args);
-		     $site = json_decode($out);
+		     if(is_array($out)){
+		         $site = (object) $out;
+		     }
         ?>
     		<div class="card-header w-100">
     			<div class="row w-100 m-0">
@@ -167,26 +144,19 @@
     
     function handle_submit_nuzuka_registration_form(){
         global $org, $profile, $user, $cred_file;
-        
-        $regdata = (object) $_POST;
-        $rdata = (object) array();
-        $token = $regdata->authtoken;
-        $ddata = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $token)[1]))));
-        $rdata->oc = $ddata->oc;
-        $rdata->pc = $ddata->pc;
-        $rdata->uck = $ddata->uck;
-        $args = array(
-            'body'        => $rdata,
-            'timeout'     => '5',
-            'redirection' => '5',
-            'httpversion' => '1.0',
-            'blocking'    => true,
-            'headers'     => array(),
-            'cookies'     => array(),
-        );
-        $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/bizdetails.php', $args);
-        file_put_contents($cred_file, $out);
-        exit(wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
+        if(isset($_POST['authtoken'])){
+            $token = $_POST['authtoken'];
+            $ddata = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $token)[1]))));
+            $rdata = array('oc' => $ddata->oc, 'pc' => $ddata->pc, 'uck' => $ddata->uck);
+            $args = array('body' => $rdata, 'timeout' => '5', 'redirection' => '5', 'httpversion' => '1.0', 'blocking' => true, 'headers' => array(), 'cookies' => array());
+            $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/bizdetails.php', $args);
+            if(is_array($out)){
+                $details = (object) $out;
+                $dout = json_encode($details);
+                file_put_contents($cred_file, $dout);
+                exit(wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
+            }
+        }
     }
     
     function handle_submit_nuzuka_navigation_form(){
@@ -207,22 +177,13 @@
             $profile = $cred->profile;
             $user = $cred->user;
             
-            $rdata = (object) array();
-            $rdata->oc = $org->code;
-            $rdata->pc = $profile->code;
-            $rdata->surl = get_site_url();
-            $args = array(
-                'body'        => $rdata,
-                'timeout'     => '5',
-                'redirection' => '5',
-                'httpversion' => '1.0',
-                'blocking'    => true,
-                'headers'     => array(),
-                'cookies'     => array(),
-            );
+            $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
+            $args = array('body' => $rdata, 'timeout' => '5', 'redirection' => '5', 'httpversion' => '1.0', 'blocking' => true, 'headers' => array(), 'cookies' => array());
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $args);
-            $site = json_decode($out);
-            include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/pages.php');
+            if(is_array($out)){
+                $site = (object) $out;
+                include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/pages.php');
+            }
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
             exit(wp_redirect($foo));
@@ -241,22 +202,13 @@
             $profile = $cred->profile;
             $user = $cred->user;
             
-            $rdata = (object) array();
-            $rdata->oc = $org->code;
-            $rdata->pc = $profile->code;
-            $rdata->surl = get_site_url();
-            $args = array(
-                'body'        => $rdata,
-                'timeout'     => '5',
-                'redirection' => '5',
-                'httpversion' => '1.0',
-                'blocking'    => true,
-                'headers'     => array(),
-                'cookies'     => array(),
-            );
+            $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
+            $args = array('body' => $rdata, 'timeout' => '5', 'redirection' => '5', 'httpversion' => '1.0', 'blocking' => true, 'headers' => array(), 'cookies' => array());
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $args);
-            $site = json_decode($out);
-            include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/visitors.php');
+            if(is_array($out)){
+                $site = (object) $out;
+                include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/visitors.php');
+            }
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
             exit( wp_redirect($foo));
@@ -349,22 +301,13 @@
             $profile = $cred->profile;
             $user = $cred->user;
             
-            $rdata = (object) array();
-            $rdata->oc = $org->code;
-            $rdata->pc = $profile->code;
-            $rdata->surl = get_site_url();
-            $args = array(
-                'body'        => $rdata,
-                'timeout'     => '5',
-                'redirection' => '5',
-                'httpversion' => '1.0',
-                'blocking'    => true,
-                'headers'     => array(),
-                'cookies'     => array(),
-            );
+            $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
+            $args = array('body' => $rdata, 'timeout' => '5', 'redirection' => '5', 'httpversion' => '1.0', 'blocking' => true, 'headers' => array(), 'cookies' => array());            
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $args);
-            $site = json_decode($out);
-            include( plugin_dir_path( __FILE__ ) . 'includes/ui/dashboard/dashboard.php');
+            if(is_array($out)){
+                $site = (object) $out;
+                include( plugin_dir_path( __FILE__ ) . 'includes/ui/dashboard/dashboard.php');
+            }
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
             exit( wp_redirect($foo));
@@ -383,35 +326,26 @@
             $profile = $cred->profile;
             $user = $cred->user;
             
-            $rdata = (object) array();
-            $rdata->oc = $org->code;
-            $rdata->pc = $profile->code;
-            $rdata->surl = get_site_url();
-            $args = array(
-                'body'        => $rdata,
-                'timeout'     => '5',
-                'redirection' => '5',
-                'httpversion' => '1.0',
-                'blocking'    => true,
-                'headers'     => array(),
-                'cookies'     => array(),
-            );
+            $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
+            $args = array('body' => $rdata, 'timeout' => '5', 'redirection' => '5', 'httpversion' => '1.0', 'blocking' => true, 'headers' => array(), 'cookies' => array());
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $args);
-            $site = json_decode($out);
-            $wc_consumer_key = "";
-            $wc_consumer_secret = "";
-            if(isset($site->config)){
-                $sconfig = $site->config;
-                if(isset($sconfig->commerce)){
-                    if($sconfig->commerce == "woocommerce"){
-                        if(isset($sconfig->woocommerce)){
-                            $wc_consumer_key = $sconfig->woocommerce->woocommerce_consumer_key;
-                            $wc_consumer_secret = $sconfig->woocommerce->woocommerce_consumer_secret;
+            if(is_array($out)){
+                $site = (object) $out;
+                $wc_consumer_key = "";
+                $wc_consumer_secret = "";
+                if(isset($site->config)){
+                    $sconfig = $site->config;
+                    if(isset($sconfig->commerce)){
+                        if($sconfig->commerce == "woocommerce"){
+                            if(isset($sconfig->woocommerce)){
+                                $wc_consumer_key = $sconfig->woocommerce->woocommerce_consumer_key;
+                                $wc_consumer_secret = $sconfig->woocommerce->woocommerce_consumer_secret;
+                            }
                         }
                     }
                 }
+                include( plugin_dir_path( __FILE__ ) . 'includes/ui/woocommerce/woocommerce.php');
             }
-            include( plugin_dir_path( __FILE__ ) . 'includes/ui/woocommerce/woocommerce.php');
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
             exit( wp_redirect($foo));
