@@ -8,7 +8,7 @@
 	<div class="card-body w-100 p-1 mt-2">
 		<div class="row w-100 m-0 mb-2 mt-1">
 			<div class="col-5 p-0">
-				<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/nuzuka/sitefunction.jpg" 
+				<img src="<?php echo plugin_dir_url( __FILE__ ).'includes/assets/'; ?>images/sitefunction.jpg" 
 					class="shadow shadow-sm rounded w-100" 
 					style="height: 30vh;border-radius: 16px; "/>
 			</div>

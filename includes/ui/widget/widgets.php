@@ -27,7 +27,7 @@
 				    <td class='text-center' width='15%'>
 						<button class="btn btn btn-outline-danger" onclick="return remove('{{id}}')" 
 							data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Dashboard" >
-							<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/bin.png" style="max-width:1vw"/>	
+							<img src="<?php echo plugin_dir_url( __FILE__ ).'includes/assets/'; ?>images/bin.png" style="max-width:1vw"/>	
 						</button>
 				    </td>
 			     <tr>

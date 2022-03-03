@@ -169,7 +169,7 @@
 	    <div class="col-2 d-flex" style="padding-left: 5px;padding-right: 5px;">
 			<input type="text" class="form-control" id="one_search" placeholder="Search..." onfocus="this.select();">
 			<button class="btn btn-sm btn-outline-primary" style="margin-left: 2px;"  onclick="return searchItems();">
-				<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/search.png" style="width:14px;height:14px;"/>	
+				<img src="<?php echo plugin_dir_url( __FILE__ ).'includes/assets/'; ?>images/search.png" style="width:14px;height:14px;"/>	
 			</button>
 		</div>
 		<div class="col-9 d-flex">
