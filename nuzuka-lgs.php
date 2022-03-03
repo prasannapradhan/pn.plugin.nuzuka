@@ -190,7 +190,9 @@
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/bizdetails.php', $post_args);
             $robj = (object) $out;
             file_put_contents($cred_file, $robj->body);
-            exit(wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
+            $foo = menu_page_url("nuzuka-plugin-settings");
+            error_log("Post registration redirecting to [$foo]");
+            exit(wp_redirect($foo));
         }
     }
     

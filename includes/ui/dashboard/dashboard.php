@@ -420,9 +420,7 @@
 				}
 	    		var hitkeys = Object.keys(hitmatrix);
 	    		if(hitkeys.length > 2){
-		    		var difflen = hitkeys.length - 5;
-		    		var diffh = 5 * difflen;
-		    		var apph = 25 + diffh;
+		    		var apph = 25 + (5 * hitkeys.length);
 		    		$('#itemmatrix_container').css('height', apph + 'vh');
 	    		}else {
 	    			$('#itemmatrix_container').css('height', '25vh');
