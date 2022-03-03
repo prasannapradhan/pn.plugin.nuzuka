@@ -391,6 +391,9 @@
             $body = $robj->body;
             $site = json_decode($body);
             if(isset($site->id)){
+                $dr = plugin_basename(__FILE__);
+                $drarr = explode('/', $dr);
+                $plugin_dir_name = $drarr[0];
                 include($plugin_dir."includes/ui/dashboard/dashboard.php");
             }else {
                 exit(wp_redirect('admin.php?page=nuzuka-plugin-settings'));
@@ -435,6 +438,9 @@
                         }
                     }
                 }
+                $dr = plugin_basename(__FILE__);
+                $drarr = explode('/', $dr);
+                $plugin_dir_name = $drarr[0];
                 include($plugin_dir."includes/ui/woocommerce/woocommerce.php");
             }else {
                 exit(wp_redirect('admin.php?page=nuzuka-plugin-settings'));
