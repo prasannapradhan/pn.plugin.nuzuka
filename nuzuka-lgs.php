@@ -60,10 +60,8 @@
             $rdata = array('surl' => $surl, 'pglink' => $pgid);
             $post_args['body'] = json_encode($rdata);
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/widget_html_page.php', $post_args);
-            if(is_array($out)){
-                $page = (object) $out;
-                echo json_encode($page);
-            }
+            $page = (object) $out;
+            echo json_encode($page);
         }
     }
     
@@ -102,7 +100,6 @@
         $out = "";
         if(file_exists($cred_file)){
             $out = file_get_contents($cred_file);
-            error_log("Cred contents [$out]");
         }
         if($out != ""){
             $cred = json_decode($out);
@@ -110,7 +107,6 @@
             $profile = $cred->profile;
             $user = $cred->user;
         }
-        error_log("Loading dependencies");
         add_action('wp_enqueue_scripts', "load_style_dependencies");
         add_action('wp_enqueue_scripts', "load_script_dependencies");
         include( plugin_dir_path( __FILE__ ) . 'includes/ui/settings/common-header.php');
@@ -168,12 +164,20 @@
             $rdata = array('oc' => $ddata->oc, 'pc' => $ddata->pc, 'uck' => $ddata->uck);
             $post_args['body'] = json_encode($rdata);
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/bizdetails.php', $post_args);
+            if(is_object($out)){
+                error_log("Response is an object");
+            }else if(is_array($out)){
+                error_log("Response is an array");
+            }else {
+                error_log("Response is a string");
+            }
+            exit(wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
+            /*
             if(is_array($out)){
                 $details = (object) $out;
                 $dout = json_encode($details);
                 file_put_contents($cred_file, $dout);
-                exit(wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
-            }
+            }*/
         }
     }
     
