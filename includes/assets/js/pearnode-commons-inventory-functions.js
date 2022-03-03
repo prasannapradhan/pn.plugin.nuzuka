@@ -52,11 +52,6 @@ function loadInventoryGroupsFromApi(callback){
 		loadedItemGroups = $.parseJSON(data);
 		$.each(loadedItemGroups, function(gkey, group){
 			if(group.name.trim() != ""){
-				if(typeof group.img_url == "undefined"){
-					group.img_url = "<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/group.png";
-				}else {
-					group.img_url = group.img_url.replace('ftp.pearnode.com','ftp-158c3.kxcdn.com');
-				}
 				itemGroupMap[group.code] = group; 
 			}
 		});

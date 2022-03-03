@@ -145,7 +145,6 @@ function setGroupDefaultImage(gname, gcode, giurl, icode){
 function toggleGroupDetails(icode){
 	if($('#item_grp_row_' + icode).is(':visible')){
 		$('#item_grp_row_' + icode).fadeOut(400);
-		$('#item_grp_img_' + icode).attr("src", "<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/pushdown.png");
 	}else {
 		NProgress.start();
 		$('#grp_sstr_' + icode).on("keyup", function(e) {
@@ -181,7 +180,6 @@ function renderGroupMedia(icode){
 		var medias = $.parseJSON(data);
 		renderGroupImages(medias, icode, gn, gcode);
 		$('#grp_sstr_' + icode).val(gss);
-		$('#grp_img_' + icode).attr("src", "<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/pushup.png");
 		NProgress.done();
 	});
 }
@@ -210,7 +208,6 @@ function renderGroupImages(medias, icode, gname, gcode){
 function toggleItemDetails(icode){
 	if($('#item_details_row_' + icode).is(':visible')){
 		$('#item_details_row_' + icode).fadeOut(400);
-		$('#item_details_img_' + icode).attr("src", "<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/pushdown.png");
 	}else {
 		NProgress.start();
 		$('#item_details_sstr_' + icode).on("keyup", function(e) {
@@ -244,7 +241,6 @@ function renderItemMedia(icode){
 		var medias = $.parseJSON(data);
 		renderItemImages(medias, icode);
 		$('#item_details_sstr_' + icode).val(iss);
-		$('#item_details_img_' + icode).attr("src", "<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/pushup.png");
 		NProgress.done();
 	});
 }

@@ -34,7 +34,7 @@
     	var pid = '<?php echo $profile->id; ?>';
     	var uid = '<?php echo $user->id; ?>';
     	var uck = '<?php echo $user->ck; ?>';
-
+		var processing_img = '<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/ajax-loader.gif';
     	var grp_search_options = {list: { match: {enabled: true}, maxNumberOfElements: 10 }, placeholder: "Search..", theme: "blue"};
 		var momObj;
 		var allgroup = {id : -1, name : 'All Groups', code : 'all'};

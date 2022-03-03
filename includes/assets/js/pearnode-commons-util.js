@@ -347,14 +347,14 @@ function showConfirm(title, msg, type, callback){
 }
 
 function showProcessingLoader(msg){
-	Swal.fire({title: msg, text: "Please wait...", imageUrl: "<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/ajax-loader.gif", showConfirmButton:false, allowEscapeKey: false, allowOutsideClick: false});
+	Swal.fire({title: msg, text: "Please wait...", imageUrl: processing_img, showConfirmButton:false, allowEscapeKey: false, allowOutsideClick: false});
 }
 
 function hideProcessingLoader(){
 	Swal.close();
 }
 function showProcessing(msg){
-	Swal.fire({title: msg, text: "Please wait...", imageUrl: "<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/ajax-loader.gif", showConfirmButton:false, allowEscapeKey: false, allowOutsideClick: false});
+	Swal.fire({title: msg, text: "Please wait...", imageUrl: processing_img, showConfirmButton:false, allowEscapeKey: false, allowOutsideClick: false});
 }
 
 function hideProcessing(){

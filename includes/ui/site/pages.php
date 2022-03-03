@@ -65,6 +65,7 @@
 		var pc = '<?php echo $profile->code; ?>';
 		var sid = '<?php echo $site->id; ?>';
 		var uck = '<?php echo $user->ck; ?>';
+		var processing_img = '<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/ajax-loader.gif';
 		
 	    var site = {};
 	    var paths = [];
