@@ -302,12 +302,12 @@
 		}
 	</script>
 </head>
-<body style="font-family: 'Roboto', sans-serif;">
+<body style="">
 	<nav class="navbar navbar-expand-lg w-100">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
 				<a class="btn btn-outline-secondary" href="#" onclick="return loadSubmissionData();" style="margin-left: 5px;">
-					<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
+					<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
 				</a>
 			</li>
 		</ul>

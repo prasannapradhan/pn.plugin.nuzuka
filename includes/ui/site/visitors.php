@@ -182,13 +182,13 @@
 		</script>
 	</head>
 
-	<body style="overflow-x:hidden;font-family: 'Roboto', sans-serif;" class="p-2">
+	<body style="overflow-x:hidden;" class="p-2">
 		<nav class=" navbar navbar-expand-lg">
 			<!-- Left navbar links -->
 			<ul class="navbar-nav mr-auto">
 		        <li class="nav-item">
 			      	<a class="btn btn-sm btn-outline-secondary" href="#" onclick="return loadVisitors();" style="margin-left: 5px;">
-			      		<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.4vw"/><b style="margin-left: 5px;">Refresh</b>
+			      		<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/refresh.png" style="max-width:1.4vw"/><b style="margin-left: 5px;">Refresh</b>
 			      	</a>
 		        </li>
 			</ul>

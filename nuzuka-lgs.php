@@ -440,7 +440,6 @@
         wp_enqueue_style('nuzuka-select2-bootstrap', plugins_url('includes/assets/css/select2-bootstrap4.min.css', __FILE__));
         wp_enqueue_style('nuzuka-datepicker', plugins_url('includes/assets/css/datepicker-min.css', __FILE__));
         wp_enqueue_style('nuzuka-daterangepicker', plugins_url('includes/assets/css/daterangepicker-3.0.3.css', __FILE__));
-        wp_enqueue_style('nuzuka-google-font-kanit', plugins_url('includes/assets/css/google-font-kanit.css', __FILE__));
     }
     
     function load_script_dependencies(){

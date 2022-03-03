@@ -58,17 +58,17 @@ class Item {
 		this.gst_percent = parseFloat(this.gst_percent);
 		
 		if (typeof this.g_img_url == 'undefined') {
-			this.g_img_url = 'https://static-158c3.kxcdn.com/images/group.png';	
+			this.g_img_url = '<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/group.png';	
 		}
 		if (typeof this.img_url == 'undefined') {
-			this.img_url = 'https://static-158c3.kxcdn.com/images/item.png';	
+			this.img_url = '<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/item.png';	
 		}else if(this.img_url == '/assets/images/item.png'){
-			this.img_url = 'https://static-158c3.kxcdn.com/images/item.png';	
+			this.img_url = '<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/item.png';	
 		}else if(this.img_url == ""){
-			this.img_url = 'https://static-158c3.kxcdn.com/images/item.png';	
+			this.img_url = '<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/item.png';	
 		}
 		if(this.img_url === null){
-			this.img_url = 'https://static-158c3.kxcdn.com/images/item.png';	
+			this.img_url = '<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/item.png';	
 		}
 		if(this.img_url.indexOf("ftp.pearnode.com") != -1){
 			this.img_url = this.img_url.replace("ftp.pearnode.com", "ftp-158c3.kxcdn.com")

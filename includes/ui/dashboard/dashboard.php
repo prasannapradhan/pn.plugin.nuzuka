@@ -513,14 +513,14 @@
 		</script>
 	</head>
 
-	<body style="overflow-x:hidden;font-family: 'Roboto', sans-serif;" class="p-1" >
+	<body style="overflow-x:hidden;" class="p-1" >
 	   <div class="container">
     	   <div class="row w-100 m-0 mt-1 mb-1">
     			<div class="card-header bg-light w-100 pl-0 pr-0" style="min-height: 7vh;background-color: #F7F9EF !important;">
     				<div class="row w-100 m-0">
     					<div class="col-5 pl-0">
     						<a class="btn btn-outline-secondary" href="#" onclick="return reloadView();">
-    							<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
+    							<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
     						</a>
     						<b style="margin-left: 5px;">Recent Activity / 1 hour</b>	
     					</div>

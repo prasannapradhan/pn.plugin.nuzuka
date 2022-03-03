@@ -27,7 +27,7 @@
 				    <td class='text-center' width='15%'>
 						<button class="btn btn btn-outline-danger" onclick="return remove('{{id}}')" 
 							data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Dashboard" >
-							<img src="https://static-158c3.kxcdn.com/images/bin.png" style="max-width:1vw"/>	
+							<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/bin.png" style="max-width:1vw"/>	
 						</button>
 				    </td>
 			     <tr>
@@ -140,7 +140,7 @@
 		</script>
 	</head>
 
-	<body style="overflow-x:hidden;font-family: 'Roboto', sans-serif;">
+	<body style="overflow-x:hidden;">
 		<nav class="navbar navbar-expand-lg w-100">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">

@@ -47,11 +47,11 @@
 					<div class="row d-flex justify-content-center">
 						<button class="btn btn-sm btn-light" onclick="return enableWidget({{site_ref}}, {{id}});"
 							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Enable / Disable Nuzuka widget">
-							<img src="https://static-158c3.kxcdn.com/images/z.png" style="max-width:1.4vw;max-height:2.0vh;"/>
+							<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/z.png" style="max-width:1.4vw;max-height:2.0vh;"/>
 						</button>
 						<button class="btn btn-sm btn-light" onclick="return inactivatePage({{id}})"
 							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Stop Monitoring Page">
-							<img src="https://static-158c3.kxcdn.com/images/bin.png" style="max-width:1.4vw"/>
+							<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/bin.png" style="max-width:1.4vw"/>
 						</button>
 					</div>
 				</div>
@@ -252,14 +252,14 @@
 			$('#scan_modal').modal('show');
 	    	var pdata = {'oc': oc,'pc': pc, 'sid' : sid};
 			var postUrl = "https://api.pearnode.com/nuzuka/site/scan/page_open.php"; 
-			$('#page_scan_result').html('<img src="https://static-158c3.kxcdn.com/images//ajax/loader-snake-blue.gif" style="width: 1.5vw;"/>');
+			$('#page_scan_result').html('<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images//ajax/loader-snake-blue.gif" style="width: 1.5vw;"/>');
 		    $.post(postUrl, JSON.stringify(pdata), function(data) {
 		    	var robj = $.parseJSON(data);
 		    	var pgstatus = robj.status;
 		    	if(pgstatus.status == "success"){
 			    	$('#page_scan_result').html(robj.fetch_ctr + " found, " + robj.add_ctr + " added, " + robj.update_ctr + " updated");
 			    	postUrl = "https://api.pearnode.com/nuzuka/site/scan/post_open.php"; 
-					$('#post_scan_result').html('<img src="https://static-158c3.kxcdn.com/images//ajax/loader-snake-blue.gif" style="width: 1.5vw;"/>');
+					$('#post_scan_result').html('<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images//ajax/loader-snake-blue.gif" style="width: 1.5vw;"/>');
 				    $.post(postUrl, JSON.stringify(pdata), function(data) {
 				    	var robj = $.parseJSON(data);
 				    	var psstatus = robj.status;
@@ -408,7 +408,7 @@
 </head>
 
 <body>
-	<div class="container-fluid" style="overflow-y:hidden;font-family: 'Roboto', sans-serif;">
+	<div class="container-fluid" style="overflow-y:hidden;">
 		<div class="row w-100 rounded" style="margin-left: 0px;">
 			<div class="row w-100 mb-1 rounded bg-light p-2 border-2" style="margin-left: 0px;">
 				<div class="col-9 p-1" style="font-size: 13px;">
@@ -422,15 +422,15 @@
 						</button>
 						<button class="btn btn-sm btn-outline-secondary" onclick="return displayPageListing();" id="refresh_site_btn"
 							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Refresh">
-							<img src="https://static-158c3.kxcdn.com/images/refresh.png" style="max-width:1.4vw"/>
+							<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/refresh.png" style="max-width:1.4vw"/>
 						</button>
 						<button class="btn btn-sm btn-outline-secondary" onclick="return displayPageListing();"
 							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Show Page Listing">
-							<img src="https://static-158c3.kxcdn.com/images/list.png" style="max-width:1.4vw"/>
+							<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/list.png" style="max-width:1.4vw"/>
 						</button>
 						<button class="btn btn-sm btn-outline-secondary" onclick="return showDashboard();"
 							data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Show Path Dashboard">
-							<img src="https://static-158c3.kxcdn.com/images/dashboard.png" style="max-width:1.4vw"/>
+							<img src="<?php echo plugin_dir_url( __DIR__ ).'includes/assets/'; ?>images/dashboard.png" style="max-width:1.4vw"/>
 						</button>
 						<button class="btn btn-sm btn-primary" data-toggle="popover" data-trigger="hover" data-placement="top" 
 							data-content="Manage in App" onclick="return launchAppFunction();">
