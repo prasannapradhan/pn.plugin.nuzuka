@@ -444,6 +444,7 @@
     }
     
     function load_script_dependencies(){
+        wp_enqueue_script('nuzuka-jquery', plugins_url('includes/assets/js/jquery-1.12.4.min.js', __FILE__));
         wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/popper-1.15.0.min.js', __FILE__));
         wp_enqueue_script('nuzuka-bootstrap', plugins_url('includes/assets/js/bootstrap-4.3.1.min.js', __FILE__));
         wp_enqueue_script('nuzuka-swal', plugins_url('includes/assets/js/swal-2.9.17.1.min.js', __FILE__));
@@ -462,6 +463,7 @@
         wp_enqueue_script('nuzuka-ifunctions', plugins_url('includes/assets/js/pearnode-commons-inventory-functions.js', __FILE__));
         wp_enqueue_script('nuzuka-utils', plugins_url('includes/assets/js/pearnode-commons-util.js', __FILE__));
         wp_enqueue_script('nuzuka-cbifunctions', plugins_url('includes/assets/js/pearnode-commons-cb-inventory-functions.js', __FILE__));
+        wp_enqueue_script('nuzuka-dtcontrols', plugins_url('includes/assets/js/pearnode-date-controls.js', __FILE__));
     }
     
     add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');
