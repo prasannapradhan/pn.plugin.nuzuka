@@ -432,10 +432,10 @@
  
     function load_style_dependencies(){
         wp_enqueue_style('nuzuka-font-awsome', plugins_url('includes/assets/css/fontawsome-6.0.0-all-min.css', __FILE__));
-        wp_enqueue_style('nuzuka-nprogress', plugins_url('includes/assets/css/nprogress.css', __FILE__));
-        wp_enqueue_style('nuzuka-bootstrap-4.3.1', plugins_url('includes/assets/css/bootstrap-4.3.1-min.css', __FILE__));
+        wp_enqueue_style('nuzuka-bootstrap-4.3.1', plugins_url('includes/assets/css/bootstrap-4.6.1.min.css', __FILE__));
         wp_enqueue_style('nuzuka-bootstrap-theme', plugins_url('includes/assets/css/bs_theme.css', __FILE__));
         wp_enqueue_style('nuzuka-screen-resolution', plugins_url('includes/assets/css/screen_resolution.css', __FILE__));
+        wp_enqueue_style('nuzuka-nprogress', plugins_url('includes/assets/css/nprogress.css', __FILE__));
         wp_enqueue_style('nuzuka-select2', plugins_url('includes/assets/css/select2-4.1.0-rc.min.css', __FILE__));
         wp_enqueue_style('nuzuka-select2-bootstrap', plugins_url('includes/assets/css/select2-bootstrap4.min.css', __FILE__));
         wp_enqueue_style('nuzuka-datepicker', plugins_url('includes/assets/css/datepicker-min.css', __FILE__));
@@ -446,7 +446,7 @@
     function load_script_dependencies(){
         wp_enqueue_script('nuzuka-jquery', plugins_url('includes/assets/js/jquery-1.12.4.min.js', __FILE__));
         wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/popper-1.15.0.min.js', __FILE__));
-        wp_enqueue_script('nuzuka-bootstrap', plugins_url('includes/assets/js/bootstrap-4.3.1.min.js', __FILE__));
+        wp_enqueue_script('nuzuka-bootstrap', plugins_url('includes/assets/js/bootstrap-4.6.1.min.js', __FILE__));
         wp_enqueue_script('nuzuka-swal', plugins_url('includes/assets/js/swal-2.9.17.1.min.js', __FILE__));
         wp_enqueue_script('nuzuka-nprogress', plugins_url('includes/assets/js/nprogress.js', __FILE__));
         wp_enqueue_script('nuzuka-mustache', plugins_url('includes/assets/js/mustache.min.js', __FILE__));
@@ -463,7 +463,7 @@
         wp_enqueue_script('nuzuka-ifunctions', plugins_url('includes/assets/js/pearnode-commons-inventory-functions.js', __FILE__));
         wp_enqueue_script('nuzuka-utils', plugins_url('includes/assets/js/pearnode-commons-util.js', __FILE__));
         wp_enqueue_script('nuzuka-cbifunctions', plugins_url('includes/assets/js/pearnode-commons-cb-inventory-functions.js', __FILE__));
-        wp_enqueue_script('nuzuka-dtcontrols', plugins_url('includes/assets/js/pearnode-date-controls.js', __FILE__));
+        wp_enqueue_script('nuzuka-dtcontrols', plugins_url('includes/assets/js/pearnode-datecontrols.js', __FILE__));
     }
     
     add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');

@@ -164,7 +164,7 @@
 	</style>
 </head>
 
-<body style="overflow-x:hidden;">
+<body style="overflow-x:hidden;font-family: 'Roboto', sans-serif;">
 	  <div class="row w-100 m-0 p-2 bg-light" style="margin-left: 0px;padding-right:2rem !important;display: none;"  id="actions_container">
 	    <div class="col-2 d-flex" style="padding-left: 5px;padding-right: 5px;">
 			<input type="text" class="form-control" id="one_search" placeholder="Search..." onfocus="this.select();">

@@ -71,7 +71,7 @@
 		}
 	</script>
 	
-	<body style="overflow-x:hidden;">
+	<body style="overflow-x:hidden;font-family: 'Roboto', sans-serif;">
 		<div class="row w-100 m-0 p-2">
         	<div class="card-header bg-light w-100 mt-2" style="font-weight: bold;">
         		Integrate Woocommerce with Nuzuka to create enquiries on Products

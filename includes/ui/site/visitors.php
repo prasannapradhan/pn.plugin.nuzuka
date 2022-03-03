@@ -182,7 +182,7 @@
 		</script>
 	</head>
 
-	<body style="overflow-x:hidden;" class="p-2">
+	<body style="overflow-x:hidden;font-family: 'Roboto', sans-serif;" class="p-2">
 		<nav class=" navbar navbar-expand-lg">
 			<!-- Left navbar links -->
 			<ul class="navbar-nav mr-auto">
