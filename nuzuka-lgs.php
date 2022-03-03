@@ -52,11 +52,11 @@
     }
     
     function nuzuka_plugin_activate(){
-        NuzukaLeadGenerationActivator::activate(get_site_url());
+        NuzukaPluginActivator::activate(get_site_url());
     }
 
     function nuzuka_plugin_deactivate(){
-        NuzukaLeadGenerationDeactivator::deactivate(get_site_url());
+        NuzukaPluginDeactivator::deactivate(get_site_url());
     }
     
     function nuzuka_footer_append() {
