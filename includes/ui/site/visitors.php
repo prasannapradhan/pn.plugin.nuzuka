@@ -188,7 +188,7 @@
 			<ul class="navbar-nav mr-auto">
 		        <li class="nav-item">
 			      	<a class="btn btn-sm btn-outline-secondary" href="#" onclick="return loadVisitors();" style="margin-left: 5px;">
-			      		<img src="<?php echo plugins_url('includes/assets/', dirname(__FILE__)); ?>images/refresh.png" style="max-width:1.4vw"/><b style="margin-left: 5px;">Refresh</b>
+			      		<img src="<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/refresh.png" style="max-width:1.4vw"/><b style="margin-left: 5px;">Refresh</b>
 			      	</a>
 		        </li>
 			</ul>
