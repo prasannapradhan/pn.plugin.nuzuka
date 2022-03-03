@@ -51,6 +51,14 @@
         return $wp_json_basic_auth_error;
     }
     
+    function nuzuka_plugin_activate(){
+        NuzukaLeadGenerationActivator::activate(get_site_url());
+    }
+
+    function nuzuka_plugin_deactivate(){
+        NuzukaLeadGenerationDeactivator::deactivate(get_site_url());
+    }
+    
     function nuzuka_footer_append() {
         global $post_args;
         global $wp_query;
@@ -464,6 +472,9 @@
         wp_enqueue_script('nuzuka-cbifunctions', plugins_url('includes/assets/js/pearnode-commons-cb-inventory-functions.js', __FILE__));
         wp_enqueue_script('nuzuka-dtcontrols', plugins_url('includes/assets/js/pearnode-datecontrols.js', __FILE__));
     }
+    
+    register_activation_hook( __FILE__, 'nuzuka_plugin_activate' );
+    register_deactivation_hook( __FILE__, 'nuzuka_plugin_deactivate' );
     
     add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');
     add_filter('determine_current_user', 'nuzuka_json_basic_auth_handler', 20);

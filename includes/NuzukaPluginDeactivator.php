@@ -1,6 +1,6 @@
 <?php
 
-    class NuzukaLeadGenerationDeactivator {
+    class NuzukaPluginDeactivator {
     
     	public static function deactivate($surl) {
     	}
