@@ -41,7 +41,7 @@ function createDefaultGroup(){
 	var g = {};
 	g.name = 'Primary';
 	g.code = sha1.hex(g.name);
-	g.img_url = '<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/group.png';
+	g.img_url = '';
 	inventoryGroupMap[g.code] = g;
 	return g;	
 }
