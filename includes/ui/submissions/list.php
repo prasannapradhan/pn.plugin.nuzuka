@@ -307,7 +307,9 @@
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
 				<a class="btn btn-outline-secondary" href="#" onclick="return loadSubmissionData();" style="margin-left: 5px;">
-					<img src="<?php echo esc_attr(WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"); ?>images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
+					<img src="<?php echo esc_attr(WP_PLUGIN_URL."/".$plugin_dir_name."/includes/assets/"); ?>images/refresh.png" 
+						style="max-width:1.2vw;vertical-align:middle !important;"/>
+						<b style="margin-left: 5px;">Refresh</b>
 				</a>
 			</li>
 		</ul>

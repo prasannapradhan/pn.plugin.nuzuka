@@ -56,6 +56,11 @@
     }
     
     function nuzuka_plugin_activate(){
+        global $plugin_dir_name;
+        $dr = plugin_basename(__FILE__);
+        $drarr = explode('/', $dr);
+        $plugin_dir_name = $drarr[0];
+        error_log("Plugin directory [$plugin_dir_name]");
         NuzukaPluginActivator::activate(get_site_url());
     }
 
@@ -126,7 +131,11 @@
         }
         add_action('wp_enqueue_scripts', "load_style_dependencies");
         add_action('wp_enqueue_scripts', "load_script_dependencies");
+        $dr = plugin_basename(__FILE__);
+        $drarr = explode('/', $dr);
+        $plugin_dir_name = $drarr[0];
         include($plugin_dir."includes/ui/settings/common-header.php");
+
 		if(isset($profile->code)){
 		     $surl = get_site_url();
 		     $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => $surl);
@@ -173,7 +182,7 @@
     }
     
     function handle_submit_nuzuka_registration_form(){
-        global $post_args, $plugin_dir_name;
+        global $post_args;
         global $org, $profile, $user, $cred_file;
         add_action('wp_enqueue_scripts', "load_style_dependencies");
         add_action('wp_enqueue_scripts', "load_script_dependencies");
@@ -190,7 +199,6 @@
     }
     
     function handle_submit_nuzuka_navigation_form(){
-        global $plugin_dir_name;
         add_action('wp_enqueue_scripts', "load_style_dependencies");
         add_action('wp_enqueue_scripts', "load_script_dependencies");
         if(isset($_POST['navslug'])){
@@ -221,6 +229,9 @@
             $body = $robj->body;
             $site = json_decode($body);
             if(isset($site->id)){
+                $dr = plugin_basename(__FILE__);
+                $drarr = explode('/', $dr);
+                $plugin_dir_name = $drarr[0];
                 include($plugin_dir."includes/ui/site/pages.php");
             }else {
                 exit(wp_redirect('admin.php?page=nuzuka-plugin-settings'));
@@ -252,6 +263,9 @@
             $body = $robj->body;
             $site = json_decode($body);
             if(isset($site->id)){
+                $dr = plugin_basename(__FILE__);
+                $drarr = explode('/', $dr);
+                $plugin_dir_name = $drarr[0];
                 include($plugin_dir."includes/ui/site/visitors.php");
             }else {
                 exit(wp_redirect('admin.php?page=nuzuka-plugin-settings'));
@@ -275,7 +289,9 @@
             $org = $cred->org;
             $profile = $cred->profile;
             $user = $cred->user;
-            
+            $dr = plugin_basename(__FILE__);
+            $drarr = explode('/', $dr);
+            $plugin_dir_name = $drarr[0];
             include($plugin_dir."includes/ui/inventory/items.php");
         }else {
             exit(wp_redirect('admin.php?page=nuzuka-plugin-settings'));
@@ -298,7 +314,9 @@
             $org = $cred->org;
             $profile = $cred->profile;
             $user = $cred->user;
-            
+            $dr = plugin_basename(__FILE__);
+            $drarr = explode('/', $dr);
+            $plugin_dir_name = $drarr[0];
             include($plugin_dir."includes/ui/submissions/list.php");
         }else {
             exit(wp_redirect('admin.php?page=nuzuka-plugin-settings'));
@@ -319,6 +337,9 @@
             $org = $cred->org;
             $profile = $cred->profile;
             $user = $cred->user;
+            $dr = plugin_basename(__FILE__);
+            $drarr = explode('/', $dr);
+            $plugin_dir_name = $drarr[0];
             include($plugin_dir."includes/ui/widget/widgets.php");
         }else {
             exit(wp_redirect('admin.php?page=nuzuka-plugin-settings'));

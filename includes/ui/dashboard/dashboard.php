@@ -518,7 +518,8 @@
     				<div class="row w-100 m-0">
     					<div class="col-5 pl-0">
     						<a class="btn btn-outline-secondary" href="#" onclick="return reloadView();">
-    							<img src="<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/refresh.png" style="max-width:1.2vw"/><b style="margin-left: 5px;">Refresh</b>
+    							<img src="<?php echo WP_PLUGIN_URL."/".$plugin_dir_name."/includes/assets/"; ?>images/refresh.png" style="max-width:1.2vw;vertical-align:middle !important;"/>
+    							<b style="margin-left: 5px;">Refresh</b>
     						</a>
     						<b style="margin-left: 5px;">Recent Activity / 1 hour</b>	
     					</div>

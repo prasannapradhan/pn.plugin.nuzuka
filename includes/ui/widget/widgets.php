@@ -27,7 +27,7 @@
 				    <td class='text-center' width='15%'>
 						<button class="btn btn btn-outline-danger" onclick="return remove('{{id}}')" 
 							data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Dashboard" >
-							<img src="<?php echo WP_PLUGIN_URL."/pn.plugin.nuzuka"."/includes/assets/"; ?>images/bin.png" style="max-width:1vw"/>	
+							<img src="<?php echo WP_PLUGIN_URL."/".$plugin_dir_name."/includes/assets/"; ?>images/bin.png" style="max-width:1vw"/>	
 						</button>
 				    </td>
 			     <tr>
