@@ -60,8 +60,11 @@
             $rdata = array('surl' => $surl, 'pglink' => $pgid);
             $post_args['body'] = json_encode($rdata);
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/widget_html_page.php', $post_args);
-            $page = (object) $out;
-            echo json_encode($page);
+            $robj = (object) $out;
+            $body = $robj->body;
+            if($body != ""){
+                echo $body;
+            }
         }
     }
     
@@ -83,9 +86,11 @@
                     if($wid != "none"){
                         $rdata = array('wid' => $wid);
                         $post_args['body'] = json_encode($rdata);
-                        $html = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php', $post_args);
-                        if($html != ""){
-                            $content = str_replace($m, $html, $content);
+                        $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php', $post_args);
+                        $robj = (object) $out;
+                        $body = $robj->body;
+                        if($body != ""){
+                            $content = str_replace($m, $body, $content);
                         }
                     }
                 }
@@ -115,9 +120,9 @@
 		     $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => $surl);
 		     $post_args['body'] = json_encode($rdata);
 		     $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/activate.php', $post_args);
-		     if(is_array($out)){
-		         $site = (object) $out;
-		     }
+		     $robj = (object) $out;
+		     $body = $robj->body;
+		     $site = json_decode($body);
         ?>
     		<div class="card-header w-100">
     			<div class="row w-100 m-0">
@@ -158,30 +163,23 @@
     function handle_submit_nuzuka_registration_form(){
         global $post_args;
         global $org, $profile, $user, $cred_file;
+        add_action('wp_enqueue_scripts', "load_style_dependencies");
+        add_action('wp_enqueue_scripts', "load_script_dependencies");
         if(isset($_POST['authtoken'])){
             $token = $_POST['authtoken'];
             $ddata = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $token)[1]))));
             $rdata = array('oc' => $ddata->oc, 'pc' => $ddata->pc, 'uck' => $ddata->uck);
             $post_args['body'] = json_encode($rdata);
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/bizdetails.php', $post_args);
-            if(is_object($out)){
-                error_log("Response is an object");
-            }else if(is_array($out)){
-                error_log("Response is an array");
-            }else {
-                error_log("Response is a string");
-            }
+            $robj = (object) $out;
+            file_put_contents($cred_file, $robj->body);
             exit(wp_redirect("options-general.php?page=nuzuka-plugin-settings") );
-            /*
-            if(is_array($out)){
-                $details = (object) $out;
-                $dout = json_encode($details);
-                file_put_contents($cred_file, $dout);
-            }*/
         }
     }
     
     function handle_submit_nuzuka_navigation_form(){
+        add_action('wp_enqueue_scripts', "load_style_dependencies");
+        add_action('wp_enqueue_scripts', "load_script_dependencies");
         if(isset($_POST['navslug'])){
             $slug = $_POST['navslug'];
             exit(wp_redirect("admin.php?page=$slug"));
@@ -191,6 +189,8 @@
     function nuzuka_plugin_page_site() {
         global $post_args;
         global $org, $profile, $user, $cred_file;
+        add_action('wp_enqueue_scripts', "load_style_dependencies");
+        add_action('wp_enqueue_scripts', "load_script_dependencies");
         $out = "";
         if(file_exists($cred_file)){
             $out = file_get_contents($cred_file);
@@ -204,9 +204,14 @@
             $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
             $post_args['body'] = json_encode($rdata);
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $post_args);
-            if(is_array($out)){
-                $site = (object) $out;
+            $robj = (object) $out;
+            $body = $robj->body;
+            $site = json_decode($body);
+            if(isset($site->id)){
                 include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/pages.php');
+            }else {
+                $foo = menu_page_url("nuzuka-plugin-settings");
+                exit(wp_redirect($foo));
             }
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
@@ -217,6 +222,8 @@
     function nuzuka_plugin_page_visitors() {
         global $post_args;
         global $org, $profile, $user, $cred_file;
+        add_action('wp_enqueue_scripts', "load_style_dependencies");
+        add_action('wp_enqueue_scripts', "load_script_dependencies");
         $out = "";
         if(file_exists($cred_file)){
             $out = file_get_contents($cred_file);
@@ -230,9 +237,14 @@
             $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
             $post_args['body'] = json_encode($rdata);
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $post_args);
-            if(is_array($out)){
-                $site = (object) $out;
+            $robj = (object) $out;
+            $body = $robj->body;
+            $site = json_decode($body);
+            if(isset($site->id)){
                 include( plugin_dir_path( __FILE__ ) . 'includes/ui/site/visitors.php');
+            }else {
+                $foo = menu_page_url("nuzuka-plugin-settings");
+                exit( wp_redirect($foo));
             }
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
@@ -243,6 +255,8 @@
     function nuzuka_plugin_page_inventory() {
         global $post_args;
         global $org, $profile, $user, $cred_file;
+        add_action('wp_enqueue_scripts', "load_style_dependencies");
+        add_action('wp_enqueue_scripts', "load_script_dependencies");
         $out = "";
         if(file_exists($cred_file)){
             $out = file_get_contents($cred_file);
@@ -263,6 +277,8 @@
     function nuzuka_plugin_page_enquiries() {
         global $post_args;
         global $org, $profile, $user, $cred_file;
+        add_action('wp_enqueue_scripts', "load_style_dependencies");
+        add_action('wp_enqueue_scripts', "load_script_dependencies");
         $out = "";
         if(file_exists($cred_file)){
             $out = file_get_contents($cred_file);
@@ -283,6 +299,8 @@
     function nuzuka_plugin_page_widgets() {
         global $post_args;
         global $org, $profile, $user, $cred_file;
+        add_action('wp_enqueue_scripts', "load_style_dependencies");
+        add_action('wp_enqueue_scripts', "load_script_dependencies");
         $out = "";
         if(file_exists($cred_file)){
             $out = file_get_contents($cred_file);
@@ -302,6 +320,8 @@
     function nuzuka_plugin_page_customers() {
         global $post_args;
         global $org, $profile, $user, $cred_file;
+        add_action('wp_enqueue_scripts', "load_style_dependencies");
+        add_action('wp_enqueue_scripts', "load_script_dependencies");
         $out = "";
         if(file_exists($cred_file)){
             $out = file_get_contents($cred_file);
@@ -321,6 +341,8 @@
     function nuzuka_plugin_page_dashboard() {
         global $post_args;
         global $org, $profile, $user, $cred_file;
+        add_action('wp_enqueue_scripts', "load_style_dependencies");
+        add_action('wp_enqueue_scripts', "load_script_dependencies");
         $out = "";
         if(file_exists($cred_file)){
             $out = file_get_contents($cred_file);
@@ -334,9 +356,14 @@
             $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
             $post_args['body'] = json_encode($rdata);
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $post_args);
-            if(is_array($out)){
-                $site = (object) $out;
+            $robj = (object) $out;
+            $body = $robj->body;
+            $site = json_decode($body);
+            if(isset($site->id)){
                 include( plugin_dir_path( __FILE__ ) . 'includes/ui/dashboard/dashboard.php');
+            }else {
+                $foo = menu_page_url("nuzuka-plugin-settings");
+                exit( wp_redirect($foo));
             }
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
@@ -347,6 +374,8 @@
     function nuzuka_plugin_page_woocommerce() {
         global $post_args;
         global $org, $profile, $user, $cred_file;
+        add_action('wp_enqueue_scripts', "load_style_dependencies");
+        add_action('wp_enqueue_scripts', "load_script_dependencies");
         $out = "";
         if(file_exists($cred_file)){
             $out = file_get_contents($cred_file);
@@ -360,8 +389,10 @@
             $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
             $post_args['body'] = json_encode($rdata);
             $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $post_args);
-            if(is_array($out)){
-                $site = (object) $out;
+            $robj = (object) $out;
+            $body = $robj->body;
+            $site = json_decode($body);
+            if(isset($site->id)){
                 $wc_consumer_key = "";
                 $wc_consumer_secret = "";
                 if(isset($site->config)){
@@ -376,6 +407,9 @@
                     }
                 }
                 include( plugin_dir_path( __FILE__ ) . 'includes/ui/woocommerce/woocommerce.php');
+            }else {
+                $foo = menu_page_url("nuzuka-plugin-settings");
+                exit( wp_redirect($foo));
             }
         }else {
             $foo = menu_page_url("nuzuka-plugin-settings");
@@ -410,25 +444,24 @@
     }
     
     function load_script_dependencies(){
-        error_log("Loading script dependencies");
-        wp_enqueue_script('nuzuka-jquery', plugins_url('includes/assets/js/jquery-1.12.4.min.js', __FILE__));
-        wp_enqueue_script('nuzuka-bootstrap', plugins_url('includes/assets/js/bootstrap-4.3.1.min.js', __FILE__));
         wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/popper-1.15.0.min.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/swal-2.9.17.1.min.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/nprogress.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/mustache.min.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/moment.min.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/datepicker.min.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/daterangepicker-3.0.3.min.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/chartjs-3.7.0.min.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/jquery-color-2.0.0.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/currency-formatter-2.0.0.min.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/pearnode-commons-api-registry.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/pearnode-commons-init.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/pearnode-commons-inventory-model.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/pearnode-commons-inventory-functions.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/pearnode-commons-util.js', __FILE__));
-        wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/pearnode-commons-cb-inventory-functions.js', __FILE__));
+        wp_enqueue_script('nuzuka-bootstrap', plugins_url('includes/assets/js/bootstrap-4.3.1.min.js', __FILE__));
+        wp_enqueue_script('nuzuka-swal', plugins_url('includes/assets/js/swal-2.9.17.1.min.js', __FILE__));
+        wp_enqueue_script('nuzuka-nprogress', plugins_url('includes/assets/js/nprogress.js', __FILE__));
+        wp_enqueue_script('nuzuka-mustache', plugins_url('includes/assets/js/mustache.min.js', __FILE__));
+        wp_enqueue_script('nuzuka-moment', plugins_url('includes/assets/js/moment.min.js', __FILE__));
+        wp_enqueue_script('nuzuka-datepicker', plugins_url('includes/assets/js/datepicker.min.js', __FILE__));
+        wp_enqueue_script('nuzuka-daterangepicker', plugins_url('includes/assets/js/daterangepicker-3.0.3.min.js', __FILE__));
+        wp_enqueue_script('nuzuka-chartjs', plugins_url('includes/assets/js/chartjs-3.7.0.min.js', __FILE__));
+        wp_enqueue_script('nuzuka-color', plugins_url('includes/assets/js/jquery-color-2.0.0.js', __FILE__));
+        wp_enqueue_script('nuzuka-cformatter', plugins_url('includes/assets/js/currency-formatter-2.0.0.min.js', __FILE__));
+        wp_enqueue_script('nuzuka-select2', plugins_url('includes/assets/js/select2-4.1.0.js', __FILE__));
+        wp_enqueue_script('nuzuka-api-registry', plugins_url('includes/assets/js/pearnode-commons-api-registry.js', __FILE__));
+        wp_enqueue_script('nuzuka-init', plugins_url('includes/assets/js/pearnode-commons-init.js', __FILE__));
+        wp_enqueue_script('nuzuka-imodel', plugins_url('includes/assets/js/pearnode-commons-inventory-model.js', __FILE__));
+        wp_enqueue_script('nuzuka-ifunctions', plugins_url('includes/assets/js/pearnode-commons-inventory-functions.js', __FILE__));
+        wp_enqueue_script('nuzuka-utils', plugins_url('includes/assets/js/pearnode-commons-util.js', __FILE__));
+        wp_enqueue_script('nuzuka-cbifunctions', plugins_url('includes/assets/js/pearnode-commons-cb-inventory-functions.js', __FILE__));
     }
     
     add_filter('rest_authentication_errors', 'nuzuka_json_basic_auth_error');
