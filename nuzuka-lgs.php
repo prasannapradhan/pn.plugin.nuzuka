@@ -24,8 +24,8 @@
     
     $plugin_dir = plugin_dir_path( __FILE__ );
     $cred_file = $plugin_dir."credentials.json";
-    require_once $plugin_dir."/includes/NuzukaPluginActivator.php";
-    require_once $plugin_dir."/includes/NuzukaPluginDeActivator.php";
+    require_once $plugin_dir."NuzukaPluginActivator.php";
+    require_once $plugin_dir."NuzukaPluginDeActivator.php";
     
     function nuzuka_json_basic_auth_handler( $user ) {
         if (!empty($user)) {
