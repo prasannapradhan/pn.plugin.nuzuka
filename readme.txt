@@ -26,6 +26,13 @@ The customer focuses more time in correctly entering his personal information ra
 1. Nuzuka is pure SAAS and REST so its footprint on your site functions are barely minimal.
 
 == Screenshots ==
+1. [https://static-158c3.kxcdn.com/images/nuzuka/plugin-snapshots/dashboard.jpeg  Dashboard showing an overview of the site]
+1. [https://static-158c3.kxcdn.com/images/nuzuka/plugin-snapshots/pages.jpeg  All the site pages]
+1. [https://static-158c3.kxcdn.com/images/nuzuka/plugin-snapshots/visitors.jpeg  Showing visitors by day range]
+1. [https://static-158c3.kxcdn.com/images/nuzuka/plugin-snapshots/enquiries.jpeg  Showing all the customers]
+1. [https://static-158c3.kxcdn.com/images/nuzuka/plugin-snapshots/catalog.jpeg  Showing your item catalog]
+1. [https://static-158c3.kxcdn.com/images/nuzuka/plugin-snapshots/widgets.jpeg  All the onsite wigets]
+1. [https://static-158c3.kxcdn.com/images/nuzuka/plugin-snapshots/customers.jpeg  All your customers]
 
 == Features ==
 
