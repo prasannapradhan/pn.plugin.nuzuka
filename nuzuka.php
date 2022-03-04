@@ -4,7 +4,7 @@
      * Description: Nuzuka Enquiry Capture is a super replacement of contact forms.
      * Author: Nuzuka Technology Team
      * Author URI: https://pearnode.com
-     * Version: 1.0.0
+     * Version: 1.0.0.1
      * Plugin URI: https://nuzuka.com
      */
     

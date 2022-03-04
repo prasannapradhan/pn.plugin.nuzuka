@@ -4,7 +4,7 @@ Tags: enquiry, capture, spam, crm, contact form, inventory, woocommerce bulk enq
 Requires at least: 5.6
 Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: 1.0.0
+Stable tag: 1.0.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -115,7 +115,7 @@ Automatic updates should work smoothly, but we still recommend you back up your 
 
 == Changelog ==
 
-= 1.0.0 2022-02-28 =
+= 1.0.0.1 2022-02-28 =
 
 **Nuzuka Wordpress Plugin**
 
