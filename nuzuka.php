@@ -461,7 +461,7 @@
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Customers', 'Customers', 'manage_options', 'nuzuka-plugin-page-customers', 'nuzuka_plugin_page_customers');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Widgets', 'Widgets', 'manage_options', 'nuzuka-plugin-page-widgets', 'nuzuka_plugin_page_widgets');
 		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Inventory', 'Catalog', 'manage_options', 'nuzuka-plugin-page-inventory', 'nuzuka_plugin_page_inventory');
-		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Woocommerce', 'Woocommerce', 'manage_options', 'nuzuka-plugin-page-woocommerce', 'nuzuka_plugin_page_woocommerce');
+		add_submenu_page('nuzuka-plugin-settings', 'Nuzuka Plugin Woocommerce', 'Woo Config', 'manage_options', 'nuzuka-plugin-page-woocommerce', 'nuzuka_plugin_page_woocommerce');
 		if (get_option('my_plugin_do_activation_redirect', false)) {
 		    delete_option('my_plugin_do_activation_redirect');
 		    wp_redirect('admin.php?page=nuzuka-plugin-settings');
