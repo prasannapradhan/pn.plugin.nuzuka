@@ -65,7 +65,7 @@
 		var pc = '<?php echo esc_attr($profile->code); ?>';
 		var sid = '<?php echo esc_attr($site->id); ?>';
 		var uck = '<?php echo esc_attr($user->ck); ?>';
-		var processing_img = '<?php echo esc_attr(WP_PLUGIN_URL."/".$plugin_dir_name."/includes/assets/"); ?>images/ajax-loader.gif';
+		var processing_img = '<?php echo esc_attr(plugins_url()."/".$plugin_dir_name."/includes/assets/"); ?>images/ajax-loader.gif';
 		
 	    var site = {};
 	    var paths = [];
