@@ -13,7 +13,7 @@
     	        'method'  => 'POST',
     	        'data_format' => 'body'
     	    );
-    	    $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => $surl);
+    	    $rdata = array('surl' => $surl);
     	    $post_args['body'] = json_encode($rdata);
     	    wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/deactivate.php', $post_args);
     	}
