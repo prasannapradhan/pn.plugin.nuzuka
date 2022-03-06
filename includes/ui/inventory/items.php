@@ -54,7 +54,6 @@
 		});
 		
 		function initView(){
-			console.log("Init view called for items");
 			loadInventory();
 		}		
 		
@@ -86,12 +85,12 @@
 
 		function searchItems(){
 			iskey = $('#one_search').val();
-			loadServices();
+			loadInventory();
 			return false;
 		}
 
 		function renderItems(loadedItems, callback){
-			$('#items_container').append(Mustache.render(_it, {'records' : loadedItems}));
+			$('#items_container').html(Mustache.render(_it, {'records' : loadedItems}));
 			$('[data-toggle="popover"]').popover();
 			renderPaginationMessage();
 			if(typeof callback != "undefined"){
