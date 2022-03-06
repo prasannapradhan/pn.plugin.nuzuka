@@ -100,7 +100,7 @@
 			$('#group_select').off('select2:select');			
 			$('#group_select').on('select2:select', function (e) {
 				selectedGid = $(this).val();
-				loadServices();
+				loadInventory();
 			});
 	    }
 		
@@ -116,7 +116,7 @@
 			$('[data-toggle="popover"]').popover();
 			renderPaginationMessage();
 			if(typeof callback != "undefined"){
-				callback();
+				loadInventory();
 			}
 		}
 		
