@@ -54,9 +54,8 @@
 		});
 		
 		function initView(){
-			loadInventoryGroupsFromApi(function(){
-				loadInventory();
-			});
+			console.log("Init view called for items");
+			loadInventory();
 		}		
 		
 		function loadInventory(callback){
@@ -85,25 +84,6 @@
 		    }
 		}
 
-		function renderGroupSelection(){
-  			var glist = Object.values(serviceGroupMap);
-   			glist = [allgroup].concat(glist);
-			$.each(glist, function(idx, g){
-				g.id = g.code;
-				g.text = g.name;
-			});
-			$("#group_select").select2({
-				   data: glist,
-				   theme: "bootstrap4",
-				   placeholder: 'All Groups'
-			});
-			$('#group_select').off('select2:select');			
-			$('#group_select').on('select2:select', function (e) {
-				selectedGid = $(this).val();
-				loadInventory();
-			});
-	    }
-		
 		function searchItems(){
 			iskey = $('#one_search').val();
 			loadServices();
@@ -111,12 +91,11 @@
 		}
 
 		function renderItems(loadedItems, callback){
-			renderGroupSelection();
 			$('#items_container').append(Mustache.render(_it, {'records' : loadedItems}));
 			$('[data-toggle="popover"]').popover();
 			renderPaginationMessage();
 			if(typeof callback != "undefined"){
-				loadInventory();
+				callback();
 			}
 		}
 		

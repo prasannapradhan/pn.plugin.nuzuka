@@ -484,6 +484,7 @@
         wp_enqueue_script('nuzuka-jquery', plugins_url('includes/assets/js/jquery-1.12.4.min.js', __FILE__));
         wp_enqueue_script('nuzuka-popper', plugins_url('includes/assets/js/popper-1.15.0.min.js', __FILE__));
         wp_enqueue_script('nuzuka-bootstrap', plugins_url('includes/assets/js/bootstrap-4.6.1.min.js', __FILE__));
+        wp_enqueue_script('nuzuka-sha1', plugins_url('includes/assets/js/sha1-0.6.0.min.js', __FILE__));
         wp_enqueue_script('nuzuka-swal', plugins_url('includes/assets/js/swal-2.9.17.1.min.js', __FILE__));
         wp_enqueue_script('nuzuka-nprogress', plugins_url('includes/assets/js/nprogress.js', __FILE__));
         wp_enqueue_script('nuzuka-mustache', plugins_url('includes/assets/js/mustache.min.js', __FILE__));
