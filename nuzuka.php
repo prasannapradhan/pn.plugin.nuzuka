@@ -76,7 +76,7 @@
             $surl = get_site_url();
             $rdata = array('surl' => $surl, 'pglink' => $pgid);
             $post_args['body'] = json_encode($rdata);
-            $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/widget_html_page.php', $post_args);
+            $out = wp_remote_post('https://api.pearnode.com/sakamari/plugin/widget_html_page.php', $post_args);
             $robj = (object) $out;
             $body = $robj->body;
             if($body != ""){
@@ -103,7 +103,7 @@
                     if($wid != "none"){
                         $rdata = array('wid' => $wid);
                         $post_args['body'] = json_encode($rdata);
-                        $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/widget_html_id.php', $post_args);
+                        $out = wp_remote_post('https://api.pearnode.com/sakamari/plugin/widget_html_id.php', $post_args);
                         $robj = (object) $out;
                         $body = $robj->body;
                         if($body != ""){
@@ -140,7 +140,7 @@
 		     $surl = get_site_url();
 		     $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => $surl);
 		     $post_args['body'] = json_encode($rdata);
-		     $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/activate.php', $post_args);
+		     $out = wp_remote_post('https://api.pearnode.com/sakamari/plugin/activate.php', $post_args);
 		     $robj = (object) $out;
 		     $body = $robj->body;
 		     $site = json_decode($body);
@@ -224,7 +224,7 @@
             
             $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
             $post_args['body'] = json_encode($rdata);
-            $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $post_args);
+            $out = wp_remote_post('https://api.pearnode.com/sakamari/details_url.php', $post_args);
             $robj = (object) $out;
             $body = $robj->body;
             $site = json_decode($body);
@@ -258,7 +258,7 @@
             
             $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
             $post_args['body'] = json_encode($rdata);
-            $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $post_args);
+            $out = wp_remote_post('https://api.pearnode.com/sakamari/details_url.php', $post_args);
             $robj = (object) $out;
             $body = $robj->body;
             $site = json_decode($body);
@@ -386,7 +386,7 @@
             
             $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
             $post_args['body'] = json_encode($rdata);
-            $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $post_args);
+            $out = wp_remote_post('https://api.pearnode.com/sakamari/details_url.php', $post_args);
             $robj = (object) $out;
             $body = $robj->body;
             $site = json_decode($body);
@@ -420,7 +420,7 @@
             
             $rdata = array('oc' => $org->code, 'pc' => $profile->code, 'surl' => get_site_url());
             $post_args['body'] = json_encode($rdata);
-            $out = wp_remote_post('https://api.pearnode.com/nuzuka/site/details_url.php', $post_args);
+            $out = wp_remote_post('https://api.pearnode.com/sakamari/details_url.php', $post_args);
             $robj = (object) $out;
             $body = $robj->body;
             $site = json_decode($body);

@@ -15,7 +15,7 @@
     	    );
     	    $rdata = array('surl' => $surl);
     	    $post_args['body'] = json_encode($rdata);
-    	    wp_remote_post('https://api.pearnode.com/nuzuka/site/plugin/deactivate.php', $post_args);
+    	    wp_remote_post('https://api.pearnode.com/sakamari/plugin/deactivate.php', $post_args);
     	}
     }
 

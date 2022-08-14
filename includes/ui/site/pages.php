@@ -87,7 +87,7 @@
 			$('#page_records_container').hide();
 			$('#page_dashboard_container').hide();
 			
-			var purl = 'https://api.pearnode.com/nuzuka/site/page/allpages_site.php'; 
+			var purl = 'https://api.pearnode.com/sakamari/page/allpages_site.php'; 
 			var pdata = {'oc' : oc, 'pc' : pc, 'sid': sid};
 			$.post(purl, JSON.stringify(pdata), function(data) {
 				site = $.parseJSON(data);
@@ -123,7 +123,7 @@
 					$('#page_records_container').hide();
 					$('#no_pages_container').fadeIn(200);
 				}
-				var postUrl = "https://api.pearnode.com/nuzuka/site/page/stats/week.php"; 
+				var postUrl = "https://api.pearnode.com/sakamari/page/stats/week.php"; 
 			    $.post(postUrl, JSON.stringify(pdata), function(data) {
 			    	var stats = $.parseJSON(data);
 			    	renderGrowthChart($.parseJSON(data));
@@ -217,9 +217,9 @@
 		   if(typeof ptype == "undefined"){
 			   ptype = "page";
 		   }
-		   var purl = "https://api.pearnode.com/nuzuka/site/integ/wordpress/page/fetch.php";
+		   var purl = "https://api.pearnode.com/sakamari/integ/wordpress/page/fetch.php";
 		   if(ptype == "post"){
-			   purl = "https://api.pearnode.com/nuzuka/site/integ/wordpress/post/fetch.php";
+			   purl = "https://api.pearnode.com/sakamari/integ/wordpress/post/fetch.php";
 		   }
 		   NProgress.start();
 		   var pdata = {'oc': oc,'pc': pc, 'sid' : sid, 'pgid' : pgid};
@@ -235,7 +235,7 @@
 			var sarr = sval.split('_');
 			var wid = sarr[0];
 			var pgid = sarr[1];
-			var purl = "https://api.pearnode.com/nuzuka/site/page/apply_widget.php";
+			var purl = "https://api.pearnode.com/sakamari/page/apply_widget.php";
 			var pdata = {'oc': oc,'pc': pc, 'sid' : sid, 'pgid' : pgid, 'wid' : wid};
 			$.post(purl, JSON.stringify(pdata), function(data){
 				if(wid == "none"){
@@ -252,14 +252,14 @@
 			$('#modal_site_name').text(site.site_name);
 			$('#scan_modal').modal('show');
 	    	var pdata = {'oc': oc,'pc': pc, 'sid' : sid};
-			var postUrl = "https://api.pearnode.com/nuzuka/site/scan/page_open.php"; 
+			var postUrl = "https://api.pearnode.com/sakamari/scan/page_open.php"; 
 			$('#page_scan_result').html('<img src="<?php echo plugins_url()."/".$plugin_dir_name."/includes/assets/"; ?>images/loader-snake-blue.gif" style="width: 1.5vw;"/>');
 		    $.post(postUrl, JSON.stringify(pdata), function(data) {
 		    	var robj = $.parseJSON(data);
 		    	var pgstatus = robj.status;
 		    	if(pgstatus.status == "success"){
 			    	$('#page_scan_result').html(robj.fetch_ctr + " found, " + robj.add_ctr + " added, " + robj.update_ctr + " updated");
-			    	postUrl = "https://api.pearnode.com/nuzuka/site/scan/post_open.php"; 
+			    	postUrl = "https://api.pearnode.com/sakamari/scan/post_open.php"; 
 					$('#post_scan_result').html('<img src="<?php echo plugins_url()."/".$plugin_dir_name."/includes/assets/"; ?>images/loader-snake-blue.gif" style="width: 1.5vw;"/>');
 				    $.post(postUrl, JSON.stringify(pdata), function(data) {
 				    	var robj = $.parseJSON(data);
@@ -391,7 +391,7 @@
 			  if (typeof result.dismiss == "undefined") {
 				  NProgress.start();
 				  var pdata = {'oc': oc,'pc': pc, 'sid': sid, 'id' : id};
-				  var postUrl = "https://api.pearnode.com/nuzuka/site/page/remove.php"; 
+				  var postUrl = "https://api.pearnode.com/sakamari/page/remove.php"; 
 			      $.post(postUrl, JSON.stringify(pdata), function(data) {
 			    	NProgress.done();
 			    	displayPageListing();
